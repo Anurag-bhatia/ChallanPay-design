@@ -1,0 +1,152 @@
+/* ==========================================================================
+   CSS Variables - Design Tokens (shadcn-inspired)
+   ========================================================================== */
+
+:root {
+    /* =================================================================
+       shadcn-inspired Design System - HSL Color Tokens
+       ================================================================= */
+
+    /* Base Colors (HSL format for better theming) */
+    --background: 0 0% 100%;              /* white */
+    --foreground: 240 10% 3.9%;           /* near-black #0A0A0B */
+
+    /* Card Colors */
+    --card: 0 0% 100%;                    /* white */
+    --card-foreground: 240 10% 3.9%;     /* near-black */
+
+    /* Primary Colors */
+    --primary: #0891B2;               /* cyan #0891B2 */
+    --primary-foreground: 0 0% 100%;     /* white */
+
+    /* Secondary Colors */
+    --secondary: 240 4.8% 95.9%;          /* light gray #F4F4F5 */
+    --secondary-foreground: 240 5.9% 10%; /* dark gray */
+
+    /* Muted Colors */
+    --muted: 240 4.8% 95.9%;              /* light gray #F4F4F5 */
+    --muted-foreground: 240 3.8% 46.1%;   /* medium gray #737373 */
+
+    /* Accent Colors */
+    --accent: 240 4.8% 95.9%;             /* light gray #F4F4F5 */
+    --accent-foreground: 240 5.9% 10%;    /* dark gray */
+
+    /* Destructive Colors */
+    --destructive: 0 84.2% 60.2%;         /* red #EF4444 */
+    --destructive-foreground: 0 0% 100%;  /* white */
+
+    /* Border & Input */
+    --border: 240 5.9% 90%;               /* light gray border #E4E4E7 */
+    --input: 240 5.9% 90%;                /* light gray #E4E4E7 */
+    --ring: 188 82% 35%;                  /* primary cyan for focus rings */
+
+    /* Additional Status Colors */
+    --success: 142 76% 36%;               /* green #10B981 */
+    --warning: 38 92% 50%;                /* yellow/orange #F59E0B */
+    --info: 199 89% 48%;                  /* blue #0EA5E9 */
+
+    /* Legacy Color System (kept for backward compatibility) */
+    --primary-hex: #0891B2;
+    --primary-dark: #0E7490;
+    --secondary: #004E89;
+    --secondary-light: #1A659E;
+    --accent-hex: #FFB627;
+    --success-hex: #31AB76;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F8F9FA;
+    --bg-dark: #0A1628;
+    --text-primary: #1A1A1A;
+    --text-secondary: #5A6C7D;
+    --text-light: #8B95A5;
+    --border-legacy: #E2E8F0;
+
+    /* =================================================================
+       Typography System (14px base)
+       ================================================================= */
+
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    /* Font Sizes (based on 14px = 1rem) */
+    --text-xs: 0.6875rem;      /* 11px */
+    --text-sm: 0.8125rem;      /* 13px */
+    --text-base: 0.875rem;     /* 14px */
+    --text-lg: 1rem;           /* 16px */
+    --text-xl: 1.125rem;       /* 18px */
+    --text-2xl: 1.25rem;       /* 20px */
+    --text-3xl: 1.5rem;        /* 24px */
+    --text-4xl: 2rem;          /* 32px */
+
+    /* Font Weights */
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+
+    /* Line Heights */
+    --leading-none: 1;
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.75;
+
+    /* =================================================================
+       Spacing Scale (4px increments)
+       ================================================================= */
+
+    --spacing-0: 0;
+    --spacing-1: 0.25rem;      /* 4px */
+    --spacing-2: 0.5rem;       /* 8px */
+    --spacing-3: 0.75rem;      /* 12px */
+    --spacing-4: 1rem;         /* 16px */
+    --spacing-5: 1.25rem;      /* 20px */
+    --spacing-6: 1.5rem;       /* 24px */
+    --spacing-8: 2rem;         /* 32px */
+    --spacing-10: 2.5rem;      /* 40px */
+    --spacing-12: 3rem;        /* 48px */
+    --spacing-16: 4rem;        /* 64px */
+
+    /* Legacy Spacing (kept for homepage) */
+    --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+    --space-sm: clamp(0.75rem, 2vw, 1rem);
+    --space-md: clamp(1rem, 3vw, 1.5rem);
+    --space-lg: clamp(1.5rem, 4vw, 2.5rem);
+    --space-xl: clamp(2rem, 6vw, 4rem);
+    --space-2xl: clamp(3rem, 8vw, 6rem);
+    --space-3xl: clamp(4rem, 10vw, 8rem);
+
+    /* =================================================================
+       Border Radius
+       ================================================================= */
+
+    --radius-none: 0;
+    --radius-sm: 0.25rem;      /* 4px */
+    --radius-md: 0.375rem;     /* 6px */
+    --radius-lg: 0.5rem;       /* 8px */
+    --radius-xl: 0.75rem;      /* 12px */
+    --radius-2xl: 1rem;        /* 16px */
+    --radius-full: 9999px;     /* pill shape */
+
+    /* =================================================================
+       Shadows
+       ================================================================= */
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* =================================================================
+       Transitions
+       ================================================================= */
+
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Container widths */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+}

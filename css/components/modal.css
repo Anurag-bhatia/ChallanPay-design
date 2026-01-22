@@ -1,0 +1,388 @@
+/* ==========================================================================
+   Verification Modal Styles
+   ========================================================================== */
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: var(--space-md);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Container */
+.modal-container {
+    background: white;
+    border-radius: 24px;
+    padding: var(--space-lg);
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active .modal-container {
+    transform: scale(1) translateY(0);
+}
+
+/* Close Button */
+.modal-close {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--bg-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+}
+
+.modal-close:hover {
+    background: var(--primary);
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* Modal Steps */
+.modal-step {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.modal-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal Header */
+.modal-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.modal-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm) 0;
+    font-family: var(--font-display);
+}
+
+.modal-header p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+#displayMobile {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Form Styles */
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.form-group label .required {
+    color: #ef4444;
+    margin-left: 2px;
+}
+
+.form-group input {
+    padding: var(--space-md);
+    border: 1px solid #e4e4e4;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+}
+
+.form-group input::placeholder {
+    color: var(--text-light);
+}
+
+/* Select Dropdown Styles */
+.form-group select {
+    padding: var(--space-md);
+    border: 1px solid #e4e4e4;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+    background: white;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-md) center;
+    padding-right: calc(var(--space-md) + 32px);
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+}
+
+.form-group select option {
+    padding: var(--space-sm);
+}
+
+/* OTP Input Group */
+.otp-input-group {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin: var(--space-lg) 0;
+}
+
+.otp-input {
+    width: 50px;
+    height: 56px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border: 1px solid #e4e4e4;
+    border-radius: 12px;
+    font-family: var(--font-display);
+    transition: all 0.3s ease;
+}
+
+.otp-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+}
+
+/* Resend OTP */
+.resend-otp {
+    text-align: center;
+    margin: var(--space-md) 0;
+}
+
+.resend-otp p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.resend-otp button {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+}
+
+.resend-otp button:hover {
+    color: var(--primary-dark);
+}
+
+/* Modal Buttons */
+.modal-btn {
+    padding: var(--space-md) var(--space-xl);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    margin-top: var(--space-sm);
+}
+
+.modal-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+}
+
+.modal-btn:active {
+    transform: translateY(0);
+}
+
+.modal-btn-secondary {
+    padding: var(--space-md) var(--space-xl);
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid #e4e4e4;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.modal-btn-secondary:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(14, 165, 233, 0.05);
+}
+
+/* WhatsApp Button Variant */
+.modal-btn.whatsapp-btn {
+    background: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.modal-btn.whatsapp-btn:hover {
+    background: #1ebe57;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+}
+
+.modal-btn.whatsapp-btn svg {
+    flex-shrink: 0;
+}
+
+/* Terms and Conditions Text */
+.terms-text {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: var(--space-sm);
+    line-height: 1.5;
+}
+
+.terms-text a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.terms-text a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design - Bottom Sheet on Mobile */
+@media (max-width: 640px) {
+    .modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .modal-container {
+        padding: var(--space-lg);
+        max-width: 100%;
+        margin: 0;
+        width: 100%;
+        border-radius: 24px 24px 0 0;
+        transform: translateY(100%);
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-overlay.active .modal-container {
+        transform: translateY(0);
+    }
+
+    .modal-close {
+        top: var(--space-sm);
+        right: var(--space-sm);
+    }
+
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-header p {
+        font-size: 0.875rem;
+    }
+
+    .otp-input-group {
+        gap: var(--space-xs);
+    }
+
+    .otp-input {
+        width: 44px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+
+    .modal-btn,
+    .modal-btn-secondary {
+        width: 100%;
+    }
+
+    .terms-text {
+        font-size: 0.6875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-container {
+        padding: var(--space-lg);
+    }
+
+    .otp-input {
+        width: 40px;
+        height: 46px;
+        font-size: 1.125rem;
+    }
+}

@@ -1,0 +1,669 @@
+/* ==========================================================================
+   Challan Details Page Styles
+   ========================================================================== */
+
+.challan-details-section {
+    margin-top: 48px;
+    padding: var(--space-2xl) 0;
+    background: #f8f9fa;
+    min-height: calc(100vh - 80px);
+}
+
+.details-header {
+    margin-bottom: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-display);
+    transition: all 0.3s ease;
+    width: fit-content;
+}
+
+.back-link:hover {
+    color: var(--primary);
+}
+
+.back-link svg {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.back-link:hover svg {
+    transform: translateX(-4px);
+}
+
+.details-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0;
+}
+
+.details-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* =================================================================
+   Vehicle Section
+   ================================================================= */
+
+.vehicle-section {
+    margin-bottom: var(--space-lg);
+}
+
+.vehicle-info-card {
+    background: white;
+    padding: var(--space-md);
+    border-radius: 20px;
+    display: flex;
+    gap: var(--space-xl);
+    align-items: center;
+    box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+}
+
+.vehicle-image-container {
+    flex-shrink: 0;
+}
+
+.vehicle-img {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+}
+
+.vehicle-details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+.vehicle-detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.detail-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.detail-value {
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+/* =================================================================
+   Challan Full Card
+   ================================================================= */
+
+.challan-full-card {
+    background: white;
+    border-radius: 20px;
+    padding: var(--space-lg);
+    box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+    border: 1px solid #e4e4e4;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.card-title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.card-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0;
+}
+
+.challan-badge {
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.pending-badge {
+    background: rgba(255, 165, 0, 0.1);
+    color: #FF8C00;
+}
+
+.paid-badge {
+    background: rgba(0, 184, 148, 0.1);
+    color: #00A884;
+}
+
+.card-divider {
+    height: 1px;
+    background: var(--border);
+    margin: var(--space-lg) 0;
+}
+
+/* =================================================================
+   Detail Sections
+   ================================================================= */
+
+.detail-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.section-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.amount-display {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.amount-currency {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 4px;
+}
+
+.amount-value {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    line-height: 1;
+}
+
+/* =================================================================
+   Violation Details
+   ================================================================= */
+
+.violation-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.violation-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.violation-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+    flex-shrink: 0;
+    color: var(--primary);
+}
+
+.violation-text {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* =================================================================
+   Info Grid
+   ================================================================= */
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.info-item .info-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-item:has(.info-icon) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border-radius: 10px;
+    flex-shrink: 0;
+    color: var(--primary);
+}
+
+.info-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    gap: 4px;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: fit-content;
+}
+
+.pending-status {
+    background: rgba(255, 165, 0, 0.1);
+    color: #FF8C00;
+}
+
+.paid-status {
+    background: rgba(0, 184, 148, 0.1);
+    color: #00A884;
+}
+
+.due-date {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* =================================================================
+   Payment Summary Card
+   ================================================================= */
+
+.payment-summary-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--space-lg);
+    box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+    border: 1px solid #e4e4e4;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) 0;
+}
+
+.summary-row.total {
+    font-weight: 700;
+    padding-top: var(--space-md);
+    color: var(--primary);
+}
+
+.summary-label {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.summary-row.total .summary-label {
+    color: var(--primary);
+}
+
+.summary-value {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.summary-row.total .summary-value {
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.summary-divider {
+    height: 1px;
+    background: var(--border);
+    margin: var(--space-md) 0;
+}
+
+/* =================================================================
+   Button Section
+   ================================================================= */
+
+.button-section {
+    display: flex;
+    gap: var(--space-md);
+    flex-direction: column;
+}
+
+.btn-pay-now {
+    padding: var(--space-md) var(--space-2xl);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-pay-now:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4);
+}
+
+.btn-save-later {
+    padding: var(--space-md) var(--space-2xl);
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-save-later:hover {
+    background: rgba(14, 165, 233, 0.1);
+}
+
+/* =================================================================
+   Footer
+   ================================================================= */
+
+footer {
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: var(--space-lg) 0;
+    margin-top: var(--space-2xl);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+.footer-section {
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.footer-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--primary-dark);
+}
+
+/* =================================================================
+   Responsive Design
+   ================================================================= */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .challan-details-section {
+        padding: var(--space-xl) 0;
+    }
+
+    .details-container {
+        max-width: 100%;
+    }
+
+    .vehicle-info-card {
+        flex-direction: row;
+        text-align: center;
+        gap: var(--space-md);
+    }
+
+    .vehicle-details-grid {
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+    }
+
+    .vehicle-detail-item {
+        align-items: center;
+    }
+
+    .challan-full-card {
+        padding: var(--space-md);
+    }
+
+    .card-header {
+        flex-direction: row;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .amount-value {
+        font-size: 2.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .challan-details-section {
+        padding: var(--space-lg) 0;
+    }
+
+    .details-header {
+        margin-bottom: var(--space-lg);
+    }
+
+    .back-link {
+        font-size: 0.9375rem;
+    }
+
+    .details-title {
+        font-size: 1.5rem;
+    }
+
+    .details-container {
+        gap: var(--space-md);
+    }
+
+    .vehicle-info-card {
+        padding: var(--space-md);
+        gap: var(--space-md);
+    }
+
+    .vehicle-img {
+        width: 80px;
+    }
+
+    .vehicle-detail-item {
+        align-items: flex-start;
+    }
+
+    .challan-full-card {
+        padding: var(--space-md);
+    }
+
+    .card-title {
+        font-size: 1.375rem;
+    }
+
+    .card-divider {
+        margin: var(--space-md) 0;
+    }
+
+    .amount-value {
+        font-size: 2rem;
+    }
+
+    .amount-currency {
+        font-size: 1.25rem;
+    }
+
+    .violation-item {
+        padding: var(--space-sm);
+        gap: var(--space-sm);
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .info-item:has(.info-icon) {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .button-section {
+        gap: var(--space-sm);
+    }
+
+    .btn-pay-now,
+    .btn-save-later {
+        padding: var(--space-md) var(--space-lg);
+        font-size: 1rem;
+    }
+
+    .payment-summary-card {
+        padding: var(--space-md);
+    }
+
+    .summary-row {
+        padding: var(--space-sm) 0;
+    }
+
+    .summary-divider {
+        margin: var(--space-sm) 0;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+    .vehicle-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+    }
+
+    .amount-value {
+        font-size: 1.75rem;
+    }
+
+    .info-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .info-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .violation-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .violation-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+}

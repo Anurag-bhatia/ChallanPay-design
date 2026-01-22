@@ -1,0 +1,125 @@
+/* ==========================================================================
+   Media Coverage Section
+   ========================================================================== */
+
+.media-coverage {
+    background: var(--bg-primary);
+    padding: var(--space-3xl) 0;
+}
+
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.media-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--space-lg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    border: 1px solid transparent;
+}
+
+.media-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary);
+}
+
+.media-logo {
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--primary);
+}
+
+.media-outlet {
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+    font-family: var(--font-display);
+}
+
+.media-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    flex: 1;
+}
+
+.media-date {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.media-headline {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.4;
+    font-family: var(--font-display);
+}
+
+.media-excerpt {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .media-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 968px) {
+    .media-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .media-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .media-card {
+        padding: var(--space-md);
+    }
+
+    .media-outlet {
+        font-size: 1rem;
+    }
+
+    .media-headline {
+        font-size: 0.9375rem;
+    }
+
+    .media-excerpt {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .media-coverage {
+        padding: var(--space-xl) 0;
+    }
+
+    .media-card {
+        padding: var(--space-sm);
+    }
+
+    .media-content {
+        gap: var(--space-xs);
+    }
+}

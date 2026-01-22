@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - ChallanPay</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/user-profile.css">
+    <link rel="stylesheet" href="css/components/payment.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav-container container">
+            <a href="index.html" class="logo">
+                <img src="assets/ChallanPay-FINAL 3.png" alt="ChallanPay Logo">
+            </a>
+
+            <!-- User Profile Section -->
+            <div class="user-profile" id="userProfileBtn">
+                <div class="user-avatar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="user-name" id="userName">User Name</span>
+                <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+                <!-- Dropdown Menu -->
+                <div class="user-profile-dropdown" id="userProfileDropdown">
+                    <a href="javascript:void(0)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Track My Challans
+                    </a>
+                    <hr>
+                    <a href="index.html" id="logoutBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- <button class="hamburger" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button> -->
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-user-profile">
+            <div class="user-avatar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <span class="user-name" id="mobileUserName">User Name</span>
+        </div>
+
+        <div class="mobile-nav-menu">
+            <a href="javascript:void(0)" class="mobile-nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Track My Challans
+            </a>
+            <a href="index.html" class="mobile-nav-item" id="mobileLogoutBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Payment Section -->
+    <section class="payment-main-section">
+        <div class="container">
+            <!-- Payment Layout -->
+            <div class="payment-layout">
+                <!-- Left Section: Resolution Type -->
+                <div class="resolution-section">
+                    <div class="section-header-with-back">
+                        <a href="status.html" class="back-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                        </a>
+                        <h2 class="section-title">Proceed to Payment</h2>
+                    </div>
+
+                    <!-- Resolution Type Card -->
+                    <div class="resolution-type-wrapper">
+                        <h3 class="resolution-type-title">Choose Resolution Type</h3>
+
+                        <!-- Resolution Tabs -->
+                        <div class="resolution-tabs-nav">
+                            <button class="resolution-tab-btn active" data-tab="pay-close">
+                                <span class="resolution-tab-label">Pay & Close</span>
+                            </button>
+                            <button class="resolution-tab-btn" data-tab="contest-wait">
+                                <span class="resolution-tab-label">Contest & Wait</span>
+                            </button>
+                        </div>
+
+                        <!-- Pay & Close Content -->
+                        <div class="resolution-content active" id="pay-close-content">
+                            <div class="resolution-content-card">
+                                <h4 class="resolution-content-title">Pay & Close</h4>
+                                <div class="resolution-badges">
+                                    <span class="resolution-badge green">Benefit: Instant</span>
+                                    <span class="resolution-badge brown">Resolution: 45–60 Days</span>
+                                     <span class="resolution-badge blue">Refund: Not Applicable</span>
+                                </div>
+                                <p class="resolution-description">
+                                    I wish to pay & Close to claim upfront benefits. I understand it may take 45–60 days, and I am not eligible for any refund from waivers
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Contest & Wait Content -->
+                        <div class="resolution-content" id="contest-wait-content">
+                            <div class="resolution-content-card">
+                                <h4 class="resolution-content-title">Contest & Wait</h4>
+                                <div class="resolution-badges">
+                                    <span class="resolution-badge green">Benefit: Delayed</span>
+                                    <span class="resolution-badge brown">Resolution: 90 Days</span>
+                                    <span class="resolution-badge blue">Refund: Applicable</span>
+                                </div>
+                                <p class="resolution-description">
+                                    I wish to contest my challans. I understand this may take 60–90 days, and I'll get refunds for any waiver granted after closure
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pledge Card -->
+                    <div class="pledge-card">
+                        <div class="pledge-header">
+                            <input type="checkbox" id="pledge" name="pledge" class="pledge-icon-checkbox">
+                            <h3>I pledge to drive safely and follow all traffic rules</h3>
+                        </div>
+                        <div class="pledge-reward">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 12v8H4v-8M2 7h20v5H2V7z"/>
+                                <path d="M12 22V7M12 7L8 3M12 7l4-4"/>
+                            </svg>
+                            <span>Pledge and Get rewards worth ₹500</span>
+                        </div>
+                        <!-- <p class="pledge-description">
+                            Why Pledge Matters? -->
+                    </div>
+                </div>
+
+                <!-- Right Section: Payment Summary -->
+                <div class="payment-summary-section">
+                    <div class="payment-summary-card">
+                        <h3 class="summary-title">Payment Summary</h3>
+
+                        <!-- Pledge Savings Badge -->
+                        <div class="pledge-savings-badge" id="pledgeSavingsBadge" style="display: none;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>You saved ₹500 by pledging!</span>
+                        </div>
+
+                        <!-- Fee Breakdown -->
+                        <div class="summary-breakdown">
+                            <div class="breakdown-item">
+                                <span>Online Challan (1)</span>
+                                <span>₹2,500</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Convenience Fee (1 X 100)</span>
+                                <span>₹100</span>
+                            </div>
+                            <div class="breakdown-item pledge-reward-item" id="pledgeRewardItem" style="display: none;">
+                                <span>Pledge Reward</span>
+                                <span class="discount-text">-₹500</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <!-- Grand Total -->
+                        <div class="summary-total">
+                            <span>Grand Total</span>
+                            <span class="total-amount" id="grandTotalAmount">₹2,600</span>
+                        </div>
+                        <button class="btn-proceed-pay shimmer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                                <path d="M2 10h20"/>
+                            </svg>
+                            <span>Proceed to Pay</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile Sticky Payment Card -->
+    <div class="mobile-payment-card" id="mobile-payment-card">
+        <div class="payment-card-content">
+            <div class="payment-details">
+                <div class="payment-left">
+                    <span class="payment-label">Total Amount</span>
+                    <span class="payment-amount" id="mobilePaymentAmount">₹2,600</span>
+                </div>
+                <button class="btn-pay-now shimmer" onclick="window.location.href='payment-completed.html'">
+                    <span>Pay Now</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize resolution tab switching
+        document.addEventListener('DOMContentLoaded', function() {
+            // Resolution type tab switching
+            const resolutionTabs = document.querySelectorAll('.resolution-tab-btn');
+            const resolutionContents = document.querySelectorAll('.resolution-content');
+
+            resolutionTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+
+                    // Remove active class from all tabs and contents
+                    resolutionTabs.forEach(t => t.classList.remove('active'));
+                    resolutionContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+
+                    // Show corresponding content
+                    const targetContent = document.getElementById(targetTab + '-content');
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+
+            // Populate user name from sessionStorage
+            const userName = sessionStorage.getItem('userName');
+            if (userName) {
+                const userNameElement = document.getElementById('userName');
+                const mobileUserNameElement = document.getElementById('mobileUserName');
+
+                if (userNameElement) {
+                    userNameElement.textContent = userName;
+                }
+                if (mobileUserNameElement) {
+                    mobileUserNameElement.textContent = userName;
+                }
+            }
+
+            // User Profile Dropdown functionality
+            const userProfileBtn = document.getElementById('userProfileBtn');
+            const userProfileDropdown = document.getElementById('userProfileDropdown');
+
+            if (userProfileBtn && userProfileDropdown) {
+                userProfileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userProfileBtn.classList.toggle('active');
+                    userProfileDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userProfileBtn.contains(e.target)) {
+                        userProfileBtn.classList.remove('active');
+                        userProfileDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+
+            function handleLogout(e) {
+                e.preventDefault();
+                // Clear session storage
+                sessionStorage.removeItem('userName');
+                sessionStorage.removeItem('userMobile');
+                sessionStorage.removeItem('vehicleNumber');
+                // Redirect to home page
+                window.location.href = 'index.html';
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', handleLogout);
+            }
+
+            });
+
+            // Confetti animation
+            function triggerConfetti() {
+                console.log('Confetti triggered');
+                const confettiPieces = 50;
+                for (let i = 0; i < confettiPieces; i++) {
+                    createConfetti();
+                }
+            }
+
+            function createConfetti() {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.backgroundColor = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA502'][Math.floor(Math.random() * 5)];
+                const duration = (Math.random() * 2 + 2);
+                confetti.style.animationDuration = duration + 's';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), duration * 1000 + 500);
+            }
+
+            // Reward popup
+            function showRewardPopup() {
+                // Remove existing popup if any
+                const existingPopup = document.getElementById('reward-popup');
+                if (existingPopup) {
+                    existingPopup.remove();
+                }
+
+                const popup = document.createElement('div');
+                popup.id = 'reward-popup';
+                popup.className = 'reward-popup';
+                popup.innerHTML = `
+                    <div class="reward-popup-content">
+                        <div class="reward-popup-header">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 12v8H4v-8M2 7h20v5H2V7z"/>
+                                <path d="M12 22V7M12 7L8 3M12 7l4-4"/>
+                            </svg>
+                        </div>
+                        <h2>₹500 Reward for You!</h2>
+                        <p>You've unlocked exclusive rewards by taking the safe driving pledge</p>
+                        <button class="popup-close-btn" onclick="document.getElementById('reward-popup').remove()">Continue</button>
+                    </div>
+                `;
+                document.body.appendChild(popup);
+                console.log('Popup created and added to DOM');
+
+                // Auto-close after 5 seconds
+                setTimeout(() => {
+                    const popupElement = document.getElementById('reward-popup');
+                    if (popupElement && popupElement.parentElement) {
+                        popupElement.remove();
+                    }
+                }, 5000);
+            }
+
+            // Pledge checkbox functionality
+            const pledgeCheckbox = document.getElementById('pledge');
+            const pledgeSavingsBadge = document.getElementById('pledgeSavingsBadge');
+            const pledgeRewardItem = document.getElementById('pledgeRewardItem');
+            const grandTotalAmount = document.getElementById('grandTotalAmount');
+            const mobilePaymentAmount = document.getElementById('mobilePaymentAmount');
+
+            const baseTotal = 2600; // Base total with ₹100 convenience fee
+            const pledgeDiscount = 500;
+
+            if (pledgeCheckbox) {
+                pledgeCheckbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        triggerConfetti();
+                        showRewardPopup();
+
+                        // Show pledge savings badge
+                        if (pledgeSavingsBadge) {
+                            pledgeSavingsBadge.style.display = 'flex';
+                        }
+
+                        // Show pledge reward item in breakdown
+                        if (pledgeRewardItem) {
+                            pledgeRewardItem.style.display = 'flex';
+                        }
+
+                        // Update grand total - subtract ₹500
+                        const newTotal = baseTotal - pledgeDiscount;
+                        if (grandTotalAmount) {
+                            grandTotalAmount.textContent = '₹' + newTotal.toLocaleString('en-IN');
+                        }
+                        if (mobilePaymentAmount) {
+                            mobilePaymentAmount.textContent = '₹' + newTotal.toLocaleString('en-IN');
+                        }
+                    } else {
+                        // Hide pledge savings badge
+                        if (pledgeSavingsBadge) {
+                            pledgeSavingsBadge.style.display = 'none';
+                        }
+
+                        // Hide pledge reward item in breakdown
+                        if (pledgeRewardItem) {
+                            pledgeRewardItem.style.display = 'none';
+                        }
+
+                        // Restore original total
+                        if (grandTotalAmount) {
+                            grandTotalAmount.textContent = '₹' + baseTotal.toLocaleString('en-IN');
+                        }
+                        if (mobilePaymentAmount) {
+                            mobilePaymentAmount.textContent = '₹' + baseTotal.toLocaleString('en-IN');
+                        }
+                    }
+                });
+            }
+            const proceedPayBtn = document.querySelector('.btn-proceed-pay');
+            if (proceedPayBtn) {
+                proceedPayBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Proceed to Pay button clicked');
+                    window.location.href = 'payment-completed.html';
+                });
+            } else {
+                console.warn('Proceed to Pay button not found');
+            }
+    </script>
+</body>
+</html>

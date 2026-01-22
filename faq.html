@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - ChallanPay</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/user-profile.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/faq.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav-container container">
+            <a href="index.html" class="logo">
+                <img src="assets/ChallanPay-FINAL 3.png" alt="ChallanPay Logo">
+            </a>
+
+            <!-- User Profile Section -->
+            <div class="user-profile" id="userProfileBtn">
+                <div class="user-avatar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="user-name" id="userName">User Name</span>
+                <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+                <!-- Dropdown Menu -->
+                <div class="user-profile-dropdown" id="userProfileDropdown">
+                    <a href="javascript:void(0)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Track My Challans
+                    </a>
+                    <hr>
+                    <a href="index.html" id="logoutBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <a href="index.html" class="back-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </a>
+                <h1>Frequently Asked Questions</h1>
+            </div>
+
+            <div class="faq-container">
+                <!-- Sidebar Categories -->
+                <aside class="faq-sidebar">
+                    <div class="faq-categories">
+                        <button class="category-btn active" data-category="all">
+                            All FAQs
+                        </button>
+                        <button class="category-btn" data-category="payment">
+                            Payment & Fees
+                        </button>
+                        <button class="category-btn" data-category="challan">
+                            Challan Information
+                        </button>
+                        <button class="category-btn" data-category="process">
+                            Process & Timeline
+                        </button>
+                        <button class="category-btn" data-category="support">
+                            Support & Contact
+                        </button>
+                    </div>
+                </aside>
+
+                <!-- FAQ Content -->
+                <main class="faq-content">
+                    <!-- All FAQs -->
+                    <div class="faq-group" data-category="all">
+                        <!-- Payment FAQs -->
+                        <div class="category-section" data-category="payment">
+                            <h2 class="category-title">Payment & Fees</h2>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>What payment methods do you accept?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>We accept all major payment methods including credit cards, debit cards, UPI, net banking, and digital wallets. All payments are secured with industry-standard encryption.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Is there a convenience fee?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Yes, a small convenience fee of ₹50 per challan is applied to cover payment gateway charges. This is clearly displayed before checkout.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Can I get a refund if my challan is dismissed?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Yes, if your challan is dismissed in court, you can request a full refund. Please contact our support team with the court order within 30 days of the judgment.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Challan FAQs -->
+                        <div class="category-section" data-category="challan">
+                            <h2 class="category-title">Challan Information</h2>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>How do I find my challan details?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Enter your vehicle number on our home page and click "Check Challans". Our system will fetch all pending challans associated with your vehicle from traffic department records.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Can I check challans for multiple vehicles?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Absolutely! You can check and manage challans for multiple vehicles. Simply enter each vehicle number separately to view and manage their respective challans.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Are old/expired challans shown?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>No, our system only shows pending and active challans. Once a challan is resolved or the payment deadline passes, it no longer appears in the active list.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Process FAQs -->
+                        <div class="category-section" data-category="process">
+                            <h2 class="category-title">Process & Timeline</h2>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>How long does the resolution process take?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Our legal team typically reviews cases within 2-3 business days. Complex cases may take up to 7-10 days. You'll receive updates via email and SMS throughout the process.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>What happens after I pay the challan?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>After payment, our legal team files the e-challan with the traffic department. You'll receive a confirmation email within 24 hours. Our lawyers then prepare your defense for court proceedings.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Do I need to appear in court?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>In most cases, our lawyers can represent you in court. However, the magistrate may require your personal presence for certain types of violations. We'll inform you in advance if required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Support FAQs -->
+                        <div class="category-section" data-category="support">
+                            <h2 class="category-title">Support & Contact</h2>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>How can I contact customer support?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>You can reach us via WhatsApp, email, or phone. Our support team is available 24/7 to assist you with any queries or concerns about your case.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>What if I want to withdraw my case?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>You can withdraw your case at any time before the court judgment. Please contact our support team immediately. A partial refund may be applicable depending on the stage of your case.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Is my personal information secure?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Yes, we use industry-standard encryption and comply with all data protection laws. Your personal and financial information is never shared with third parties without your consent.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Individual Category Views -->
+                    <div class="faq-group" data-category="payment" style="display: none;">
+                        <div class="category-section" data-category="payment">
+                            <h2 class="category-title">Payment & Fees</h2>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>What payment methods do you accept?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>We accept all major payment methods including credit cards, debit cards, UPI, net banking, and digital wallets. All payments are secured with industry-standard encryption.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Is there a convenience fee?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Yes, a small convenience fee of ₹50 per challan is applied to cover payment gateway charges. This is clearly displayed before checkout.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Can I get a refund if my challan is dismissed?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Yes, if your challan is dismissed in court, you can request a full refund. Please contact our support team with the court order within 30 days of the judgment.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-group" data-category="challan" style="display: none;">
+                        <div class="category-section" data-category="challan">
+                            <h2 class="category-title">Challan Information</h2>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>How do I find my challan details?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Enter your vehicle number on our home page and click "Check Challans". Our system will fetch all pending challans associated with your vehicle from traffic department records.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Can I check challans for multiple vehicles?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Absolutely! You can check and manage challans for multiple vehicles. Simply enter each vehicle number separately to view and manage their respective challans.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Are old/expired challans shown?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>No, our system only shows pending and active challans. Once a challan is resolved or the payment deadline passes, it no longer appears in the active list.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-group" data-category="process" style="display: none;">
+                        <div class="category-section" data-category="process">
+                            <h2 class="category-title">Process & Timeline</h2>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>How long does the resolution process take?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Our legal team typically reviews cases within 2-3 business days. Complex cases may take up to 7-10 days. You'll receive updates via email and SMS throughout the process.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>What happens after I pay the challan?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>After payment, our legal team files the e-challan with the traffic department. You'll receive a confirmation email within 24 hours. Our lawyers then prepare your defense for court proceedings.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Do I need to appear in court?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>In most cases, our lawyers can represent you in court. However, the magistrate may require your personal presence for certain types of violations. We'll inform you in advance if required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-group" data-category="support" style="display: none;">
+                        <div class="category-section" data-category="support">
+                            <h2 class="category-title">Support & Contact</h2>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>How can I contact customer support?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>You can reach us via WhatsApp, email, or phone. Our support team is available 24/7 to assist you with any queries or concerns about your case.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>What if I want to withdraw my case?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>You can withdraw your case at any time before the court judgment. Please contact our support team immediately. A partial refund may be applicable depending on the stage of your case.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <button class="faq-question">
+                                        <span>Is my personal information secure?</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>Yes, we use industry-standard encryption and comply with all data protection laws. Your personal and financial information is never shared with third parties without your consent.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand reveal">
+                    <div class="footer-logo"><img src="assets/Layer 1.png" alt="ChallanPay Logo"></div>
+                    <p class="footer-desc">India's most trusted platform for traffic challan resolution. Powered by LAWYERED.</p>
+                    <p class="footer-desc">Sproutech Solutions Private Limited<br>
+                    India Accelerator Coworking, Lower Ground Floor, LG-007-02,<br>
+                    MGF Metropolis Mall, MG Road, Gurugram, Haryana, 122002</p>
+                </div>
+
+                <div class="footer-section reveal">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#track">Track Challan</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section reveal">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support@challanpay.com">support@challanpay.com</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section reveal">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="#refund">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 ChallanPay. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Populate user name from sessionStorage
+            const userName = sessionStorage.getItem('userName');
+            if (userName) {
+                const userNameElement = document.getElementById('userName');
+                if (userNameElement) {
+                    userNameElement.textContent = userName;
+                }
+            }
+
+            // User Profile Dropdown functionality
+            const userProfileBtn = document.getElementById('userProfileBtn');
+            const userProfileDropdown = document.getElementById('userProfileDropdown');
+
+            if (userProfileBtn && userProfileDropdown) {
+                userProfileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userProfileBtn.classList.toggle('active');
+                    userProfileDropdown.classList.toggle('active');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!userProfileBtn.contains(e.target)) {
+                        userProfileBtn.classList.remove('active');
+                        userProfileDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sessionStorage.removeItem('userName');
+                    sessionStorage.removeItem('userMobile');
+                    sessionStorage.removeItem('vehicleNumber');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            // FAQ Accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const faqItem = this.closest('.faq-item');
+                    faqItem.classList.toggle('active');
+                });
+            });
+
+            // Category Filter
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const faqGroups = document.querySelectorAll('.faq-group');
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const selectedCategory = this.getAttribute('data-category');
+
+                    // Update active button
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Show/hide FAQ groups
+                    faqGroups.forEach(group => {
+                        if (group.getAttribute('data-category') === selectedCategory) {
+                            group.style.display = 'block';
+                        } else {
+                            group.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+/* User Profile Header Styles */
+
+.user-profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 50px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.user-profile:hover {
+    background: linear-gradient(135deg, #f0f0f0 0%, #fafafa 100%);
+    border-color: #d1d5db;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.user-profile.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e4e4e4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #121212;
+    flex-shrink: 0;
+}
+
+.user-avatar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.user-name {
+    font-family: 'Sora', 'Inter', 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+.dropdown-arrow {
+    color: #6b7280;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Mobile User Profile */
+.mobile-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 16px;
+}
+
+.mobile-user-profile .user-avatar {
+    width: 48px;
+    height: 48px;
+}
+
+.mobile-user-profile .user-avatar svg {
+    width: 24px;
+    height: 24px;
+}
+
+.mobile-user-profile .user-name {
+    font-size: 16px;
+    max-width: 200px;
+}
+
+/* Mobile User Profile Section in Mobile Nav */
+.mobile-user-profile-section {
+    display: none;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    /* Hide desktop user profile on mobile */
+    .nav-container > .user-profile {
+        display: none !important;
+    }
+
+    /* Show mobile user profile section */
+    .mobile-user-profile-section {
+        display: block;
+    }
+
+    .mobile-user-profile-section .user-profile {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 768px) {
+    /* Hide mobile user profile section on desktop */
+    .mobile-user-profile-section {
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-profile {
+        padding: 6px 10px;
+        gap: 6px;
+    }
+
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+    }
+
+    .user-avatar svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .user-name {
+        font-size: 13px;
+        max-width: 80px;
+    }
+}
+
+/* User Profile Dropdown */
+.user-profile-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 8px;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.user-profile-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-profile-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: #4a4a4a;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-family: 'Sora', 'Inter', 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.user-profile-dropdown a:hover {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+    color: var(--primary);
+}
+
+.user-profile-dropdown a svg {
+    color: #6b7280;
+    transition: color 0.2s ease;
+}
+
+.user-profile-dropdown a:hover svg {
+    color: var(--primary);
+}
+
+.user-profile-dropdown hr {
+    margin: 8px 0;
+    border: none;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Mobile Nav Menu */
+.mobile-nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.mobile-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    color: #4a4a4a;
+    text-decoration: none;
+    font-family: 'Sora', 'Inter', 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-item:hover {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.mobile-nav-item svg {
+    color: #6b7280;
+    transition: color 0.2s ease;
+}
+
+.mobile-nav-item:hover svg {
+    color: var(--primary);
+}

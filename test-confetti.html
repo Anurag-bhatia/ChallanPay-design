@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@keyframes confetti-fall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+.confetti-piece {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    z-index: 10000;
+    border-radius: 50%;
+    animation: confetti-fall linear forwards;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.reward-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: popup-appear 0.3s ease-out;
+}
+
+@keyframes popup-appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.reward-popup-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+</style>
+</head>
+<body>
+<button onclick="testConfetti()">Test Confetti</button>
+<script>
+function testConfetti() {
+    // Create confetti
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-10px';
+        confetti.style.backgroundColor = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA502'][Math.floor(Math.random() * 5)];
+        const duration = (Math.random() * 2 + 2);
+        confetti.style.animationDuration = duration + 's';
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), duration * 1000 + 500);
+    }
+    
+    // Create popup
+    const popup = document.createElement('div');
+    popup.className = 'reward-popup';
+    popup.innerHTML = `
+        <div class="reward-popup-content">
+            <h2>5000 Reward for You!</h2>
+            <p>Test popup</p>
+            <button onclick="this.closest('.reward-popup').remove()">Close</button>
+        </div>
+    `;
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 5000);
+}
+</script>
+</body>
+</html>

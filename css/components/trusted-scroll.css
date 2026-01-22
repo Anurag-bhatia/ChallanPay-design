@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Trusted By Scrolling Section
+   ========================================================================== */
+
+.trusted-by-scroll {
+    background: white;
+    padding: var(--space-xl) 0;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.trusted-by-scroll h3 {
+    text-align: center;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+}
+
+.logos-scroll-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.logos-scroll-track {
+    display: flex;
+    gap: var(--space-lg);
+    animation: logoScroll 25s linear infinite;
+}
+
+.logos-scroll-track:hover {
+    animation-play-state: paused;
+}
+
+.logo-item {
+    background: var(--bg-secondary);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 12px;
+    min-width: 180px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.logo-item-text {
+    max-width: 24rem;
+    max-height: 2rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .trusted-by-scroll {
+        padding: var(--space-lg) 0;
+    }
+
+    .trusted-by-scroll h3 {
+        margin-bottom: var(--space-lg);
+    }
+
+    .logo-item {
+        min-width: 150px;
+        height: 70px;
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .logo-item-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .trusted-by-scroll {
+        padding: var(--space-xl) 0;
+    }
+
+    .logo-item {
+        min-width: 84px;
+        height: 48px;
+        padding: var(--space-md) var(--space-md);
+    }
+
+    .logo-item-text {
+        font-size: 0.9375rem;
+        min-width: 84px;
+        height: 48px;
+    }
+}

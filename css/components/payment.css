@@ -1,0 +1,1130 @@
+/* ==========================================================================
+   Payment Page Styles
+   ========================================================================== */
+
+/* =================================================================
+   Main Section
+   ================================================================= */
+
+.payment-main-section {
+    margin-top: 48px;
+    padding: var(--space-2xl) 0;
+    background: #f8f9fa;
+    min-height: calc(100vh - 80px);
+}
+
+.section-header-with-back {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.back-link:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    transform: translateX(-4px);
+}
+
+.back-link svg {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+/* =================================================================
+   Payment Layout
+   ================================================================= */
+
+.payment-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+}
+
+/* =================================================================
+   Resolution Section (Left)
+   ================================================================= */
+
+.resolution-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0;
+}
+
+/* Resolution Tabs */
+.resolution-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.resolution-tab {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    text-align: left;
+    width: 100%;
+}
+
+.resolution-tab:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.resolution-tab.active {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(0, 78, 137, 0.1) 100%);
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.2);
+}
+
+.tab-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.resolution-tab.active .tab-icon {
+    background: var(--primary);
+    color: white;
+}
+
+.tab-content {
+    flex: 1;
+}
+
+.tab-content h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-xs) 0;
+    font-family: var(--font-display);
+}
+
+.tab-content p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Resolution Type Wrapper */
+.resolution-type-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    background: white;
+    border-radius: 20px;
+    padding: var(--space-lg);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.resolution-type-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    font-family: var(--font-display);
+}
+
+/* Resolution Tabs Navigation */
+.resolution-tabs-nav {
+    display: flex;
+    gap: var(--space-sm);
+    padding: 4px;
+    background-color: #f7f8f9;
+    border-radius: 8px;
+}
+
+.resolution-tab-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    text-align: center;
+    flex: 1;
+}
+
+.resolution-tab-btn:hover {
+    background: var(--bg-secondary);
+}
+
+.resolution-tab-btn.active {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(0, 78, 137, 0.1) 100%);
+    border-color: var(--primary);
+}
+
+.resolution-tab-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.resolution-tab-btn.active .resolution-tab-label {
+    color: var(--primary);
+}
+
+/* Resolution Content */
+.resolution-content {
+    display: none;
+}
+
+.resolution-content.active {
+    display: block;
+}
+
+.resolution-content-card {
+    background: white;
+    border: 2px solid #E5E7EB;
+    border-radius: 16px;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.resolution-content-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    font-family: var(--font-display);
+}
+
+.resolution-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+}
+
+.resolution-badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+}
+
+.resolution-badge.green {
+    background: #DCFCE7;
+    color: #166534;
+}
+
+.resolution-badge.brown {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.resolution-badge.blue {
+    background: #DBEAFE;
+    color: #1E40AF;
+}
+
+.resolution-description {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Pledge Card */
+.pledge-card {
+    background: white;
+    border-radius: 20px;
+    padding: var(--space-lg);
+    border: 1px solid #A16207;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    position: relative;
+}
+
+.pledge-card .pledge-reward {
+    order: -1;
+}
+
+.pledge-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.pledge-icon {
+    display: none;
+}
+
+.pledge-icon-checkbox {
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.pledge-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    font-family: var(--font-display);
+}
+
+.pledge-description {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.pledge-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pledge-checkbox:hover {
+    background: rgba(14, 165, 233, 0.1);
+}
+
+.pledge-checkbox input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+.pledge-checkbox label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.pledge-reward {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: #FEFCE8;
+    border-radius: 12px;
+    color: #A16207;
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.pledge-reward svg {
+    flex-shrink: 0;
+}
+
+/* =================================================================
+   Payment Summary Section (Right)
+   ================================================================= */
+
+.payment-summary-section {
+    position: sticky;
+    top: 100px;
+}
+
+.payment-summary-card {
+    background: white;
+    border-radius: 20px;
+    padding: var(--space-lg);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.summary-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-lg) 0;
+    font-family: var(--font-display);
+}
+
+/* Pledge Savings Badge */
+.pledge-savings-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: #dcfce7;
+    color: #10b981;
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    animation: slideIn 0.3s ease-out;
+    margin-bottom: var(--space-lg);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pledge-savings-badge svg {
+    flex-shrink: 0;
+    color: #10b981;
+}
+
+/* Challans List */
+.summary-challans {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+
+.challan-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.challan-id-small {
+    font-size: 0.875rem;
+    color: var(--primary);
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+.challan-type {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.challan-amount {
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+
+/* Divider */
+.summary-divider {
+    height: 1px;
+    background: var(--border-legacy);
+    margin: var(--space-md) 0;
+}
+
+/* Breakdown */
+.summary-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+}
+
+.breakdown-item span:last-child {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.pledge-reward-item .discount-text {
+    color: #10b981;
+}
+
+/* Total */
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-total span:first-child {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.total-amount {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    font-family: var(--font-display);
+}
+
+/* Proceed Button */
+.btn-proceed-pay {
+    width: 100%;
+    padding: var(--space-md) var(--space-xl);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    margin-top: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-proceed-pay:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4);
+}
+
+/* Shimmer Effect */
+.btn-proceed-pay.shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transition: left 30s ease-in-out infinite;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -150%;
+    }
+    50% {
+        left: 150%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+
+.btn-proceed-pay svg,
+.btn-proceed-pay span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Security Badge */
+.security-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+    color: var(--text-light);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.security-badge svg {
+    flex-shrink: 0;
+}
+
+/* =================================================================
+   Responsive Design
+   ================================================================= */
+
+/* Tablet */
+/* =================================================================
+   Mobile Sticky Payment Card
+   ================================================================= */
+
+.mobile-payment-card {
+    display: none;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: white;
+    border-radius: 16px 16px 0 0;
+    padding: var(--space-md);
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+    margin-top: var(--space-xl);
+}
+
+.mobile-payment-card .payment-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.mobile-payment-card .payment-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.mobile-payment-card .payment-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.mobile-payment-card .payment-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.mobile-payment-card .btn-pay-now {
+    padding: var(--space-md) var(--space-3xl);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.mobile-payment-card .btn-pay-now:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.mobile-payment-card .btn-pay-now:active {
+    transform: translateY(0);
+}
+
+/* Shimmer Effect for mobile payment button */
+.mobile-payment-card .btn-pay-now.shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transition: left 30s ease-in-out infinite;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+.mobile-payment-card .btn-pay-now span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Show on mobile, hide on desktop */
+@media (max-width: 768px) {
+    .mobile-payment-card {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-payment-card {
+        display: none !important;
+    }
+}
+
+
+@media (max-width: 968px) {
+    .payment-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+
+    .payment-summary-section {
+        position: relative;
+        top: 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .payment-main-section {
+        padding: var(--space-xl) 0;
+    }
+
+    .payment-layout {
+        gap: var(--space-lg);
+    }
+
+    .resolution-section {
+        gap: var(--space-lg);
+    }
+
+    .resolution-type-wrapper {
+        padding: var(--space-md);
+        border-radius: 16px;
+    }
+
+    .resolution-type-title {
+        font-size: 1rem;
+    }
+
+    .resolution-tabs-nav {
+        gap: var(--space-xs);
+    }
+
+    .resolution-tab-btn {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .resolution-tab-label {
+        font-size: 0.9375rem;
+    }
+
+    .resolution-content-card {
+        padding: var(--space-md);
+    }
+
+    .resolution-content-title {
+        font-size: 1rem;
+    }
+
+    .resolution-badge {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+
+    .resolution-description {
+        font-size: 0.875rem;
+    }
+
+    .section-header-with-back {
+        gap: var(--space-sm);
+    }
+
+    .back-link {
+        width: 40px;
+        height: 40px;
+    }
+
+    .back-link svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .resolution-tab {
+        padding: var(--space-md);
+        gap: var(--space-sm);
+    }
+
+    .tab-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .tab-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .tab-content h3 {
+        font-size: 1rem;
+    }
+
+    .tab-content p {
+        font-size: 0.875rem;
+    }
+
+    .pledge-card {
+        padding: var(--space-md);
+    }
+
+    .pledge-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .pledge-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .pledge-header h3 {
+        font-size: 1.125rem;
+    }
+
+    .pledge-checkbox {
+        padding: var(--space-sm);
+    }
+
+    .pledge-checkbox label {
+        font-size: 0.9375rem;
+    }
+
+    .payment-summary-card {
+        padding: var(--space-md);
+    }
+
+    .summary-title {
+        font-size: 1.25rem;
+        margin-bottom: var(--space-md);
+    }
+
+    .total-amount {
+        font-size: 1.5rem;
+    }
+
+    .btn-proceed-pay {
+        font-size: 1rem;
+        padding: var(--space-md);
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+    .resolution-type-wrapper {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .resolution-tabs-nav {
+        gap: 6px;
+    }
+
+    .resolution-tab-btn {
+        padding: var(--space-xs) var(--space-sm);
+    }
+
+    .resolution-tab-label {
+        font-size: 0.875rem;
+    }
+
+    .pledge-reward {
+        flex-direction: row;
+        text-align: left;
+        gap: var(--space-xs);
+    }
+
+    .summary-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+}
+
+/* =================================================================
+   Benefits Card and Confetti/Popup Styles
+   ================================================================= */
+
+.tab-with-benefits {
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-md);
+}
+
+.resolution-tabs .tab-with-benefits .resolution-tab {
+    flex: 1;
+}
+
+.benefits-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.benefits-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.1);
+}
+
+.benefits-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    width: 100%;
+}
+
+.benefits-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.benefits-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.benefits-tags {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    width: 100%;
+}
+
+.benefit-tag {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    background: #f0f8ff;
+    color: var(--primary);
+    border-radius: 20px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Confetti Animation */
+@keyframes confetti-fall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+.confetti-piece {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    z-index: 10000;
+    border-radius: 50%;
+    animation: confetti-fall linear forwards;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Reward Popup */
+.reward-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: popup-appear 0.3s ease-out;
+}
+
+@keyframes popup-appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.reward-popup-content {
+    background: white;
+    border-radius: 20px;
+    padding: var(--space-2xl);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: popup-scale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popup-scale {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.reward-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50%;
+    margin: 0 auto var(--space-lg);
+    color: white;
+}
+
+.reward-popup-content h2 {
+    font-size: 1.75rem;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm);
+    font-family: var(--font-display);
+}
+
+.reward-popup-content p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-lg);
+}
+
+.popup-close-btn {
+    padding: var(--space-md) var(--space-2xl);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.popup-close-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tab-with-benefits {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .benefits-card {
+        min-width: unset;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .benefits-tags {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+    }
+
+    .benefit-tag {
+        flex: 0 1 calc(33% - 4px);
+    }
+
+    .btn-proceed-pay {
+        display: none !important;
+    }
+}
+@media (max-width: 640px) {
+    .benefits-card {
+        padding: var(--space-md);
+        gap: var(--space-sm);
+    }
+
+    .benefits-title {
+        font-size: 0.875rem;
+    }
+
+    .benefit-tag {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+
+    .reward-popup-content {
+        padding: var(--space-lg);
+    }
+
+    .reward-popup-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .popup-close-btn {
+        padding: var(--space-sm) var(--space-lg);
+        font-size: 0.9rem;
+    }
+}

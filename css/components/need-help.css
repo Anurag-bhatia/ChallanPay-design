@@ -1,0 +1,262 @@
+/* Need Help Section */
+
+.need-help-section {
+    padding: 80px 0;
+    background: var(--bg-secondary);
+}
+
+.need-help-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.need-help-header .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.need-help-header .section-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: #666;
+    font-weight: 400;
+}
+
+/* Help Cards Grid */
+.help-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Help Card */
+.help-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 28px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    border: 2px solid transparent;
+    gap: var(--space-sm);
+    text-decoration: none;
+    color: inherit;
+}
+
+.help-card:hover {
+    transform: translateY(-8px);
+}
+
+/* Help Card Icon */
+.help-card-icon {
+    display: none;
+}
+
+/* Help Card Arrow */
+.help-card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    transition: all 0.3s ease;
+}
+
+.help-card-arrow svg {
+    width: 20px;
+    height: 20px;
+    color: #666;
+}
+
+.help-card:hover .help-card-arrow svg {
+    transform: translateX(4px);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Help Card Content */
+.help-card-content {
+    width: 100%;
+}
+
+.help-card-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.3;
+}
+
+.help-card-description {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Help Card Button */
+.help-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 42px;
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.whatsapp-btn {
+    background: linear-gradient(135deg, #25D366 0%, #20BA5A 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-btn:hover {
+    background: linear-gradient(135deg, #20BA5A 0%, #1BA350 100%);
+    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4);
+    transform: translateY(-2px);
+}
+
+.whatsapp-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.faqs-btn {
+    background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
+}
+
+.faqs-btn:hover {
+    background: linear-gradient(135deg, #4338CA 0%, #3730A3 100%);
+    box-shadow: 0 6px 24px rgba(79, 70, 229, 0.4);
+    transform: translateY(-2px);
+}
+
+.faqs-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .help-cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .need-help-section {
+        padding: 60px 0;
+    }
+
+    .need-help-header {
+        margin-bottom: 40px;
+    }
+
+    .need-help-header .section-title {
+        font-size: 36px;
+    }
+
+    .need-help-header .section-subtitle {
+        font-size: 16px;
+    }
+
+    .help-cards-grid {
+        gap: 24px;
+    }
+
+    .help-card {
+        padding: 32px 24px;
+        border-radius: 20px;
+    }
+
+    .help-card-title {
+        font-size: 20px;
+    }
+
+    .help-card-description {
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+
+    .help-card-btn {
+        padding: 12px 28px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .need-help-section {
+        padding: 50px 0;
+    }
+
+    .need-help-header .section-title {
+        font-size: 28px;
+    }
+
+    .need-help-header .section-subtitle {
+        font-size: 14px;
+    }
+
+    .help-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+    }
+
+    .help-card-icon svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .help-card-title {
+        font-size: 16px;
+    }
+
+    .help-card-description {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .help-card-btn {
+        padding: 10px 24px;
+        font-size: 14px;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Animation on scroll reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}

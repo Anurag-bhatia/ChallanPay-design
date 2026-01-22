@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checking Challans - ChallanPay</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/loading.css">
+
+    <!-- Lottie Player -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <style>
+        /* Inline styles to ensure it displays even if CSS doesn't load */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #ffffff;
+            padding: 2rem;
+        }
+
+        .loading-animation {
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-animation lottie-player {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+        }
+
+        .loading-text {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .loading-text h2 {
+            color: #1a1a1a;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin: 0;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .loading-text h2 {
+                font-size: 1.25rem;
+            }
+            .loading-animation lottie-player {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loading-text h2 {
+                font-size: 1.125rem;
+            }
+            .loading-animation video {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <!-- Loading Animation Container -->
+        <div class="loading-animation" id="loadingAnimation">
+            <lottie-player
+                src="assets/loading.json"
+                background="transparent"
+                speed="1"
+                style="width: 300px; height: 300px;"
+                loop
+                autoplay>
+            </lottie-player>
+        </div>
+
+        <!-- Loading Text -->
+        <div class="loading-text">
+            <h2>Please wait, we are checking challans on your vehicle...</h2>
+        </div>
+    </div>
+
+    <script>
+        console.log('Loading screen is displaying...');
+
+        // Get vehicle number from session storage
+        const vehicleNumber = sessionStorage.getItem('vehicleNumber');
+        console.log('Vehicle number from storage:', vehicleNumber);
+
+        // Redirect to status page after 3 seconds (simulating challan check)
+        setTimeout(function() {
+            console.log('Redirecting to status page...');
+            window.location.href = `status.html?vehicle=${encodeURIComponent(vehicleNumber)}`;
+        }, 3000);
+    </script>
+</body>
+</html>

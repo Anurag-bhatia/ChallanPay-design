@@ -1,0 +1,818 @@
+/* ==========================================================================
+   Payment Completed Page Styles
+   ========================================================================== */
+
+.payment-completed-section {
+    margin-top: 48px;
+    padding: var(--space-xl) 0;
+    background: #f8f9fa;
+    min-height: calc(100vh - 80px);
+}
+
+.completion-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+/* =================================================================
+   Two Column Layout
+   ================================================================= */
+
+.completion-layout {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+}
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: var(--spacing-16);
+}
+
+/* =================================================================
+   Success Header
+   ================================================================= */
+
+.success-header {
+    text-align: center;
+    padding: var(--space-md);
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+}
+
+.success-icon {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-lg);
+    animation: success-bounce 0.6s ease-out;
+}
+
+.success-icon lottie-player {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes success-bounce {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0 0 var(--space-sm);
+}
+
+.success-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* =================================================================
+   Checkbox Section
+   ================================================================= */
+
+.checkbox-section {
+    background: white;
+    padding: var(--space-lg);
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+}
+
+.checkbox-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.checkbox-header input[type="checkbox"] {
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.checkbox-header label {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    margin: 0;
+}
+
+/* =================================================================
+   Confirmation Card
+   ================================================================= */
+
+.confirmation-card {
+    background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+    padding: var(--space-md);
+    border-radius: 16px;
+    border: 1px solid #a5f3fc;
+}
+
+.confirmation-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.confirmation-header svg {
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.confirmation-header h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    font-family: var(--font-display);
+}
+
+.confirmation-text {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-md);
+}
+
+.confirmation-stats {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    color: var(--primary);
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+
+.stat-divider {
+    width: 1px;
+    height: var(--spacing-8);
+    background: #a5f3fc;
+}
+
+/* =================================================================
+   Selected Challans Section
+   ================================================================= */
+
+.selected-challans-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0;
+}
+
+.challans-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+/* =================================================================
+   Challan Completion Card
+   ================================================================= */
+
+.challan-completion-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--space-md);
+    box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+    border-left: 4px solid var(--primary);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.card-title-section {
+    display: flex;
+    align-items: center;
+}
+
+.challan-number {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+
+/* =================================================================
+   Card Tags (Type and Progress)
+   ================================================================= */
+
+.card-tags {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.challan-type {
+    background: rgba(255, 165, 0, 0.1);
+    color: #FF8C00;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.challan-type.court-challan {
+    background: rgba(0, 184, 148, 0.1);
+    color: #00A884;
+}
+
+.progress-tag {
+    background: rgba(234, 179, 8, 0.15);
+    color: #ca8a04;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* =================================================================
+   Card Details Grid
+   ================================================================= */
+
+.card-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 0.6875rem;
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.detail-value {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+/* =================================================================
+   Card Actions
+   ================================================================= */
+
+.card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+}
+
+.btn-receipt,
+.btn-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+}
+
+.btn-receipt:hover {
+    background: var(--bg-secondary);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.btn-track:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* =================================================================
+   Summary Card (Right Column)
+   ================================================================= */
+
+.summary-card {
+    background: white;
+    border-radius: 20px;
+    padding: var(--space-sm) var(--space-md);
+    box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+    border: 1px solid var(--border);
+    position: sticky;
+    top: var(--spacing-16);
+}
+
+/* Pledge Savings Badge */
+.pledge-savings-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: #FEFCE8;
+    border-radius: 12px;
+    color: #A16207;
+}
+
+.pledge-savings-badge svg {
+    flex-shrink: 0;
+}
+
+.pledge-savings-badge span {
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+/* Savings Badge */
+.savings-badge-container {
+    margin-bottom: 0;
+}
+
+.savings-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: #FEFCE8;
+    border-radius: 12px;
+    color: #A16207;
+}
+
+.savings-badge svg {
+    flex-shrink: 0;
+}
+
+.badge-content {
+    display: flex;
+    align-items: center;
+}
+
+.badge-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.summary-divider {
+    display: none;
+}
+
+/* Info Section */
+.info-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+}
+
+.info-section-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0 0 var(--space-xs);
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-xs) 0;
+}
+
+.info-label {
+    font-size: 0.8125rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.info-value {
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+.info-value.highlight {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.info-value.amount {
+    color: #10b981;
+    font-size: 1rem;
+}
+
+/* Track Button */
+.btn-track-challans {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    width: 100%;
+    margin-top: var(--space-sm);
+}
+
+.btn-track-challans:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+}
+
+/* Download Receipt Button */
+.btn-download-receipt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    width: 100%;
+    margin-top: var(--space-sm);
+}
+
+.btn-download-receipt:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.2);
+}
+
+/* =================================================================
+   Action Buttons
+   ================================================================= */
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: var(--space-md) var(--space-2xl);
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background: rgba(14, 165, 233, 0.1);
+}
+
+/* =================================================================
+   Responsive Design
+   ================================================================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .completion-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .right-column {
+        position: relative;
+        top: 0;
+    }
+
+    .summary-card {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .payment-completed-section {
+        padding: var(--space-xl) 0;
+    }
+
+    .completion-content {
+        gap: var(--space-lg);
+    }
+
+    .success-header {
+        padding: var(--space-lg);
+    }
+
+    .success-icon {
+        width: var(--spacing-16);
+        height: var(--spacing-16);
+    }
+
+    .success-title {
+        font-size: 1.75rem;
+    }
+
+    .success-subtitle {
+        font-size: 0.9375rem;
+    }
+
+    .challan-completion-card {
+        padding: var(--space-lg);
+    }
+
+    .card-details {
+        gap: var(--space-md);
+    }
+
+    .card-actions {
+        gap: var(--space-sm);
+    }
+
+    .btn-receipt,
+    .btn-track {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.8125rem;
+    }
+
+    .action-buttons {
+        gap: var(--space-md);
+    }
+
+    .summary-card {
+        padding: var(--space-sm) var(--space-md);
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .payment-completed-section {
+        padding: var(--space-lg) 0;
+    }
+
+    .completion-content {
+        gap: var(--space-lg);
+    }
+
+    .success-header {
+        padding: var(--space-lg);
+    }
+
+    .success-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .success-title {
+        font-size: 1.5rem;
+    }
+
+    .success-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .checkbox-header label {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .challan-completion-card {
+        padding: var(--space-md);
+        border-left-width: 3px;
+    }
+
+    .card-header {
+        flex-wrap: wrap;
+        gap: var(--space-sm);
+    }
+
+    .card-title-section {
+        flex: 1;
+        min-width: fit-content;
+    }
+
+    .card-tags {
+        flex-shrink: 0;
+    }
+
+    .challan-number {
+        font-size: 0.875rem;
+    }
+
+    .challan-type,
+    .progress-tag {
+        font-size: 0.625rem;
+        padding: 3px 8px;
+    }
+
+    .submitted-badge {
+        width: fit-content;
+    }
+
+    .card-divider {
+        margin: var(--space-md) 0;
+    }
+
+    .card-details {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-sm);
+    }
+
+    .detail-item:first-child:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .detail-label {
+        font-size: 0.625rem;
+    }
+
+    .detail-value {
+        font-size: 0.875rem;
+    }
+
+    .card-actions {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+
+    .btn-receipt,
+    .btn-track {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.8125rem;
+        flex-direction: column;
+    }
+
+    .btn-receipt svg,
+    .btn-track svg {
+        width: var(--spacing-4);
+        height: var(--spacing-4);
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: var(--space-md) var(--space-lg);
+        font-size: 0.9375rem;
+    }
+
+    .summary-card {
+        padding: var(--space-sm);
+    }
+
+    .info-item {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .btn-track-challans {
+        padding: var(--space-sm);
+        font-size: 0.9375rem;
+    }
+
+    .btn-download-receipt {
+        padding: var(--space-sm);
+        font-size: 0.9375rem;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+    .success-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .success-title {
+        font-size: 1.25rem;
+    }
+
+    .challan-number {
+        font-size: 1rem;
+    }
+
+    .detail-value {
+        font-size: 1rem;
+    }
+
+    .btn-receipt,
+    .btn-track {
+        padding: var(--spacing-2) var(--spacing-2);
+        font-size: 0.75rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.875rem;
+    }
+}

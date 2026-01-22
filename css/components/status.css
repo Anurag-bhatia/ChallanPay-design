@@ -1,0 +1,934 @@
+/* ==========================================================================
+   Status Page Styles - Matching Landing Page Theme
+   ========================================================================== */
+
+/* =================================================================
+   Main Section
+   ================================================================= */
+
+.status-main-section {
+    margin-top: 48px;
+    padding: var(--space-2xl) 0;
+    background: #f8f9fa;
+    min-height: calc(100vh - 80px);
+}
+
+.status-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+}
+
+/* =================================================================
+   Sidebar
+   ================================================================= */
+
+.status-sidebar {
+    position: sticky;
+    top: 100px;
+    background: white;
+    border-radius: 20px;
+    padding: var(--space-md);
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    margin-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--border);
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-display);
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--primary);
+}
+
+.back-link svg {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.back-link:hover svg {
+    transform: translateX(-4px);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.sidebar-tab {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    text-align: left;
+    width: 100%;
+}
+
+.sidebar-tab:hover {
+    background: var(--bg-secondary);
+}
+
+.sidebar-tab.active {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(0, 78, 137, 0.1) 100%);
+    border-color: var(--primary);
+}
+
+.sidebar-tab-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pending-icon {
+    background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+    color: white;
+}
+
+.paid-icon {
+    background: linear-gradient(135deg, #00B894 0%, #00A884 100%);
+    color: white;
+}
+
+.sidebar-tab-content {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+    flex: 1;
+}
+
+.sidebar-tab-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.sidebar-tab-count {
+    font-size: 0.75rem;
+    background: #e4e4e4;
+    color: #121212;
+    border-radius: 12px;
+    padding: 4px 8px;
+    min-width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: var(--font-body);
+}
+
+.sidebar-tab.active .sidebar-tab-label {
+    color: var(--primary);
+}
+
+.sidebar-tab.active .sidebar-tab-count {
+    background: var(--primary-dark);
+    color: white;
+}
+
+.status-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* =================================================================
+   Vehicle Info Section
+   ================================================================= */
+
+.vehicle-info-section,
+.challans-section {
+    margin-bottom: var(--space-lg);
+}
+
+.section-header-inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.section-title-with-select {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-sm);
+        justify-content: space-between;
+        width: 100%;
+        max-width: 100%;
+        align-content: center;
+}
+
+.section-title {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0;
+}
+
+.select-all-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    user-select: none;
+}
+
+.select-all-checkbox input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.select-all-checkbox:hover span {
+    color: var(--primary);
+}
+
+.vehicle-info-card {
+    background: white;
+    padding: var(--space-md);
+    border-radius: 20px;
+    display: flex;
+    gap: var(--space-xl);
+    align-items: center;
+}
+
+.vehicle-image-container {
+    flex-shrink: 0;
+}
+
+.vehicle-img {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+}
+
+.vehicle-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    flex: 1;
+}
+
+.vehicle-detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start
+}
+
+.detail-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.detail-value {
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+/* =================================================================
+   Filter Buttons
+   ================================================================= */
+
+.filter-buttons {
+    display: flex;
+    gap: var(--space-sm);
+    background: white;
+    border: 1px solid var(--border);
+    padding: 6px;
+    border-radius: 12px;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    white-space: nowrap;
+}
+
+.filter-btn.active {
+    transform: translateY(-1px);
+    border: 1px solid var(--primary);
+    background-color: aliceblue;
+    color: var(--primary);
+}
+
+.filter-btn:hover:not(.active) {
+    background: rgba(8, 145, 178, 0.1);
+    color: var(--primary);
+}
+
+/* =================================================================
+   Challans Grid
+   ================================================================= */
+
+.challans-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+}
+
+.challan-card {
+    background: white;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+    border-color: #e4e4e4;
+}
+
+.challan-card:hover {
+    transform: translateY(-4px);
+     box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+    border-color: var(--primary);
+}
+
+.challan-header {
+    padding: var(--space-sm) var(--space-md);
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.challan-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.challan-id {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.id-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.id-value {
+    font-size: .80rem;
+    color: var(--text-primary);
+    font-weight: 400;
+    font-family: var(--font-display);
+}
+
+.challan-badge {
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pending-badge {
+    background: rgba(255, 165, 0, 0.1);
+    color: #FF8C00;
+}
+
+.paid-badge {
+    background: rgba(0, 184, 148, 0.1);
+    color: #00A884;
+}
+
+.challan-body {
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    overflow: hidden;
+}
+
+.challan-body .challan-amount {
+    border-bottom: 1px solid var(--border);
+}
+
+.challan-detail-right {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    overflow: hidden;
+    min-width: 0;
+}
+
+.challan-detail {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    flex: 1;
+}
+
+.challan-detail svg {
+    flex-shrink: 0;
+    color: var(--primary);
+    display: none;
+}
+
+.challan-footer {
+    padding: var(--space-sm) var(--space-md);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.challan-amount {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.amount-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.amount-value {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+
+.btn-primary-sm {
+    padding: 10px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.btn-primary-sm:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.btn-secondary-sm {
+    padding: 10px 20px;
+    background: var(--bg-secondary);
+    color: var(--text-light);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: not-allowed;
+    font-family: var(--font-body);
+}
+
+.btn-view-details {
+    padding: 8px 16px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.btn-view-details:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* =================================================================
+   Payment Card Below Grid
+   ================================================================= */
+
+.payment-card-below {
+    margin-top: var(--space-xl);
+    background: white;
+    border-radius: 16px;
+    padding: var(--space-sm);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    bottom: 0px;
+    z-index: 50;
+}
+
+.mobile-payment-card {
+    margin-top: var(--space-xl);
+    background: white;
+    border-radius: 16px;
+    padding: var(--space-sm);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    bottom: 0px;
+    z-index: 50;
+}
+
+.payment-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.rewards-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    width: fit-content;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.gift-icon {
+    flex-shrink: 0;
+}
+
+.payment-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.payment-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.payment-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.payment-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+}
+
+.challans-selected {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.btn-pay-now {
+    padding: var(--space-md) var(--space-2xl);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+    white-space: nowrap;
+}
+
+.btn-pay-now:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(8, 145, 178, 0.4);
+}
+
+/* Shimmer Effect */
+.btn-pay-now.shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transition: left 30s ease-in-out infinite;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -150%;
+    }
+    50% {
+        left: 150%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+
+.btn-pay-now span {
+    position: relative;
+    z-index: 1;
+}
+
+/* =================================================================
+   Responsive Design
+   ================================================================= */
+
+/* Tablet */
+@media (max-width: 968px) {
+    .status-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .status-sidebar {
+        position: relative;
+        top: 0;
+        height: auto;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .sidebar-tab {
+        min-width: 200px;
+    }
+
+    .challans-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vehicle-info-card {
+        flex-direction: row;
+        text-align: center;
+    }
+
+    .vehicle-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-buttons {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-btn {
+        padding: 9px 20px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .status-page-header {
+        padding: var(--space-xl) 0 var(--space-md);
+    }
+
+    .status-main-section {
+        padding: var(--space-xl) 0;
+    }
+
+    .status-layout {
+        gap: var(--space-md);
+    }
+
+    .status-sidebar {
+        padding: var(--space-sm);
+    }
+
+    .back-link {
+        font-size: 1rem;
+    }
+
+    .sidebar-nav {
+        gap: var(--space-xs);
+        overflow-x: visible;
+        padding: 4px;
+        background: #f7f7f7;
+        border-radius: 12px;
+    }
+
+    .sidebar-tab {
+        padding: var(--space-xs);
+        gap: var(--space-sm);
+        min-width: auto;
+        flex: 1;
+    }
+
+    .sidebar-tab.active {
+    background: #121212;
+    color: white;
+    border: none;
+    }
+
+    .sidebar-tab.active .sidebar-tab-count {
+    background: #e4e4e4;
+    color: #121212;
+}
+
+
+    .sidebar-tab-label {
+        color: transparent;
+        font-size: 0;
+        width: auto;
+        height: auto;
+        overflow: visible;
+    }
+
+    .sidebar-tab-label::before {
+        content: attr(data-mobile);
+        display: block;
+        font-size: 1rem;
+        color: var(--text-primary);
+    }
+
+    .sidebar-tab.active .sidebar-tab-label::before {
+        color: white;
+    }
+
+    .sidebar-tab-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .sidebar-tab-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .sidebar-tab-count {
+        background: #e4e4e4;
+        color: #121212;
+        font-size: 0.6875rem;
+        padding: 3px 6px;
+        min-width: 20px;
+        height: 20px;
+    }
+    .sidebar-tab-content {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .section-header-inline {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .section-title-with-select {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .filter-buttons {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        background-color: #f8f9fa;
+    }
+
+    .filter-buttons::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Edge */
+    }
+
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.875rem;
+        border: 1px solid var(--border);
+    }
+
+    .challans-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .vehicle-info-card {
+        padding: var(--space-md);
+    }
+
+    .vehicle-img {
+        width: 72px;
+    }
+
+    .vehicle-details-grid {
+        gap: var(--space-md);
+    }
+
+    .challan-header {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .challan-body {
+        padding: var(--space-sm) var(--space-md);;
+        gap: var(--space-sm);
+    }
+
+    .challan-footer {
+        padding: var(--space-sm) var(--space-md);
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-sm);
+    }
+
+    .challan-detail-right {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .btn-primary-sm,
+    .btn-secondary-sm {
+        width: 100%;
+        text-align: center;
+    }
+
+    .btn-view-details {
+        width: auto;
+        text-align: center;
+    }
+
+    .payment-details {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--space-md);
+    }
+
+    /* .btn-pay-now {
+        width: 100%;
+    } */
+
+    .rewards-badge {
+        font-size: 0.875rem;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+    .vehicle-img {
+        width: 64px;
+    }
+
+    .challan-detail {
+        font-size: 0.875rem;
+    }
+
+    .challan-detail svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .payment-details {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--space-md);
+    }
+
+    .payment-amount {
+        font-size: 1.25rem;
+    }
+
+    .btn-pay-now {
+        padding: var(--space-md) var(--space-3xl);
+        min-width: unset;
+    }
+
+    .rewards-badge {
+        font-size: 0.75rem;
+    }
+
+    .filter-btn.active{
+        border: 1px solid var(--primary);
+        background-color: aliceblue;
+        color: var(--primary);
+    }
+
+}

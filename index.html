@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChallanPay - Fast & Secure Challan Payments</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/user-profile.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="nav-container container">
+            <a href="#" class="logo"><img src="/assets/ChallanPay-FINAL 3.png" alt="ChallanPay Logo"></a>
+            <ul class="nav-links">
+                <li><a href="#grap">Road Smart Partners<span class="nav-badge">NEW</span></a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#whatsapp">Support</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="events.html">Events</a></li>
+            </ul>
+
+            <!-- User Profile Section -->
+            <div class="user-profile" id="userProfileBtn">
+                <div class="user-avatar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="user-name" id="userName">Login</span>
+                <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+                <!-- Dropdown Menu -->
+                <div class="user-profile-dropdown" id="userProfileDropdown">
+                    <a href="javascript:void(0)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Track My Challans
+                    </a>
+                    <hr>
+                    <a href="#track" id="logoutBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" aria-hidden="true">
+            <ul class="mobile-nav-links">
+                <li><a href="#grap">Road Smart Partners<span class="nav-badge">NEW</span></a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#whatsapp">Support</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="events.html">Events</a></li>
+            </ul>
+
+            <!-- User Profile Section for Mobile -->
+            <div class="mobile-user-profile-section">
+                <div class="user-profile mobile-user-profile-btn" id="mobileUserProfileBtn">
+                    <div class="user-avatar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="user-name" id="mobileUserNameDisplay">Login</span>
+                    <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+                    <!-- Dropdown Menu -->
+                    <div class="user-profile-dropdown" id="mobileUserProfileDropdown">
+                        <a href="javascript:void(0)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Track My Challans
+                        </a>
+                        <hr>
+                        <a href="#track" id="mobileLogoutBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="track">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="hero-badge reveal">As featured on Ideabaaz, Aired on Zee TV</span>
+                    <h1 class="reveal">Challan Pay, Anytime Anywhere</h1>
+                    <p class="reveal">ChallanPay brings you a fast, secure, and hassle-free way <br> to settle your traffic challans online.</p>
+                </div>
+
+                <div class="challan-check reveal-scale">
+                    <div class="challan-check-header">
+                        <h3 class="challan-check-title">Enter Vehicle Number</h3>
+                        <span class="free-badge">FREE</span>
+                    </div>
+                    <div class="input-group">
+                        <div class="vehicle-input-container">
+                            <div class="flag-badge">
+                                <img src="/assets/Flag.png" alt="India Flag" />
+                            </div>
+                            <input type="text" class="vehicle-input" placeholder="Enter Vehicle Number" />
+                        </div>
+                        <button class="check-btn">Check Challans</button>
+                        <div class="savings-info">
+                            <div class="savings-number">70 Crore+</div>
+                            <p class="savings-text">Savings on Legal Fees, trusted by India's responsible citizens.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <!-- Multiple Vehicles CTA Card -->
+            <div class="stats-grid stagger-children">
+                <div class="stat-card reveal">
+                    <div class="stat-icon">
+                        <img src="/assets/Frame 1618873258.png" alt="Vehicles Protected Icon" />
+                    </div>
+                    <div class="stat-number">6L+</div>
+                    <div class="stat-label">Vehicles Protected</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon">
+                        <img src="/assets/Frame 1618873259.png" alt="Challans Resolved Icon" />
+                    </div>
+                    <div class="stat-number">1.5L+</div>
+                    <div class="stat-label">Challans Resolved</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon">
+                        <img src="/assets/Frame 1618873261.png" alt="Savings Icon" />
+                    </div>
+                    <div class="stat-number">₹53Cr+</div>
+                    <div class="stat-label">Savings on Legal Fees</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon">
+                        <img src="/assets/Frame 1618873260.png" alt="Success Icon" />
+                    </div>
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Successful Resolutions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section class="multiple-vehicles-cta">
+        <div class="container">
+            <div class="reveal">
+                    <picture>
+                    <!-- Mobile image -->
+                    <source  class="banner-pg" media="(max-width: 480px)" srcset="assets/PG-mobile.png">
+    
+                     <!-- Desktop image (fallback) -->
+                    <img src="/assets/PG.png" alt="prateek-gandhi" class="banner-pg">
+                    </picture>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">TESTIMONIALS</span>
+                <h2>Real Stories, Real Savings</h2>
+                <p class="mt-md">Join thousands of satisfied users who trusted ChallanPay</p>
+            </div>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar" style="background-image: url('/assets/Polish.webp');"></div>
+                        <div class="testimonial-info">
+                            <h4>Dweep</h4>
+                            <div class="testimonial-meta">Two-Wheeler Owner • Delhi</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-savings">₹2,300 Saved</div>
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="testimonial-text">"Challan dekh ke tension ho gayi thi, par is service ne process bahut simple bana diya. Kahi bhaagne ki zarurat hi nahi padi."</p>
+                </div>
+
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar" style="background-image: url('assets/anjali.webp');"></div>
+                        <div class="testimonial-info">
+                            <h4>Tina</h4>
+                            <div class="testimonial-meta">Car Owner • Jaipur</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-savings">₹1,700 Saved</div>
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="testimonial-text">"WhatsApp pe link aaya, maine details check ki aur turant payment ho gaya. Pehle kabhi itna smooth nahi laga challan bharna."</p>
+                </div>
+
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar" style="background-image: url('https://i.pravatar.cc/150?img=33');"></div>
+                        <div class="testimonial-info">
+                            <h4>Karan</h4>
+                            <div class="testimonial-meta">Car Owner • Mumbai</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-savings">₹2,000 Saved</div>
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="testimonial-text">"I had multiple pending challans and was worried about deadlines, but this service cleared them all smoothly in one go."</p>
+                </div>
+
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar" style="background-image: url('/assets/ABC.webp');"></div>
+                        <div class="testimonial-info">
+                            <h4>Anjali Sharma</h4>
+                            <div class="testimonial-meta">Two-Wheeler Owner • Ahmedabad</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-savings">₹2,500 Saved</div>
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="testimonial-text">"The step-by-step updates made me feel confident about the process. Honestly, the easiest challan payment I have done."</p>
+                </div>
+
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar" style="background-image: url('/assets/karan.webp');"></div>
+                        <div class="testimonial-info">
+                            <h4>Rohit Mehra</h4>
+                            <div class="testimonial-meta">Two-Wheeler Owner • Bengaluru</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-savings">₹2,100 Saved</div>
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="testimonial-text">"I did not expect WhatsApp support to be this responsive. Got my query solved instantly and payment done without delay."</p>
+                </div>
+
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar" style="background-image: url('/assets/Sweety.webp');"></div>
+                        <div class="testimonial-info">
+                            <h4>Meena</h4>
+                            <div class="testimonial-meta">Car Owner • Varanasi</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-savings">₹2,850 Saved</div>
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="testimonial-text">"WhatsApp pe link aaya, maine click karke payment kar diya. Bilkul court jaane ki tension hi nahi rahi."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Multiple Vehicles CTA Card -->
+    <section class="multiple-vehicles-cta">
+        <div class="container">
+            <div class="cta-card reveal">
+                <div class="cta-content-left">
+                    <h3>Want to check challans for multiple vehicles together?</h3>
+                    <p>Do not worry!</p>
+                    <button class="cta-btn" id="whatsappBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" fill="currentColor"/>
+                        </svg>
+                        Chat With Us on WhatsApp
+                    </button>
+                </div>
+                <div class="cta-content-right">
+                    <img src="/assets/image-121.png" alt="Multiple Vehicles Check" class="cta-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Trusted By Scrolling Section -->
+    <section class="trusted-by-scroll">
+        <div class="container">
+            <h3>Trusted By Leading Brands</h3>
+        </div>
+        <div class="logos-scroll-wrapper">
+            <div class="logos-scroll-track">
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/91Trucks.png" alt="91 Trucks">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/ALD.png" alt="ALD">
+                </div>
+                <div class="logo-item">
+                  <img class="logo-item-text" src="/assets/CarDekho.png" alt="CarDekho">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/CARInfo.png" alt="CARInfo">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/CARS24.png" alt="CARS24">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/droom.png" alt="droom">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/OLX.png" alt="OLX">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/Park+.png" alt="Park+">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/Renewbuy.png" alt="renewbuy">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/Spinny.png" alt="Spinny">
+                </div>
+                
+                <!-- Duplicate for seamless loop -->
+               <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/91Trucks.png" alt="91 Trucks">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/ALD.png" alt="ALD">
+                </div>
+                <div class="logo-item">
+                  <img class="logo-item-text" src="/assets/CarDekho.png" alt="CarDekho">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/CARInfo.png" alt="CARInfo">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/CARS24.png" alt="CARS24">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/droom.png" alt="droom">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/OLX.png" alt="OLX">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/Park+.png" alt="Park+">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/Renewbuy.png" alt="renewbuy">
+                </div>
+                <div class="logo-item">
+                    <img class="logo-item-text" src="/assets/Spinny.png" alt="Spinny">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">PROCESS</span>
+                <h2>How ChallanPay Works</h2>
+                <p class="mt-md">Three simple steps to resolve your traffic challans</p>
+            </div>
+
+            <div class="how-it-works-layout">
+                <!-- Left Content -->
+                <div class="how-it-works-left">
+                    <div class="accordion-step active" data-step="1">
+                        <div class="accordion-header">
+                            <div class="accordion-header-content">
+                                <span class="step-count">01</span>
+                                <h3>Enter your vehicle number</h3>
+                            </div>
+                            <span class="accordion-icon">→</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Enter your vehicle number and mobile number to begin the process. Our system will instantly check for any pending challans.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-step" data-step="2">
+                        <div class="accordion-header">
+                            <div class="accordion-header-content">
+                                <span class="step-count">02</span>
+                                <h3>View pending challans for your Vehicle</h3>
+                            </div>
+                            <span class="accordion-icon">→</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Check all pending challans without visiting courts - fast, easy, and hassle-free. Review all details before making payment.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-step" data-step="3">
+                        <div class="accordion-header">
+                            <div class="accordion-header-content">
+                                <span class="step-count">03</span>
+                                <h3>Settle challans easily with rewards </h3>
+                            </div>
+                            <span class="accordion-icon">→</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Resolve and settle your challans easily online with rewards. Get instant confirmation and receipt for your payment. Keep track submitted challans till resolution./p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Image -->
+                <div class="how-it-works-right">
+                    <div class="step-image-container">
+                        <img src="/assets/A1.png" alt="Enter Details Illustration" class="step-image active" data-step="1" />
+                        <img src="/assets/A2.png" alt="View and Pay Challans Illustration" class="step-image" data-step="2" />
+                        <img src="/assets/A3.png" alt="Settle Challans Easily Illustration" class="step-image" data-step="3" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blogs Section -->
+    <section class="bento-section blogs-section" id="blogs">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">INSIGHTS</span>
+                <h2>The ChallanPay Blogs</h2>
+                <p class="mt-md">Stay informed with the latest traffic rules and challan tips</p>
+            </div>
+
+            <div class="bento-grid blogs-grid stagger-children">
+                <div class="bento-card blog-card reveal">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&h=500&fit=crop" alt="Traffic Rules Blog" />
+                    </div>
+                    <div class="bento-content blog-content">
+                        <div class="blog-date">January 10, 2026</div>
+                        <h3>New Traffic Rules for 2026: What You Need to Know</h3>
+                        <p>Understanding the latest traffic regulations and how they affect your daily commute. Stay compliant and avoid unnecessary challans.</p>
+                    </div>
+                </div>
+
+                <div class="bento-card blog-card reveal">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=500&fit=crop" alt="Challan Payment Blog" />
+                    </div>
+                    <div class="bento-content blog-content">
+                        <div class="blog-date">January 5, 2026</div>
+                        <h3>5 Ways to Avoid Common Traffic Challans</h3>
+                        <p>Learn practical tips to stay safe on the road and avoid the most common traffic violations in India.</p>
+                    </div>
+                </div>
+
+                <div class="bento-card blog-card reveal">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1485463611174-f302f6a5c1c9?w=800&h=500&fit=crop" alt="GRAP Rules Blog" />
+                    </div>
+                    <div class="bento-content blog-content">
+                        <div class="blog-date">December 28, 2025</div>
+                        <h3>GRAP Stage 4: Complete Guide for Vehicle Owners</h3>
+                        <p>Everything you need to know about GRAP restrictions and how they affect your vehicle registration.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-more-container reveal">
+                <a href="blogs.html" class="view-more-btn">View More Blogs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- News & Events Section -->
+    <section class="news-events">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">News & Events</span>
+                <h2>Recognized by Leading Media</h2>
+                <p class="mt-md">Stay updated with the latest traffic regulations and ChallanPay news</p>
+            </div>
+        </div>
+
+        <div class="carousel-wrapper">
+            <div class="carousel-track">
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 10.png" alt="Lawyered IdeaBaaz Deal" />
+                        <h4>Lawyered Secures Rs 8.5 Crore All-Titan Deal on IdeaBaaz</h4>
+                        <p>Legal-tech innovator receives unanimous backing from all IdeaBaaz Titans in landmark investment at Rs 120 crore valuation.</p>
+                        <div class="news-footer">
+                            <span class="news-date">December 15, 2025</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 11.png" alt="EV Owners Challan Issues" />
+                        <h4>Wrong Traffic Challan? Why EV Owners Face an 'Uphill Battle'</h4>
+                        <p>Addresses the challenge of correcting erroneous e-challans in India's digitized traffic system and camera-based enforcement.</p>
+                        <div class="news-footer">
+                            <span class="news-date">December 12, 2025</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 92.png" alt="E-Challan Backlog Crisis" />
+                        <h4>India's E-Challan Backlog Crisis</h4>
+                        <p>Approximately 60% of fines tied up in courts with only 27.5% closure rate since 2019. Understanding the mounting backlog.</p>
+                        <div class="news-footer">
+                            <span class="news-date">September 2025</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 93.png" alt="On-Road Legal Support" />
+                        <h4>Revolutionizing On-Road Legal Support</h4>
+                        <p>LOTS platform connecting users to 70,000+ lawyers for immediate traffic violation assistance, operating 24/7 across India.</p>
+                        <div class="news-footer">
+                            <span class="news-date">March 15, 2025</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 10.png" alt="ChallanPay Milestone" />
+                        <h4>ChallanPay Reaches 1.5 Lakh+ Resolutions</h4>
+                        <p>Proud milestone in helping Indian citizens resolve traffic challans with 98% success rate and ₹53Cr+ savings on legal fees.</p>
+                        <div class="news-footer">
+                            <span class="news-date">January 2026</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duplicate cards for seamless loop -->
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 11.png" alt="Lawyered IdeaBaaz Deal" />
+                        <h4>Lawyered Secures Rs 8.5 Crore All-Titan Deal on IdeaBaaz</h4>
+                        <p>Legal-tech innovator receives unanimous backing from all IdeaBaaz Titans in landmark investment at Rs 120 crore valuation.</p>
+                        <div class="news-footer">
+                            <span class="news-date">December 15, 2025</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 92.png" alt="EV Owners Challan Issues" />
+                        <h4>Wrong Traffic Challan? Why EV Owners Face an 'Uphill Battle'</h4>
+                        <p>Addresses the challenge of correcting erroneous e-challans in India's digitized traffic system and camera-based enforcement.</p>
+                        <div class="news-footer">
+                            <span class="news-date">December 12, 2025</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 93.png" alt="E-Challan Backlog Crisis" />
+                        <h4>India's E-Challan Backlog Crisis</h4>
+                        <p>Approximately 60% of fines tied up in courts with only 27.5% closure rate since 2019. Understanding the mounting backlog.</p>
+                        <div class="news-footer">
+                            <span class="news-date">September 2025</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 10.png" alt="On-Road Legal Support" />
+                        <h4>Revolutionizing On-Road Legal Support</h4>
+                        <p>LOTS platform connecting users to 70,000+ lawyers for immediate traffic violation assistance, operating 24/7 across India.</p>
+                        <div class="news-footer">
+                            <span class="news-date">March 15, 2025</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-content">
+                        <img class="news-image" src="/assets/image 11.png" alt="ChallanPay Milestone" />
+                        <h4>ChallanPay Reaches 1.5 Lakh+ Resolutions</h4>
+                        <p>Proud milestone in helping Indian citizens resolve traffic challans with 98% success rate and ₹53Cr+ savings on legal fees.</p>
+                        <div class="news-footer">
+                            <span class="news-date">January 2026</span>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">COMPARISON</span>
+                <h2>ChallanPay vs Others</h2>
+                <p class="mt-md">See why thousands choose ChallanPay for their challans</p>
+            </div>
+
+            <div class="comparison-table-wrapper reveal-scale">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th class="highlight-col">ChallanPay</th>
+                            <th>Traditional Method</th>
+                            <th>Other Platforms</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Processing Time</td>
+                            <td class="highlight-col">Instant</td>
+                            <td>Days to Weeks</td>
+                            <td>1-3 Days</td>
+                        </tr>
+                        <tr>
+                            <td>Court Visit Required</td>
+                            <td class="highlight-col"><span class="cross-icon">✗</span></td>
+                            <td><span class="check-icon">✓</span></td>
+                            <td><span class="check-icon">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Legal Support</td>
+                            <td class="highlight-col"><span class="check-icon">✓</span> Full Support</td>
+                            <td><span class="cross-icon">✗</span></td>
+                            <td><span class="cross-icon">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>WhatsApp Updates</td>
+                            <td class="highlight-col"><span class="check-icon">✓</span> Real-time</td>
+                            <td><span class="cross-icon">✗</span></td>
+                            <td>Limited</td>
+                        </tr>
+                        <tr>
+                            <td>Multiple Challan Payment</td>
+                            <td class="highlight-col"><span class="check-icon">✓</span></td>
+                            <td>Complex Process</td>
+                            <td><span class="check-icon">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Customer Support</td>
+                            <td class="highlight-col">24/7 Available</td>
+                            <td>Office Hours Only</td>
+                            <td>Limited Hours</td>
+                        </tr>
+                        <tr>
+                            <td>Success Rate</td>
+                            <td class="highlight-col">98%</td>
+                            <td>60-70%</td>
+                            <td>75-80%</td>
+                        </tr>
+                        <tr>
+                            <td>Cost Savings</td>
+                            <td class="highlight-col">Up to ₹5000</td>
+                            <td>High Legal Fees</td>
+                            <td>Moderate Fees</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+     <!-- Need Help Section -->
+    <section class="need-help-section">
+        <div class="container">
+            <div class="need-help-header">
+                <h2 class="section-title reveal">Need Help?</h2>
+                <p class="section-subtitle reveal">We're here to assist you with any questions or concerns</p>
+            </div>
+
+            <div class="help-cards-grid">
+                <!-- WhatsApp Card -->
+                <div class="help-card whatsapp-card reveal">
+                    <div class="help-card-content">
+                        <h3 class="help-card-title">Ask us on WhatsApp</h3>
+                        <p class="help-card-description">Get instant answers to your queries through WhatsApp chat</p>
+                    </div>
+                    <div class="help-card-arrow">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- FAQs Card -->
+                <a href="faq.html" class="help-card faqs-card reveal">
+                    <div class="help-card-content">
+                        <h3 class="help-card-title">FAQs</h3>
+                        <p class="help-card-description">Find answers to commonly asked questions about our services</p>
+                    </div>
+                    <div class="help-card-arrow">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Supported By Section -->
+    <section class="trusted-partners">
+        <div class="container">
+            <div class="partners-container">
+                <div class="partners-section">
+                    <h3 class="reveal">Supported By</h3>
+                    <div class="logos-grid stagger-children">
+                        <div class="logo-card reveal">
+                            <img src="/assets/image 27.png" alt="Partner Logo" />
+                        </div>
+                        <div class="logo-card reveal">
+                            <img src="/assets/image 47.png" alt="Partner Logo" />
+                        </div>
+                        <div class="logo-card reveal">
+                            <img src="/assets/image 52.png" alt="Partner Logo" />
+                        </div>
+                        <div class="logo-card reveal">
+                            <img src="/assets/image 50.png" alt="Partner Logo" />
+                        </div>
+                        <div class="logo-card reveal">
+                            <img src="/assets/image 49.png" alt="Partner Logo" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand reveal">
+                    <div class="footer-logo"><img src="assets/Layer 1.png" alt="ChallanPay Logo"></div>
+                    <p class="footer-desc">India's most trusted platform for traffic challan resolution. Powered by LAWYERED.</p>
+                    <p class="footer-desc">Sproutech Solutions Private Limited<br>
+                    India Accelerator Coworking, Lower Ground Floor, LG-007-02,<br>
+                    MGF Metropolis Mall, MG Road, Gurugram, Haryana, 122002</p>
+                </div>
+
+                <div class="footer-section reveal">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#track">Track Challan</a></li>
+                        <li><a href="#grap">Road Smart Partners</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#blogs">Blogs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section reveal">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support@challanpay.com">support@challanpay.com</a></li>
+                        <!-- <li><a href="#whatsapp">WhatsApp Support</a></li> -->
+                    </ul>
+                </div>
+
+                <div class="footer-section reveal">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="#refund">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 ChallanPay. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Verification Modal -->
+    <div class="modal-overlay" id="verificationModal">
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <!-- Step 1: Name and Mobile -->
+            <div class="modal-step active" id="step1">
+                <div class="modal-header">
+                    <h2>Verify Your Details</h2>
+                    <p>Enter your details to check challan status</p>
+                </div>
+
+                <form class="modal-form" id="detailsForm">
+                    <div class="form-group">
+                        <label for="modalUserName">Full Name</label>
+                        <input type="text" id="modalUserName" name="userName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalUserMobile">Mobile Number</label>
+                        <input type="tel" id="modalUserMobile" name="userMobile" placeholder="Enter 10-digit mobile number" maxlength="10" pattern="[0-9]{10}" required>
+                    </div>
+
+                    <button type="submit" class="modal-btn">
+                        Send OTP
+                    </button>
+
+                    <p class="terms-text">
+                        By continuing, you agree to our <a href="terms-and-conditions.html">Terms & Conditions</a> and <a href="privacy-policy.html">Privacy Policy</a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Step 2: OTP Verification -->
+            <div class="modal-step" id="step2">
+                <div class="modal-header">
+                    <h2>Verify OTP</h2>
+                    <p>Enter the 4-digit OTP sent to <span id="displayMobile"></span></p>
+                </div>
+
+                <form class="modal-form" id="otpForm">
+                    <div class="otp-input-group">
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                    </div>
+
+                    <div class="resend-otp">
+                        <p>Didn't receive OTP? <button type="button" id="resendOtp">Resend OTP</button></p>
+                    </div>
+
+                    <button type="submit" class="modal-btn">
+                        Verify & Continue
+                    </button>
+
+                    <!-- <button type="button" class="modal-btn-secondary" id="backToStep1">
+                        Change Mobile Number
+                    </button> -->
+
+                    <!-- <p class="terms-text">
+                        By continuing, you agree to our <a href="terms-and-conditions.html">Terms & Conditions</a> and <a href="#privacy">Privacy Policy</a>
+                    </p> -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Business Modal -->
+    <div class="modal-overlay" id="whatsappModal">
+        <div class="modal-container">
+            <button class="modal-close" id="whatsappModalClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="modal-step active">
+                <div class="modal-header">
+                    <h2>Share Company Details</h2>
+                    <p>Let us know your requirements for multiple vehicles</p>
+                </div>
+
+                <form class="modal-form" id="whatsappForm">
+                    <div class="form-group">
+                        <label for="companyName">Company Name <span class="required">*</span></label>
+                        <input type="text" id="companyName" name="companyName" placeholder="Enter your company name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vehicleCount">Number of Vehicles <span class="required">*</span></label>
+                        <select id="vehicleCount" name="vehicleCount" required>
+                            <option value="">Select number of vehicles</option>
+                            <option value="1-10">1-10 vehicles</option>
+                            <option value="11-50">11-50 vehicles</option>
+                            <option value="51-100">51-100 vehicles</option>
+                            <option value="101-500">101-500 vehicles</option>
+                            <option value="500+">500+ vehicles</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="modal-btn whatsapp-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" fill="currentColor"/>
+                        </svg>
+                        Send Message on WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
