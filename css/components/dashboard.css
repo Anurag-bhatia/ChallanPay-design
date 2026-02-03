@@ -1,0 +1,607 @@
+/* ==========================================================================
+   Dashboard Page Styles
+   ========================================================================== */
+
+/* =================================================================
+   Dashboard Challan Cards
+   ================================================================= */
+
+.dashboard-challan-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(15, 41, 43, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+    position: relative;
+}
+
+.dashboard-challan-card:hover {
+    box-shadow: 0 8px 24px rgba(15, 41, 43, 0.12);
+    transform: translateY(-4px);
+}
+
+/* Timeline Badge */
+.challan-timeline-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border-radius: 12px 12px 0 0;
+}
+
+.challan-timeline-badge svg {
+    flex-shrink: 0;
+}
+
+.challan-timeline-badge.urgent {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #dc2626;
+}
+
+.challan-timeline-badge.warning {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #d97706;
+}
+
+.challan-timeline-badge.normal {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    color: #2563eb;
+}
+
+/* Challan Header */
+.dashboard-challan-header {
+    padding: var(--space-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.challan-id-section {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.challan-number {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+}
+
+.copy-challan-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.copy-challan-btn:hover {
+    background: var(--bg-secondary);
+    color: var(--primary);
+}
+
+.copy-challan-btn:active {
+    transform: scale(0.95);
+}
+
+.copy-challan-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.challan-status {
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.challan-status.pending {
+    background: rgba(255, 165, 0, 0.1);
+    color: #FF8C00;
+}
+
+.challan-status.in-progress {
+    background: rgba(255, 193, 7, 0.15);
+    color: #b8860b;
+}
+
+.challan-status.resolved {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+/* Challan Body */
+.dashboard-challan-body {
+    padding: var(--space-md);
+}
+
+.challan-amount-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: var(--space-md);
+}
+
+.amount-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.amount-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: var(--font-display);
+}
+
+.challan-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.challan-info-grid .info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.challan-info-grid .info-item svg {
+    flex-shrink: 0;
+    color: var(--text-light);
+}
+
+.challan-info-grid .info-label {
+    font-size: 0.8125rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.challan-info-grid .info-value {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+/* Challan Footer */
+.dashboard-challan-footer {
+    padding: var(--space-md);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    border-top: 1px solid var(--border);
+}
+
+.btn-view-challan,
+.btn-pay-challan {
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    border: none;
+}
+
+.btn-view-challan {
+    background: white;
+    border: 2px solid var(--border);
+    color: var(--text-primary);
+}
+
+.btn-view-challan:hover {
+    background: var(--bg-secondary);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.btn-pay-challan {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-pay-challan:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+/* Add Vehicle Button */
+.btn-add-vehicle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background: white;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add-vehicle:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.btn-add-vehicle svg {
+    flex-shrink: 0;
+}
+
+/* =================================================================
+   Vehicle Cards
+   ================================================================= */
+
+.vehicles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+}
+
+.vehicle-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(15, 41, 43, 0.1);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.vehicle-card:hover {
+    box-shadow: 0 8px 24px rgba(15, 41, 43, 0.12);
+    transform: translateY(-4px);
+}
+
+/* Vehicle Card Header */
+.vehicle-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.vehicle-card-header:hover {
+    background: var(--bg-secondary);
+}
+
+.vehicle-header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+.vehicle-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: var(--space-xs);
+    flex-shrink: 0;
+}
+
+.vehicle-icon {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.vehicle-header-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.vehicle-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0;
+}
+
+.vehicle-number {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+    font-family: var(--font-display);
+}
+
+.toggle-details-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: var(--space-xs);
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.toggle-details-btn:hover {
+    background: var(--bg-secondary);
+    color: var(--primary);
+}
+
+.toggle-details-btn .chevron-icon {
+    transition: transform 0.3s ease;
+}
+
+.toggle-details-btn.active .chevron-icon {
+    transform: rotate(180deg);
+}
+
+/* Vehicle Details Section */
+.vehicle-details-section {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.vehicle-details-section.collapsible {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 var(--space-lg);
+    transition: all 0.4s ease;
+}
+
+.vehicle-details-section.collapsible.expanded {
+    max-height: 2000px;
+    padding: var(--space-lg);
+    transition: all 0.4s ease;
+}
+
+.vehicle-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.section-heading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0;
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--border);
+}
+
+/* Details Grid */
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm);
+    background: var(--bg-secondary);
+    border-radius: 10px;
+}
+
+.detail-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.detail-value {
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+.detail-value.primary {
+    color: var(--primary);
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+/* Expiry Grid */
+.expiry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+}
+
+.expiry-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border-radius: 12px;
+    border: 2px solid;
+    transition: all 0.3s ease;
+}
+
+.expiry-item.valid {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.expiry-item.valid .expiry-icon {
+    color: #10b981;
+}
+
+.expiry-item.expired {
+    background: rgba(239, 68, 68, 0.05);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.expiry-item.expired .expiry-icon {
+    color: #ef4444;
+}
+
+.expiry-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.expiry-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.expiry-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.expiry-date {
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+/* =================================================================
+   Responsive Design
+   ================================================================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .expiry-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .btn-add-vehicle {
+        font-size: 0.875rem;
+        padding: var(--space-xs) var(--space-sm);
+    }
+
+    .btn-add-vehicle span {
+        display: none;
+    }
+
+    .dashboard-challan-footer {
+        grid-template-columns: 1fr;
+    }
+
+    .vehicle-icon-wrapper {
+        width: 50px;
+        height: 50px;
+    }
+
+    .vehicle-name {
+        font-size: 1rem;
+    }
+
+    .vehicle-number {
+        font-size: 0.875rem;
+    }
+
+    .vehicle-details-section {
+        padding: var(--space-md);
+    }
+
+    .vehicle-details-section.collapsible {
+        padding: 0 var(--space-md);
+    }
+
+    .vehicle-details-section.collapsible.expanded {
+        padding: var(--space-md);
+    }
+
+    .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .expiry-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .amount-value {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .challan-timeline-badge {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-sm);
+    }
+
+    .challan-number {
+        font-size: 0.75rem;
+    }
+
+    .amount-value {
+        font-size: 1.25rem;
+    }
+
+    .section-heading {
+        font-size: 1rem;
+    }
+
+    .vehicle-header-left {
+        gap: var(--space-sm);
+    }
+
+    .vehicle-icon-wrapper {
+        width: 45px;
+        height: 45px;
+    }
+
+    .vehicle-name {
+        font-size: 0.9375rem;
+    }
+
+    .vehicle-number {
+        font-size: 0.8125rem;
+    }
+}

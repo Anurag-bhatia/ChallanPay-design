@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Smart Partners - ChallanPay B2B Platform</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/user-profile.css">
+
+    <style>
+        /* Road Smart Partners Hero - Matching index.html */
+        .rsp-header {
+            margin-top: 80px;
+            padding: var(--space-2xl) 0;
+            background-color: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rsp-header .container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: var(--space-2xl);
+            align-items: center;
+        }
+
+        .rsp-hero-content {
+            text-align: left;
+        }
+
+        .rsp-hero-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .rsp-hero-image img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .rsp-header h1 {
+            font-size: clamp(1.875rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .rsp-header p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            margin-bottom: var(--space-xl);
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .rsp-cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .rsp-cta-primary {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.0625rem;
+        }
+
+        .rsp-cta-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+        }
+
+        .rsp-cta-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid #e4e4e4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.0625rem;
+        }
+
+        .rsp-cta-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(14, 165, 233, 0.05);
+            transform: translateY(-2px);
+        }
+
+
+        /* Who Can Join Section */
+        .who-can-join {
+            padding: var(--space-2xl) 0;
+            background: white;
+        }
+
+        .partners-logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+            align-items: center;
+        }
+
+        .partner-logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg);
+            background: #f3f4f6;
+            border-radius: 12px;
+            min-height: 100px;
+        }
+
+        .partner-logo-item img {
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        /* Why Partner Section */
+        .why-partner {
+            padding: var(--space-2xl) 0;
+            background: #31AB76;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+            justify-content: center;
+            max-width: 100%;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            border: 2px solid #31AB76;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(49, 171, 118, 0.2);
+            border-color: #31AB76;
+        }
+
+        .benefit-icon {
+            width: 50px;
+            height: 50px;
+            background: #31AB76;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #31AB76;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .benefit-card h3 {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 700;
+            color: #31AB76;
+            margin-bottom: var(--space-sm);
+        }
+
+        .benefit-card p {
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Two Column Section */
+        .two-column-section {
+            padding: var(--space-2xl) 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2xl);
+            align-items: center;
+        }
+
+        .column-text h2 {
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: var(--space-md);
+        }
+
+        .column-text p {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: var(--space-md);
+        }
+
+        .column-list {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-lg) 0;
+        }
+
+        .column-list li {
+            display: flex;
+            gap: var(--space-sm);
+            padding: var(--space-sm) 0;
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            color: #374151;
+        }
+
+        .column-list li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .column-image {
+            background: #f3f4f6;
+            border-radius: 12px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 1rem;
+            overflow: hidden;
+        }
+
+        .column-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* How It Works Section */
+        .how-it-works-rsp {
+            padding: var(--space-2xl) 0;
+            background: white;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4rem;
+            margin-top: var(--space-xl);
+            position: relative;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: var(--space-lg);
+            position: relative;
+        }
+
+        .step-card:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -2.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #31AB76;
+            font-weight: 700;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #0ea5e9;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto var(--space-md);
+        }
+
+        .step-card h3 {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: var(--space-sm);
+        }
+
+        .step-card p {
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: var(--space-2xl) 0;
+            background: #f9fafb;
+        }
+
+        .features-three-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        .feature-box {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            border-left: 4px solid #0ea5e9;
+        }
+
+        .feature-box:nth-child(1) {
+            border-left-color: #EE2330;
+        }
+
+        .feature-box:nth-child(2) {
+            border-left-color: #F68A19;
+        }
+
+        .feature-box:nth-child(3) {
+            border-left-color: #10b981;
+        }
+
+        .feature-box h3 {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: var(--space-sm);
+        }
+
+        .feature-box p {
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: var(--space-2xl);
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+            color: #1f2937;
+            border-radius: 16px;
+            margin: var(--space-2xl) 0;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+
+        .final-cta p {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            margin-bottom: var(--space-xl);
+            opacity: 0.9;
+        }
+
+        .final-cta a {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .final-cta a:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(14, 165, 233, 0.3);
+        }
+
+        /* Section Headers */
+        .section-header-rsp {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header-rsp h2 {
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: var(--space-md);
+        }
+
+        .section-header-rsp p {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .why-partner .section-header-rsp h2 {
+            color: white;
+        }
+
+        .why-partner .section-header-rsp p {
+            color: white;
+            opacity: 0.95;
+        }
+
+        @media (max-width: 1024px) {
+            .rsp-header .container {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+
+            .rsp-hero-image {
+                min-height: 350px;
+            }
+
+            .rsp-hero-content {
+                text-align: center;
+            }
+
+            .rsp-cta-buttons {
+                justify-content: center;
+            }
+
+            .two-column-section {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+
+            .column-image {
+                min-height: 300px;
+            }
+
+            .step-card:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .rsp-header {
+                padding: var(--space-xl) 0;
+            }
+
+            .rsp-header .container {
+                grid-template-columns: 1fr;
+            }
+
+            .rsp-hero-content {
+                text-align: center;
+            }
+
+            .rsp-cta-buttons {
+                gap: var(--space-sm);
+                justify-content: center;
+            }
+
+            .rsp-cta-primary,
+            .rsp-cta-secondary {
+                padding: var(--space-sm) var(--space-lg);
+            }
+
+            .rsp-hero-image {
+                min-height: 300px;
+            }
+
+            .partners-logo-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-lg);
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .two-column-section {
+                padding: var(--space-xl) 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .rsp-header {
+                padding: var(--space-lg) 0;
+            }
+
+            .rsp-cta-buttons {
+                flex-direction: column;
+            }
+
+            .rsp-cta-primary,
+            .rsp-cta-secondary {
+                width: 100%;
+                padding: var(--space-md) var(--space-lg);
+            }
+
+            .rsp-hero-image {
+                min-height: 250px;
+            }
+
+            .partners-logo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .two-column-section {
+                padding: var(--space-lg) 0;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-cta {
+                padding: var(--space-lg);
+                margin: var(--space-lg) 0;
+            }
+        }
+
+        /* Video Testimonials Styles */
+        .video-testimonials {
+            background: #f9fafb;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-top: 2rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .video-testimonial {
+            aspect-ratio: 9 / 16;
+            cursor: pointer;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 16px;
+        }
+
+        .video-testimonial:hover .video-container {
+            transform: scale(1.02);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .video-play-btn:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+
+        .video-play-btn svg {
+            margin-left: 2px;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            background: #000;
+            max-width: 90vw;
+            width: auto;
+            padding: 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .video-modal .modal-close {
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            z-index: 100;
+        }
+
+        .video-modal .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .video-player-wrapper {
+            aspect-ratio: 9 / 16;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .video-player-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Registration Modal Styles */
+        #registrationModal .modal-container {
+            max-width: 480px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        #registrationModal .form-group {
+            gap: var(--space-xs);
+        }
+
+        #registrationModal .form-group label {
+            margin-bottom: 0;
+        }
+
+        #registrationModal .form-group input,
+        #registrationModal .form-group select {
+            height: 48px;
+        }
+
+        @media (max-width: 1024px) {
+            .video-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                max-width: 750px;
+            }
+
+            .video-play-btn {
+                width: 60px;
+                height: 60px;
+            }
+
+            .video-play-btn svg {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                max-width: 500px;
+            }
+
+            .video-play-btn {
+                width: 55px;
+                height: 55px;
+            }
+
+            .video-play-btn svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .video-player-wrapper {
+                max-height: 85vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                max-width: 100%;
+            }
+
+            .video-testimonial {
+                min-height: 280px;
+            }
+
+            .video-play-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .video-play-btn svg {
+                width: 35px;
+                height: 35px;
+            }
+
+            .video-modal {
+                max-width: 100vw;
+                border-radius: 12px;
+            }
+
+            .video-player-wrapper {
+                max-height: 80vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="nav-container container">
+            <a href="index.html" class="logo"><img src="/assets/ChallanPay-FINAL 3.png" alt="ChallanPay Logo"></a>
+            <ul class="nav-links">
+                <li><a href="road-smart-partners.html">Road Smart Partners<span class="nav-badge">NEW</span></a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="index.html#whatsapp">Support</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="events.html">Events</a></li>
+            </ul>
+
+            <!-- User Profile Section -->
+            <div class="user-profile" id="userProfileBtn">
+                <div class="user-avatar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="user-name" id="userName">Login</span>
+                <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+                <!-- Dropdown Menu -->
+                <div class="user-profile-dropdown" id="userProfileDropdown">
+                    <a href="javascript:void(0)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Track My Challans
+                    </a>
+                    <hr>
+                    <a href="index.html" id="logoutBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" aria-hidden="true">
+            <ul class="mobile-nav-links">
+                <li><a href="road-smart-partners.html">Road Smart Partners<span class="nav-badge">NEW</span></a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="index.html#whatsapp">Support</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="events.html">Events</a></li>
+            </ul>
+
+            <!-- User Profile Section for Mobile -->
+            <div class="mobile-user-profile">
+                <div class="user-avatar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="user-name" id="mobileUserNameDisplay">Login</span>
+            </div>
+
+            <div class="mobile-nav-menu">
+                <a href="javascript:void(0)" class="mobile-nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Track My Challans
+                </a>
+                <a href="index.html" class="mobile-nav-item" id="mobileLogoutBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Logout
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="rsp-header">
+        <div class="container">
+            <div class="rsp-hero-content">
+                <h1>Become a Road Smart Partner</h1>
+                <p>Enable your customers to resolve challans while earning passive revenue</p>
+                <div class="rsp-cta-buttons">
+                    <button class="rsp-cta-primary" id="registerBtn">Register Now</button>
+                    <button class="rsp-cta-secondary" id="demoBtn">Request Demo</button>
+                </div>
+            </div>
+
+            <div class="rsp-hero-image">
+                <picture>
+                    <!-- Mobile image -->
+                    <source media="(max-width: 768px)" srcset="/assets/d1mobile.png">
+                    <!-- Desktop image (fallback) -->
+                    <img src="/assets/d1web.png" alt="Dashboard Preview">
+                </picture>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Testimonials Section -->
+    <section class="section video-testimonials">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">VIDEO TESTIMONIALS</span>
+                <h2>Watch Real Customers Share Their Experience</h2>
+                <p class="mt-md">See how ChallanPay has helped thousands of vehicle owners resolve their challans</p>
+            </div>
+
+            <div class="video-grid">
+                <!-- Video Testimonial 1 -->
+                <div class="video-testimonial reveal">
+                    <div class="video-container">
+                        <video>
+                            <source src="/assets/V1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="video-play-btn" data-video="1">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Testimonial 2 -->
+                <div class="video-testimonial reveal">
+                    <div class="video-container">
+                        <video>
+                            <source src="/assets/V2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="video-play-btn" data-video="2">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Testimonial 3 -->
+                <div class="video-testimonial reveal">
+                    <div class="video-container">
+                        <video>
+                            <source src="/assets/V1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="video-play-btn" data-video="3">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Testimonial 4 -->
+                <div class="video-testimonial reveal">
+                    <div class="video-container">
+                        <video>
+                            <source src="/assets/V2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="video-play-btn" data-video="4">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Player Modal -->
+    <div class="modal-overlay" id="videoModal">
+        <div class="modal-container video-modal">
+            <button class="modal-close" id="videoModalClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="video-player-wrapper">
+                <video id="videoPlayer" controls>
+                    <source id="videoSource" src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal-overlay" id="registrationModal">
+        <div class="modal-container">
+            <button class="modal-close" id="registrationModalClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="modal-header">
+                <h2>Partner Registration</h2>
+                <p>Join Road Smart Partners and start earning passive revenue</p>
+            </div>
+
+            <form class="modal-form" id="registrationForm">
+                <div class="form-group">
+                    <label for="primaryContact">Primary Contact <span class="required">*</span></label>
+                    <input type="text" id="primaryContact" name="primaryContact" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="businessName">Business/Individual Name <span class="required">*</span></label>
+                    <input type="text" id="businessName" name="businessName" placeholder="Enter business or individual name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="businessType">Business Type <span class="required">*</span></label>
+                    <select id="businessType" name="businessType" required>
+                        <option value="">Select Business Type</option>
+                        <option value="proprietorship">Proprietorship</option>
+                        <option value="partnership">Partnership</option>
+                        <option value="llp">LLP</option>
+                        <option value="pvt-ltd">Pvt Ltd</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State <span class="required">*</span></label>
+                    <select id="state" name="state" required>
+                        <option value="">Select State</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email (For Login Credentials) <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+
+                <button type="submit" class="modal-btn">Register Now</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Why Partner Section -->
+    <section class="why-partner" id="why-partner">
+        <div class="container">
+            <div class="section-header-rsp">
+                <h2>Why Partner With ChallanPay?</h2>
+                <p>Solve real customer problems and earn revenue at the same time</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                   
+                    <h3>Real-Time Challan Discovery</h3>
+                    <p>Help customers discover and resolve challans instantly through our unified platform</p>
+                </div>
+
+                <div class="benefit-card">
+                  
+                    <h3>Earn Revenue</h3>
+                    <p>New passive revenue stream with automated payouts and zero paperwork</p>
+                </div>
+
+                <div class="benefit-card">
+                   
+                    <h3>Build Trust</h3>
+                    <p>Increase trust by solving a real problem your customers face during resale</p>
+                </div>
+
+                <div class="benefit-card">
+                
+                    <h3>Zero Setup Cost</h3>
+                    <p>No setup fees, zero training, and zero compliance burden required</p>
+                </div>
+
+                <div class="benefit-card">
+               
+                    <h3>Unique QR Code</h3>
+                    <p>Unique QR code for walk-in customers - simple and seamless integration</p>
+                </div>
+
+                <div class="benefit-card">
+                 
+                    <h3>More Footfall</h3>
+                    <p>Increase customer stickiness and attract more footfall to your business</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-rsp" id="how-it-works">
+        <div class="container">
+            <div class="section-header-rsp">
+                <h2>How It Works?</h2>
+                <p>Simple 3-step process to start earning</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Customer Scans QR</h3>
+                    <p>Your customer scans the QR code or requests challan resolution</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Discover & Resolve</h3>
+                    <p>Challans are discovered and resolved through our website instantly</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>You Earn Commission</h3>
+                    <p>You earn commission through your partner dashboard - automatic payouts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Benefits Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header-rsp">
+                <h2>What You Get as a Partner?</h2>
+            </div>
+
+            <div class="features-three-col">
+                <div class="feature-box">
+                    <h3>Partner Dashboard</h3>
+                    <p>Track revenue in real-time with daily/weekly reporting & logs. Monitor performance and commissions from one unified dashboard</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>No Operational Headaches</h3>
+                    <p>No infrastructure or training required. We handle everything - you just enable the service and start earning</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>More Customer Stickiness</h3>
+                    <p>Solve a real problem during resale and build lasting relationships with your customers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="container">
+        <div class="final-cta">
+            <h2>Be an Official Road Smart Partner Today!</h2>
+            <p>Join thousands of businesses earning passive revenue while solving customer problems</p>
+            <a href="mailto:sales@lawyered.in">Register Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand reveal">
+                    <div class="footer-logo"><img src="assets/Layer 1.png" alt="ChallanPay Logo"></div>
+                    <p class="footer-desc">India's most trusted platform for traffic challan resolution. Powered by LAWYERED.</p>
+                    <p class="footer-desc">Sproutech Solutions Private Limited<br>
+                    India Accelerator Coworking, Lower Ground Floor, LG-007-02,<br>
+                    MGF Metropolis Mall, MG Road, Gurugram, Haryana, 122002</p>
+                </div>
+
+                <div class="footer-section reveal">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#track">Track Challan</a></li>
+                        <li><a href="road-smart-partners.html">Road Smart Partners</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section reveal">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support@challanpay.com">support@challanpay.com</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section reveal">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="index.html#refund">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 ChallanPay. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // User Profile Dropdown functionality
+            const userProfileBtn = document.getElementById('userProfileBtn');
+            const userProfileDropdown = document.getElementById('userProfileDropdown');
+
+            if (userProfileBtn && userProfileDropdown) {
+                userProfileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userProfileBtn.classList.toggle('active');
+                    userProfileDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userProfileBtn.contains(e.target)) {
+                        userProfileBtn.classList.remove('active');
+                        userProfileDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Mobile User Profile Dropdown
+            const mobileUserProfile = document.querySelector('.mobile-user-profile');
+            const mobileNavMenu = document.querySelector('.mobile-nav-menu');
+
+            if (mobileUserProfile) {
+                mobileUserProfile.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    mobileUserProfile.classList.toggle('active');
+                    mobileNavMenu.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!mobileUserProfile.contains(e.target)) {
+                        mobileUserProfile.classList.remove('active');
+                        mobileNavMenu.classList.remove('active');
+                    }
+                });
+            }
+
+            // Populate user name from sessionStorage
+            const userName = sessionStorage.getItem('userName');
+            if (userName) {
+                const userNameElement = document.getElementById('userName');
+                const mobileUserNameDisplay = document.getElementById('mobileUserNameDisplay');
+
+                if (userNameElement) {
+                    userNameElement.textContent = userName;
+                }
+                if (mobileUserNameDisplay) {
+                    mobileUserNameDisplay.textContent = userName;
+                }
+            }
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+
+            function handleLogout(e) {
+                e.preventDefault();
+                // Clear session storage
+                sessionStorage.removeItem('userName');
+                sessionStorage.removeItem('userMobile');
+                sessionStorage.removeItem('vehicleNumber');
+                // Redirect to home page
+                window.location.href = 'index.html';
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', handleLogout);
+            }
+
+            // Registration Modal functionality
+            const registerBtn = document.getElementById('registerBtn');
+            const registrationModal = document.getElementById('registrationModal');
+            const registrationModalClose = document.getElementById('registrationModalClose');
+            const registrationForm = document.getElementById('registrationForm');
+
+            if (registerBtn) {
+                registerBtn.addEventListener('click', function() {
+                    registrationModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            function closeRegistrationModal() {
+                registrationModal.classList.remove('active');
+                document.body.style.overflow = '';
+                registrationForm.reset();
+            }
+
+            if (registrationModalClose) {
+                registrationModalClose.addEventListener('click', closeRegistrationModal);
+            }
+
+            // Close modal on overlay click
+            if (registrationModal) {
+                registrationModal.addEventListener('click', function(e) {
+                    if (e.target === registrationModal) {
+                        closeRegistrationModal();
+                    }
+                });
+            }
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && registrationModal.classList.contains('active')) {
+                    closeRegistrationModal();
+                }
+            });
+
+            // Handle form submission
+            if (registrationForm) {
+                registrationForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Get form data
+                    const formData = new FormData(registrationForm);
+                    const data = {
+                        primaryContact: formData.get('primaryContact'),
+                        businessName: formData.get('businessName'),
+                        businessType: formData.get('businessType'),
+                        state: formData.get('state'),
+                        email: formData.get('email')
+                    };
+
+                    // Log form data (you can replace this with actual API call)
+                    console.log('Registration Form Data:', data);
+
+                    // Show success message
+                    alert('Thank you for registering! Our team will contact you shortly at ' + data.email);
+
+                    // Close modal and reset form
+                    closeRegistrationModal();
+
+                    // Optional: Send to email or API endpoint
+                    // You can replace this with an actual API call to your backend
+                    const emailSubject = 'New Road Smart Partner Registration';
+                    const emailBody = `
+Name: ${data.primaryContact}
+Business/Individual Name: ${data.businessName}
+Business Type: ${data.businessType}
+State: ${data.state}
+Email: ${data.email}
+                    `;
+                    // Uncomment to send email
+                    // window.location.href = `mailto:sales@lawyered.in?subject=${emailSubject}&body=${encodeURIComponent(emailBody)}`;
+                });
+            }
+
+            // Demo button
+            const demoBtn = document.getElementById('demoBtn');
+            if (demoBtn) {
+                demoBtn.addEventListener('click', function() {
+                    window.location.href = 'mailto:sales@lawyered.in?subject=Road Smart Partner Demo Request';
+                });
+            }
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Hamburger menu
+            const hamburger = document.querySelector('.hamburger');
+            const mobileNav = document.querySelector('.mobile-nav');
+
+            if (hamburger) {
+                hamburger.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    mobileNav.classList.toggle('active');
+                });
+            }
+
+            // Video Modal Functionality
+            const videoPlayButtons = document.querySelectorAll('.video-play-btn');
+            const videoModal = document.getElementById('videoModal');
+            const videoModalClose = document.getElementById('videoModalClose');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoSource = document.getElementById('videoSource');
+
+            // Video sources array
+            const videoSources = {
+                1: '/assets/V1.mp4',
+                2: '/assets/V2.mp4',
+                3: '/assets/V1.mp4',
+                4: '/assets/V2.mp4'
+            };
+
+            videoPlayButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const videoId = this.getAttribute('data-video');
+                    const videoSrc = videoSources[videoId];
+
+                    if (videoSrc) {
+                        videoSource.src = videoSrc;
+                        videoPlayer.load();
+                        videoModal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                        videoPlayer.play();
+                    }
+                });
+            });
+
+            // Close modal
+            function closeVideoModal() {
+                videoModal.classList.remove('active');
+                document.body.style.overflow = '';
+                videoPlayer.pause();
+                videoPlayer.currentTime = 0;
+                videoSource.src = '';
+            }
+
+            if (videoModalClose) {
+                videoModalClose.addEventListener('click', closeVideoModal);
+            }
+
+            // Close on overlay click
+            if (videoModal) {
+                videoModal.addEventListener('click', function(e) {
+                    if (e.target === videoModal) {
+                        closeVideoModal();
+                    }
+                });
+            }
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                    closeVideoModal();
+                }
+            });
+        });
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>

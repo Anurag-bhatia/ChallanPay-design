@@ -29,11 +29,11 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-xl);
-    align-items: end;
+    align-items: center;
     position: relative;
     z-index: 1;
     justify-content: flex-start;
-    align-items: start;
+    align-items: center;
 }
 
 @media (min-width: 768px) {
@@ -47,7 +47,7 @@
 }
 
 .hero-badge {
-    display: inline-flex;
+    display: none;
     align-items: center;
     gap: var(--space-xs);
     padding: var(--space-xs) var(--space-md);
@@ -117,17 +117,33 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     flex-shrink: 0;
-
+    position: relative;
 }
 
-@keyframes pulse-badge {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+.free-badge::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #10b981, #34d399, #6ee7b7, #34d399, #10b981);
+    background-size: 300% 300%;
+    border-radius: 10px;
+    z-index: -1;
+    opacity: 0.6;
+    animation: shimmer 3s ease infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0% 50%;
     }
     50% {
-        transform: scale(1.05);
-        box-shadow: 0 6px 16px rgba(16, 185, 129, 0.6);
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
     }
 }
 

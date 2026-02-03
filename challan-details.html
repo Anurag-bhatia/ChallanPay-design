@@ -175,6 +175,83 @@
         </div>
     </section>
 
+    <script>
+        // User Profile Dropdown functionality - needs to be inline to ensure it loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Desktop User Profile Dropdown
+            const userProfileBtn = document.getElementById('userProfileBtn');
+            const userProfileDropdown = document.getElementById('userProfileDropdown');
+
+            if (userProfileBtn && userProfileDropdown) {
+                userProfileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userProfileBtn.classList.toggle('active');
+                    userProfileDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userProfileBtn.contains(e.target)) {
+                        userProfileBtn.classList.remove('active');
+                        userProfileDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Mobile User Profile Dropdown
+            const mobileUserProfileBtn = document.getElementById('mobileUserProfileBtn');
+            const mobileUserProfileDropdown = document.getElementById('mobileUserProfileDropdown');
+
+            if (mobileUserProfileBtn && mobileUserProfileDropdown) {
+                mobileUserProfileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    mobileUserProfileBtn.classList.toggle('active');
+                    mobileUserProfileDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!mobileUserProfileBtn.contains(e.target)) {
+                        mobileUserProfileBtn.classList.remove('active');
+                        mobileUserProfileDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Populate user name from sessionStorage
+            const userName = sessionStorage.getItem('userName');
+            if (userName) {
+                const userNameElement = document.getElementById('userName');
+                const mobileUserNameElement = document.getElementById('mobileUserName');
+
+                if (userNameElement) {
+                    userNameElement.textContent = userName;
+                }
+                if (mobileUserNameElement) {
+                    mobileUserNameElement.textContent = userName;
+                }
+            }
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+
+            function handleLogout(e) {
+                e.preventDefault();
+                sessionStorage.removeItem('userName');
+                sessionStorage.removeItem('userMobile');
+                sessionStorage.removeItem('vehicleNumber');
+                window.location.href = 'index.html';
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', handleLogout);
+            }
+        });
+    </script>
     <script src="js/header.js"></script>
 </body>
 </html>

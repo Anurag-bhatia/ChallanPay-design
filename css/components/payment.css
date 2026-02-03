@@ -63,7 +63,7 @@
 .resolution-section {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
 }
 
 .section-title {
@@ -283,9 +283,6 @@
     position: relative;
 }
 
-.pledge-card .pledge-reward {
-    order: -1;
-}
 
 .pledge-header {
     display: flex;
@@ -976,7 +973,7 @@
     height: 12px;
     pointer-events: none;
     z-index: 10000;
-    border-radius: 50%;
+    border-radius: 2px;
     animation: confetti-fall linear forwards;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -1010,7 +1007,7 @@
 .reward-popup-content {
     background: white;
     border-radius: 20px;
-    padding: var(--space-2xl);
+    padding: var(--space-lg);
     max-width: 400px;
     width: 90%;
     text-align: center;
@@ -1036,7 +1033,7 @@
     justify-content: center;
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    background: var(--primary);
     border-radius: 50%;
     margin: 0 auto var(--space-lg);
     color: white;
@@ -1116,7 +1113,7 @@
     }
 
     .reward-popup-content {
-        padding: var(--space-lg);
+        padding: var(--space-md);
     }
 
     .reward-popup-content h2 {

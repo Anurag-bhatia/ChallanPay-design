@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ChallanPay</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/user-profile.css">
+    <link rel="stylesheet" href="css/components/status.css">
+    <link rel="stylesheet" href="css/components/hero.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+    <link rel="stylesheet" href="css/components/dashboard.css">
+    <style>
+        .btn-pay-challan {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Challans Ticker Styles */
+        .challans-ticker {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, #dbeafe 0%, #f0f4ff 100%);
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0 1.5rem 0;
+            position: relative;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ticker-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            flex-shrink: 0;
+            color: #0369a1;
+        }
+
+        .ticker-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ticker-text {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .ticker-label {
+            font-weight: 600;
+            color: #0369a1;
+            font-size: 0.9375rem;
+        }
+
+        .ticker-message {
+            color: #0c4a6e;
+            font-size: 0.9375rem;
+            line-height: 1.4;
+        }
+
+        .ticker-details {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            align-items: center;
+            font-size: 0.8125rem;
+            color: #064e78;
+        }
+
+        .ticker-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .ticker-detail-item strong {
+            color: #0369a1;
+            font-weight: 600;
+        }
+
+        .ticker-detail-separator {
+            color: #7dd3fc;
+        }
+
+
+        @media (max-width: 768px) {
+            .challans-ticker {
+                padding: 0.875rem 1rem;
+                gap: 0.75rem;
+            }
+
+            .ticker-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .ticker-label {
+                font-size: 0.8125rem;
+            }
+
+            .ticker-message {
+                font-size: 0.8125rem;
+            }
+
+            .ticker-details {
+                font-size: 0.75rem;
+            }
+
+            .ticker-text {
+                margin-bottom: 0.375rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .challans-ticker {
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .ticker-content {
+                flex-direction: column;
+            }
+
+            .ticker-text {
+                flex-direction: column;
+                gap: 0.25rem;
+                margin-bottom: 0.375rem;
+            }
+
+            .ticker-details {
+                flex-direction: column;
+                gap: 0.25rem;
+                align-items: flex-start;
+            }
+
+            .ticker-detail-separator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="nav-container container">
+            <a href="index.html" class="logo"><img src="/assets/ChallanPay-FINAL 3.png" alt="ChallanPay Logo"></a>
+
+            <!-- User Profile Section -->
+            <div class="user-profile" id="userProfileBtn">
+                <div class="user-avatar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="user-name" id="userName">User Name</span>
+                <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+                <!-- Dropdown Menu -->
+                <div class="user-profile-dropdown" id="userProfileDropdown">
+                    <a href="dashboard.html">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Track My Challans
+                    </a>
+                    <hr>
+                    <a href="index.html" id="logoutBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" aria-hidden="true">
+            <div class="mobile-user-profile">
+                <div class="user-avatar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="user-name" id="mobileUserName">User Name</span>
+            </div>
+
+            <div class="mobile-nav-menu">
+                <a href="dashboard.html" class="mobile-nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Track My Challans
+                </a>
+                <a href="index.html" class="mobile-nav-item" id="mobileLogoutBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Logout
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section class="status-main-section">
+        <div class="container">
+            <div class="status-layout">
+                <!-- Sidebar -->
+                <aside class="status-sidebar">
+                    <div class="sidebar-header">
+                        <a href="index.html" class="back-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+                    </div>
+                    <nav class="sidebar-nav">
+                        <button class="sidebar-tab active" data-tab="my-challans">
+                            <div class="sidebar-tab-content">
+                                <span class="sidebar-tab-label" data-mobile="My Challans" data-desktop="My Challans">My Challans</span>
+                                <span class="sidebar-tab-count">14</span>
+                            </div>
+                        </button>
+
+                        <button class="sidebar-tab" data-tab="my-vehicles">
+                            <div class="sidebar-tab-content">
+                                <span class="sidebar-tab-label" data-mobile="My Vehicles" data-desktop="My Vehicles">My Vehicles</span>
+                                <span class="sidebar-tab-count">2</span>
+                            </div>
+                        </button>
+                    </nav>
+                </aside>
+
+                <!-- Main Content Area -->
+                <div class="status-content">
+                    <!-- My Challans Section -->
+                    <div id="my-challans-section" class="challans-section">
+                        <div class="section-header-inline">
+                            <h2 class="section-title">My Challans (14)</h2>
+                        </div>
+
+                        <!-- Challans Ticker -->
+                        <div class="challans-ticker">
+                            <div class="ticker-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 8h-1V7c0-.5522-.4477-1-1-1s-1 .4478-1 1v1H9V7c0-.5522-.4477-1-1-1s-1 .4478-1 1v1H6c-1.1046 0-2 .8954-2 2v12c0 1.1046.8954 2 2 2h12c1.1046 0 2-.8954 2-2V9c0-1.1046-.8954-2-2-2zm0 14H6V12h12v10z"/>
+                                    <circle cx="12" cy="15" r="1" fill="currentColor"/>
+                                    <circle cx="16" cy="15" r="1" fill="currentColor"/>
+                                    <circle cx="8" cy="15" r="1" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="ticker-content">
+                                <div class="ticker-text">
+                                    <span class="ticker-label">Challans Status:</span>
+                                    <span class="ticker-message">Your challans have been submitted for resolution and will be resolved within the mentioned timeline.</span>
+                                </div>
+                                <div class="ticker-details">
+                                    <span class="ticker-detail-item">
+                                        <strong id="totalChallans">3</strong> challans submitted
+                                    </span>
+                                    <span class="ticker-detail-separator">•</span>
+                                    <span class="ticker-detail-item">
+                                        <strong id="resolvingChallans">2</strong> resolving
+                                    </span>
+                                    <span class="ticker-detail-separator">•</span>
+                                    <span class="ticker-detail-item">
+                                        Expected resolution by <strong id="resolutionDate">15 Feb 2024</strong>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="challans-grid">
+                            <!-- Challan Card 1 -->
+                            <div class="dashboard-challan-card">
+                                <div class="challan-timeline-badge urgent">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>Resolving in 7 days</span>
+                                </div>
+                                <div class="dashboard-challan-header">
+                                    <div class="challan-id-section">
+                                        <span class="challan-number">#UP40838230627114376</span>
+                                        <button class="copy-challan-btn" data-challan="UP40838230627114376" title="Copy challan number">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <span class="challan-status in-progress">In Progress</span>
+                                </div>
+                                <div class="dashboard-challan-body">
+                                    <div class="challan-amount-section">
+                                        <span class="amount-label">Amount Paid</span>
+                                        <span class="amount-value">₹2,000</span>
+                                    </div>
+                                    <div class="challan-info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">Incident ID:</span>
+                                            <span class="info-value">IRN-4680065</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Vehicle:</span>
+                                            <span class="info-value">UP32MM1113</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Resolution Date:</span>
+                                            <span class="info-value">15 Feb 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dashboard-challan-footer">
+                                    <button class="btn-view-challan">View Receipt</button>
+                                    <a href="view-progress.html" class="btn-pay-challan">View Progress</a>
+                                </div>
+                            </div>
+
+                            <!-- Challan Card 2 -->
+                            <div class="dashboard-challan-card">
+                                <div class="challan-timeline-badge warning">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>Resolving in 30 days</span>
+                                </div>
+                                <div class="dashboard-challan-header">
+                                    <div class="challan-id-section">
+                                        <span class="challan-number">#UP40838230627114852</span>
+                                        <button class="copy-challan-btn" data-challan="UP40838230627114852" title="Copy challan number">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <span class="challan-status in-progress">In Progress</span>
+                                </div>
+                                <div class="dashboard-challan-body">
+                                    <div class="challan-amount-section">
+                                        <span class="amount-label">Amount Paid</span>
+                                        <span class="amount-value">₹1,000</span>
+                                    </div>
+                                    <div class="challan-info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">Incident ID:</span>
+                                            <span class="info-value">IRN-4680066</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Vehicle:</span>
+                                            <span class="info-value">UP32MM1113</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Resolution Date:</span>
+                                            <span class="info-value">20 Feb 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dashboard-challan-footer">
+                                    <button class="btn-view-challan">View Receipt</button>
+                                    <a href="view-progress.html" class="btn-pay-challan">View Progress</a>
+                                </div>
+                            </div>
+
+                            <!-- Challan Card 3 -->
+                            <div class="dashboard-challan-card">
+                                <div class="challan-timeline-badge normal">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>Resolving in 42 days</span>
+                                </div>
+                                <div class="dashboard-challan-header">
+                                    <div class="challan-id-section">
+                                        <span class="challan-number">#UP40838230627115293</span>
+                                        <button class="copy-challan-btn" data-challan="UP40838230627115293" title="Copy challan number">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <span class="challan-status in-progress">In Progress</span>
+                                </div>
+                                <div class="dashboard-challan-body">
+                                    <div class="challan-amount-section">
+                                        <span class="amount-label">Amount Paid</span>
+                                        <span class="amount-value">₹500</span>
+                                    </div>
+                                    <div class="challan-info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">Incident ID:</span>
+                                            <span class="info-value">IRN-4680067</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Vehicle:</span>
+                                            <span class="info-value">UP32MM1113</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Resolution Date:</span>
+                                            <span class="info-value">28 Feb 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dashboard-challan-footer">
+                                    <button class="btn-view-challan">View Receipt</button>
+                                    <a href="view-progress.html" class="btn-pay-challan">View Progress</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Vehicles Section -->
+                    <div id="my-vehicles-section" class="challans-section" style="display: none;">
+                        <div class="section-header-inline">
+                            <h2 class="section-title">My Vehicles (2)</h2>
+                            <button class="btn-add-vehicle" id="addVehicleBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span>Add New Vehicle</span>
+                            </button>
+                        </div>
+
+                        <div class="vehicles-grid">
+                            <!-- Vehicle Card 1 -->
+                            <div class="vehicle-card">
+                                <div class="vehicle-card-header">
+                                    <div class="vehicle-header-left">
+                                        <div class="vehicle-icon-wrapper">
+                                            <img src="assets/BLACK-CAR.png" alt="Vehicle" class="vehicle-icon">
+                                        </div>
+                                        <div class="vehicle-header-info">
+                                            <h3 class="vehicle-name">Hyundai Creta</h3>
+                                            <span class="vehicle-number">DL 01 AB 1234</span>
+                                        </div>
+                                    </div>
+                                    <button class="toggle-details-btn" data-vehicle="vehicle-1">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron-icon">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="vehicle-details-section collapsible" id="vehicle-1">
+                                    <!-- Owner Details -->
+                                    <div class="vehicle-section">
+                                        <h3 class="section-heading">Owner Details</h3>
+                                        <div class="details-grid">
+                                            <div class="detail-row">
+                                                <span class="detail-label">Registration Date</span>
+                                                <span class="detail-value">15 March 2020</span>
+                                            </div>
+                                            <div class="detail-row">
+                                                <span class="detail-label">RTO</span>
+                                                <span class="detail-value">Delhi (DL-01)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Details -->
+                                    <div class="vehicle-section">
+                                        <h3 class="section-heading">Key Details</h3>
+                                        <div class="expiry-grid">
+                                            <div class="expiry-item valid">
+                                                <div class="expiry-icon">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                    </svg>
+                                                </div>
+                                                <div class="expiry-info">
+                                                    <span class="expiry-label">PUC Expiry</span>
+                                                    <span class="expiry-date">15 Aug 2026</span>
+                                                </div>
+                                            </div>
+                                            <div class="expiry-item valid">
+                                                <div class="expiry-icon">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                    </svg>
+                                                </div>
+                                                <div class="expiry-info">
+                                                    <span class="expiry-label">Insurance Expiry</span>
+                                                    <span class="expiry-date">20 Dec 2026</span>
+                                                </div>
+                                            </div>
+                                            <div class="expiry-item valid">
+                                                <div class="expiry-icon">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                    </svg>
+                                                </div>
+                                                <div class="expiry-info">
+                                                    <span class="expiry-label">RC Expiry</span>
+                                                    <span class="expiry-date">15 Mar 2035</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Vehicle Details -->
+                                    <div class="vehicle-section">
+                                        <h3 class="section-heading">Vehicle Details</h3>
+                                        <div class="details-grid">
+                                            <div class="detail-row">
+                                                <span class="detail-label">Make & Model</span>
+                                                <span class="detail-value">Hyundai Creta</span>
+                                            </div>
+                                            <div class="detail-row">
+                                                <span class="detail-label">Vehicle Type</span>
+                                                <span class="detail-value">SUV</span>
+                                            </div>
+                                            <div class="detail-row">
+                                                <span class="detail-label">Engine Number</span>
+                                                <span class="detail-value">G4FGCK123456</span>
+                                            </div>
+                                            <div class="detail-row">
+                                                <span class="detail-label">Chassis Number</span>
+                                                <span class="detail-value">MALCK123456789012</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vehicle Card 2 -->
+                            <div class="vehicle-card">
+                                <div class="vehicle-card-header">
+                                    <div class="vehicle-header-left">
+                                        <div class="vehicle-icon-wrapper">
+                                            <img src="assets/BLACK-CAR.png" alt="Vehicle" class="vehicle-icon">
+                                        </div>
+                                        <div class="vehicle-header-info">
+                                            <h3 class="vehicle-name">Honda City</h3>
+                                            <span class="vehicle-number">DL 05 CD 5678</span>
+                                        </div>
+                                    </div>
+                                    <button class="toggle-details-btn" data-vehicle="vehicle-2">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron-icon">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="vehicle-details-section collapsible" id="vehicle-2">
+                                    <!-- Owner Details -->
+                                    <div class="vehicle-section">
+                                        <h3 class="section-heading">Owner Details</h3>
+                                        <div class="details-grid">
+                                            <div class="detail-row">
+                                                <span class="detail-label">Registration Date</span>
+                                                <span class="detail-value">10 January 2019</span>
+                                            </div>
+                                            <div class="detail-row">
+                                                <span class="detail-label">RTO</span>
+                                                <span class="detail-value">Delhi (DL-05)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Details -->
+                                    <div class="vehicle-section">
+                                        <h3 class="section-heading">Key Details</h3>
+                                        <div class="expiry-grid">
+                                            <div class="expiry-item expired">
+                                                <div class="expiry-icon">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <circle cx="12" cy="12" r="10"></circle>
+                                                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                                                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                                                    </svg>
+                                                </div>
+                                                <div class="expiry-info">
+                                                    <span class="expiry-label">PUC Expiry</span>
+                                                    <span class="expiry-date">15 Nov 2025</span>
+                                                </div>
+                                            </div>
+                                            <div class="expiry-item valid">
+                                                <div class="expiry-icon">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                    </svg>
+                                                </div>
+                                                <div class="expiry-info">
+                                                    <span class="expiry-label">Insurance Expiry</span>
+                                                    <span class="expiry-date">10 Sep 2026</span>
+                                                </div>
+                                            </div>
+                                            <div class="expiry-item valid">
+                                                <div class="expiry-icon">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                    </svg>
+                                                </div>
+                                                <div class="expiry-info">
+                                                    <span class="expiry-label">RC Expiry</span>
+                                                    <span class="expiry-date">10 Jan 2034</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Vehicle Details -->
+                                    <div class="vehicle-section">
+                                        <h3 class="section-heading">Vehicle Details</h3>
+                                        <div class="details-grid">
+                                            <div class="detail-row">
+                                                <span class="detail-label">Make & Model</span>
+                                                <span class="detail-value">Honda City</span>
+                                            </div>
+                                            <div class="detail-row">
+                                                <span class="detail-label">Vehicle Type</span>
+                                                <span class="detail-value">Sedan</span>
+                                            </div>
+                                            <div class="detail-row">
+                                                <span class="detail-label">Engine Number</span>
+                                                <span class="detail-value">L15Z1CK789012</span>
+                                            </div>
+                                            <div class="detail-row">
+                                                <span class="detail-label">Chassis Number</span>
+                                                <span class="detail-value">MALHX789012345678</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Vehicle Modal -->
+    <div class="modal-overlay" id="addVehicleModal">
+        <div class="modal-container">
+            <button class="modal-close" id="addVehicleModalClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="modal-step active">
+                <div class="modal-header">
+                    <h2>Add New Vehicle</h2>
+                    <p>Enter your vehicle registration number</p>
+                </div>
+
+                <form class="modal-form" id="addVehicleForm">
+                    <div class="form-group">
+                        <label for="newVehicleNumber">Vehicle Number</label>
+                        <div class="vehicle-input-container">
+                            <div class="flag-badge">
+                                <img src="/assets/Flag.png" alt="India Flag" />
+                            </div>
+                            <input type="text" id="newVehicleNumber" class="vehicle-input" placeholder="Enter Vehicle Number" required />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="modal-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Add Vehicle
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Populate user name from sessionStorage
+            const userName = sessionStorage.getItem('userName');
+            if (userName) {
+                const userNameElement = document.getElementById('userName');
+                const mobileUserNameElement = document.getElementById('mobileUserName');
+
+                if (userNameElement) {
+                    userNameElement.textContent = userName;
+                }
+                if (mobileUserNameElement) {
+                    mobileUserNameElement.textContent = userName;
+                }
+            }
+
+            // User Profile Dropdown functionality
+            const userProfileBtn = document.getElementById('userProfileBtn');
+            const userProfileDropdown = document.getElementById('userProfileDropdown');
+
+            if (userProfileBtn && userProfileDropdown) {
+                userProfileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userProfileBtn.classList.toggle('active');
+                    userProfileDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userProfileBtn.contains(e.target)) {
+                        userProfileBtn.classList.remove('active');
+                        userProfileDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+
+            function handleLogout(e) {
+                e.preventDefault();
+                // Clear session storage
+                sessionStorage.removeItem('userName');
+                sessionStorage.removeItem('userMobile');
+                sessionStorage.removeItem('vehicleNumber');
+                // Redirect to home page
+                window.location.href = 'index.html';
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', handleLogout);
+            }
+
+            // Sidebar tab switching
+            const sidebarTabs = document.querySelectorAll('.sidebar-tab');
+            const myChallansSection = document.getElementById('my-challans-section');
+            const myVehiclesSection = document.getElementById('my-vehicles-section');
+
+            sidebarTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    sidebarTabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+
+                    const tabType = this.getAttribute('data-tab');
+
+                    if (tabType === 'my-challans') {
+                        myChallansSection.style.display = 'block';
+                        myVehiclesSection.style.display = 'none';
+                    } else if (tabType === 'my-vehicles') {
+                        myChallansSection.style.display = 'none';
+                        myVehiclesSection.style.display = 'block';
+                    }
+                });
+            });
+
+            // Copy challan number functionality
+            const copyButtons = document.querySelectorAll('.copy-challan-btn');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const challanNumber = this.getAttribute('data-challan');
+
+                    // Copy to clipboard
+                    navigator.clipboard.writeText(challanNumber).then(() => {
+                        // Visual feedback
+                        const originalHTML = this.innerHTML;
+                        this.innerHTML = `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        `;
+                        this.style.color = '#10b981';
+
+                        // Reset after 2 seconds
+                        setTimeout(() => {
+                            this.innerHTML = originalHTML;
+                            this.style.color = '';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy:', err);
+                    });
+                });
+            });
+
+            // Vehicle details toggle functionality
+            const toggleButtons = document.querySelectorAll('.toggle-details-btn');
+            const vehicleHeaders = document.querySelectorAll('.vehicle-card-header');
+
+            vehicleHeaders.forEach((header, index) => {
+                header.addEventListener('click', function() {
+                    const button = this.querySelector('.toggle-details-btn');
+                    const vehicleId = button.getAttribute('data-vehicle');
+                    const detailsSection = document.getElementById(vehicleId);
+
+                    // Toggle expanded class
+                    detailsSection.classList.toggle('expanded');
+                    button.classList.toggle('active');
+                });
+            });
+
+            // Add Vehicle Modal functionality
+            const addVehicleBtn = document.getElementById('addVehicleBtn');
+            const addVehicleModal = document.getElementById('addVehicleModal');
+            const addVehicleModalClose = document.getElementById('addVehicleModalClose');
+            const addVehicleForm = document.getElementById('addVehicleForm');
+            const newVehicleNumber = document.getElementById('newVehicleNumber');
+
+            // Open modal
+            if (addVehicleBtn) {
+                addVehicleBtn.addEventListener('click', function() {
+                    addVehicleModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            // Close modal
+            function closeAddVehicleModal() {
+                addVehicleModal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (addVehicleForm) {
+                    addVehicleForm.reset();
+                }
+            }
+
+            if (addVehicleModalClose) {
+                addVehicleModalClose.addEventListener('click', closeAddVehicleModal);
+            }
+
+            // Close on overlay click
+            if (addVehicleModal) {
+                addVehicleModal.addEventListener('click', function(e) {
+                    if (e.target === addVehicleModal) {
+                        closeAddVehicleModal();
+                    }
+                });
+            }
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && addVehicleModal.classList.contains('active')) {
+                    closeAddVehicleModal();
+                }
+            });
+
+            // Handle form submission
+            if (addVehicleForm) {
+                addVehicleForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const vehicleNumber = newVehicleNumber.value.trim().toUpperCase();
+
+                    if (!vehicleNumber) {
+                        alert('Please enter a vehicle number');
+                        return;
+                    }
+
+                    // Store vehicle number (in production, send to API)
+                    console.log('Adding vehicle:', vehicleNumber);
+
+                    // Close modal and show success message
+                    closeAddVehicleModal();
+                    alert(`Vehicle ${vehicleNumber} added successfully!`);
+                });
+            }
+
+            // Auto-uppercase vehicle input
+            if (newVehicleNumber) {
+                newVehicleNumber.addEventListener('input', function() {
+                    this.value = this.value.toUpperCase();
+                });
+            }
+        });
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>

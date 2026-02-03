@@ -13,6 +13,184 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components/user-profile.css">
+
+    <style>
+        /* Video Testimonials Section */
+        .video-testimonials {
+            background: #f9fafb;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .video-testimonial {
+            aspect-ratio: 9 / 16;
+            cursor: pointer;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .video-testimonial:hover .video-container {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .video-play-btn:hover {
+            transform: scale(1.1);
+            background: white;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-play-btn svg {
+            margin-left: 2px;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            background: #000;
+            max-width: 90vw;
+            width: auto;
+            padding: 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .video-modal .modal-close {
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            z-index: 100;
+        }
+
+        .video-modal .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .video-player-wrapper {
+            aspect-ratio: 9 / 16;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .video-player-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 1024px) {
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 1rem;
+            }
+
+            .video-play-btn {
+                width: 60px;
+                height: 60px;
+            }
+
+            .video-play-btn svg {
+                width: 48px;
+                height: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .video-play-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .video-play-btn svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .video-player-wrapper {
+                max-height: 85vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .video-testimonial {
+                min-height: 300px;
+            }
+
+            .video-play-btn {
+                width: 45px;
+                height: 45px;
+            }
+
+            .video-play-btn svg {
+                width: 32px;
+                height: 32px;
+            }
+
+            .video-modal {
+                max-width: 100vw;
+                border-radius: 12px;
+            }
+
+            .video-player-wrapper {
+                max-height: 80vh;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -20,7 +198,7 @@
         <nav class="nav-container container">
             <a href="#" class="logo"><img src="/assets/ChallanPay-FINAL 3.png" alt="ChallanPay Logo"></a>
             <ul class="nav-links">
-                <li><a href="#grap">Road Smart Partners<span class="nav-badge">NEW</span></a></li>
+                <li><a href="road-smart-partners.html">Road Smart Partners<span class="nav-badge">NEW</span></a></li>
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#whatsapp">Support</a></li>
                 <li><a href="blogs.html">Blogs</a></li>
@@ -69,7 +247,7 @@
         <!-- Mobile Navigation -->
         <nav class="mobile-nav" aria-hidden="true">
             <ul class="mobile-nav-links">
-                <li><a href="#grap">Road Smart Partners<span class="nav-badge">NEW</span></a></li>
+                <li><a href="road-smart-partners.html">Road Smart Partners<span class="nav-badge">NEW</span></a></li>
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#whatsapp">Support</a></li>
                 <li><a href="blogs.html">Blogs</a></li>
@@ -117,7 +295,7 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <span class="hero-badge reveal">As featured on Ideabaaz, Aired on Zee TV</span>
-                    <h1 class="reveal">Challan Pay, Anytime Anywhere</h1>
+                    <h1 class="reveal">ChallanPay, Anytime Anywhere</h1>
                     <p class="reveal">ChallanPay brings you a fast, secure, and hassle-free way <br> to settle your traffic challans online.</p>
                 </div>
 
@@ -139,6 +317,21 @@
                             <p class="savings-text">Savings on Legal Fees, trusted by India's responsible citizens.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="multiple-vehicles-cta">
+        <div class="container">
+            <div class="reveal">
+                    <picture>
+                    <!-- Mobile image -->
+                    <source  class="banner-pg" media="(max-width: 480px)" srcset="assets/PG-mobile.png">
+
+                     <!-- Desktop image (fallback) -->
+                    <img src="/assets/PG.png" alt="prateek-gandhi" class="banner-pg">
+                    </picture>
                 </div>
             </div>
         </div>
@@ -176,21 +369,6 @@
                     </div>
                     <div class="stat-number">98%</div>
                     <div class="stat-label">Successful Resolutions</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-     <section class="multiple-vehicles-cta">
-        <div class="container">
-            <div class="reveal">
-                    <picture>
-                    <!-- Mobile image -->
-                    <source  class="banner-pg" media="(max-width: 480px)" srcset="assets/PG-mobile.png">
-    
-                     <!-- Desktop image (fallback) -->
-                    <img src="/assets/PG.png" alt="prateek-gandhi" class="banner-pg">
-                    </picture>
                 </div>
             </div>
         </div>
@@ -742,6 +920,97 @@
         </div>
     </section>
 
+    <!-- Video Testimonials Section -->
+    <section class="section video-testimonials" style="display: none;">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">VIDEO TESTIMONIALS</span>
+                <h2>Watch Real Customers Share Their Experience</h2>
+                <p class="mt-md">See how ChallanPay has helped thousands of vehicle owners resolve their challans</p>
+            </div>
+
+            <div class="video-grid">
+                <!-- Video Testimonial 1 -->
+                <div class="video-testimonial reveal">
+                    <div class="video-container">
+                        <video>
+                            <source src="" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="video-play-btn" data-video="1">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Testimonial 2 -->
+                <div class="video-testimonial reveal">
+                    <div class="video-container">
+                        <video>
+                            <source src="" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="video-play-btn" data-video="2">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Testimonial 3 -->
+                <div class="video-testimonial reveal">
+                    <div class="video-container">
+                        <video>
+                            <source src="" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="video-play-btn" data-video="3">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Testimonial 4 -->
+                <div class="video-testimonial reveal">
+                    <div class="video-container">
+                        <video>
+                            <source src="" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="video-play-btn" data-video="4">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Player Modal -->
+    <div class="modal-overlay" id="videoModal">
+        <div class="modal-container video-modal">
+            <button class="modal-close" id="videoModalClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="video-player-wrapper">
+                <video id="videoPlayer" controls>
+                    <source id="videoSource" src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
      <!-- Need Help Section -->
     <section class="need-help-section">
         <div class="container">
@@ -880,7 +1149,10 @@
 
                     <div class="form-group">
                         <label for="modalUserMobile">Mobile Number</label>
-                        <input type="tel" id="modalUserMobile" name="userMobile" placeholder="Enter 10-digit mobile number" maxlength="10" pattern="[0-9]{10}" required>
+                        <div class="phone-input-wrapper">
+                            <span class="phone-prefix">+91</span>
+                            <input type="tel" id="modalUserMobile" name="userMobile" placeholder="Enter 10-digit mobile number" maxlength="10" pattern="[0-9]{10}" required>
+                        </div>
                     </div>
 
                     <button type="submit" class="modal-btn">
@@ -973,6 +1245,143 @@
     </div>
 
     <!-- JavaScript -->
+    <script>
+        // User Profile Dropdown functionality - needs to be inline to ensure it loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Desktop User Profile Dropdown
+            const userProfileBtn = document.getElementById('userProfileBtn');
+            const userProfileDropdown = document.getElementById('userProfileDropdown');
+
+            if (userProfileBtn && userProfileDropdown) {
+                userProfileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userProfileBtn.classList.toggle('active');
+                    userProfileDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userProfileBtn.contains(e.target)) {
+                        userProfileBtn.classList.remove('active');
+                        userProfileDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Mobile User Profile Dropdown
+            const mobileUserProfileBtn = document.getElementById('mobileUserProfileBtn');
+            const mobileUserProfileDropdown = document.getElementById('mobileUserProfileDropdown');
+
+            if (mobileUserProfileBtn && mobileUserProfileDropdown) {
+                mobileUserProfileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    mobileUserProfileBtn.classList.toggle('active');
+                    mobileUserProfileDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!mobileUserProfileBtn.contains(e.target)) {
+                        mobileUserProfileBtn.classList.remove('active');
+                        mobileUserProfileDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Populate user name from sessionStorage
+            const userName = sessionStorage.getItem('userName');
+            if (userName) {
+                const userNameElement = document.getElementById('userName');
+                const mobileUserNameDisplay = document.getElementById('mobileUserNameDisplay');
+
+                if (userNameElement) {
+                    userNameElement.textContent = userName;
+                }
+                if (mobileUserNameDisplay) {
+                    mobileUserNameDisplay.textContent = userName;
+                }
+            }
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+
+            function handleLogout(e) {
+                e.preventDefault();
+                sessionStorage.removeItem('userName');
+                sessionStorage.removeItem('userMobile');
+                sessionStorage.removeItem('vehicleNumber');
+                window.location.href = 'index.html';
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', handleLogout);
+            }
+
+            // Video Modal Functionality
+            const videoPlayButtons = document.querySelectorAll('.video-play-btn');
+            const videoModal = document.getElementById('videoModal');
+            const videoModalClose = document.getElementById('videoModalClose');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoSource = document.getElementById('videoSource');
+
+            // Video sources array
+            const videoSources = {
+                1: '/assets/V1.mp4',
+                2: '/assets/V2.mp4',
+                3: '/assets/V1.mp4',
+                4: '/assets/V2.mp4'
+            };
+
+            videoPlayButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const videoId = this.getAttribute('data-video');
+                    const videoSrc = videoSources[videoId];
+
+                    if (videoSrc) {
+                        videoSource.src = videoSrc;
+                        videoPlayer.load();
+                        videoModal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                        videoPlayer.play();
+                    }
+                });
+            });
+
+            // Close modal
+            function closeVideoModal() {
+                videoModal.classList.remove('active');
+                document.body.style.overflow = '';
+                videoPlayer.pause();
+                videoPlayer.currentTime = 0;
+                videoSource.src = '';
+            }
+
+            if (videoModalClose) {
+                videoModalClose.addEventListener('click', closeVideoModal);
+            }
+
+            // Close on overlay click
+            if (videoModal) {
+                videoModal.addEventListener('click', function(e) {
+                    if (e.target === videoModal) {
+                        closeVideoModal();
+                    }
+                });
+            }
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                    closeVideoModal();
+                }
+            });
+        });
+    </script>
     <script src="js/main.js"></script>
 </body>
 </html>

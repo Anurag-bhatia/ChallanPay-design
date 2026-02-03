@@ -345,11 +345,15 @@
 .challan-id {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     gap: 4px;
     width: 100%;
     max-width: 100%;
+}
+
+.challan-id .challan-badge {
+    margin-left: auto;
 }
 
 .id-label {
@@ -365,6 +369,34 @@
     color: var(--text-primary);
     font-weight: 400;
     font-family: var(--font-display);
+}
+
+.copy-challan-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.copy-challan-btn:hover {
+    background: var(--bg-secondary);
+    color: var(--primary);
+}
+
+.copy-challan-btn:active {
+    transform: scale(0.95);
+}
+
+.copy-challan-btn svg {
+    width: 16px;
+    height: 16px;
 }
 
 .challan-badge {

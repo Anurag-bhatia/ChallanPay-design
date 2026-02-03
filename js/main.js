@@ -581,5 +581,5 @@ document.addEventListener('DOMContentLoaded', function() {
     initVerificationModal();
     initHowItWorksAccordion();
     initWhatsAppModal();
-    initUserProfile();
+    // initUserProfile(); // Handled by inline scripts on each page to avoid duplicate event listeners
 });

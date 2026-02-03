@@ -126,11 +126,11 @@
         const vehicleNumber = sessionStorage.getItem('vehicleNumber');
         console.log('Vehicle number from storage:', vehicleNumber);
 
-        // Redirect to status page after 3 seconds (simulating challan check)
+        // Redirect to status page after 7 seconds (simulating challan check)
         setTimeout(function() {
             console.log('Redirecting to status page...');
             window.location.href = `status.html?vehicle=${encodeURIComponent(vehicleNumber)}`;
-        }, 3000);
+        }, 7000);
     </script>
 </body>
 </html>
