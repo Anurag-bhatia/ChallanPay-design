@@ -171,7 +171,7 @@ function copyChallanId(button) {
         }, 2000);
     }).catch(err => {
         console.error('Failed to copy:', err);
-        alert('Failed to copy challan ID');
+        Toast.error('Copy Failed', 'Could not copy challan ID to clipboard');
     });
 }
 
@@ -212,7 +212,7 @@ if (proceedBtn) {
             .filter(id => id !== null);
 
         if (selectedChallans.length === 0) {
-            alert('Please select at least one challan to proceed');
+            Toast.warning('No Challans Selected', 'Please select at least one challan to proceed');
             return;
         }
 

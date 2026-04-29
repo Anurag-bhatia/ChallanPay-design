@@ -271,6 +271,30 @@
     margin: 0;
 }
 
+/* Reward Claim Card */
+.reward-claim-card {
+    background: linear-gradient(to right, #cffafe 0%, #ffffff 50%, #cffafe 100%);
+    border: none;
+    border-radius: 16px;
+    padding: var(--space-sm) var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reward-claim-card span {
+    font-size: 0.9375rem;
+    color: #000000;
+    font-weight: 500;
+    transition: opacity 0.5s ease-in-out;
+    text-align: center;
+}
+
+.reward-claim-card strong {
+    font-weight: 700;
+    color: #000000;
+}
+
 /* Pledge Card */
 .pledge-card {
     background: white;
@@ -355,7 +379,7 @@
     padding: var(--space-sm) var(--space-md);
     background: #FEFCE8;
     border-radius: 12px;
-    color: #A16207;
+    color: #854D0E;
     font-size: 0.9375rem;
     font-weight: 600;
 }
@@ -808,6 +832,14 @@
         font-size: 0.875rem;
     }
 
+    .reward-claim-card {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .reward-claim-card span {
+        font-size: 0.875rem;
+    }
+
     .pledge-card {
         padding: var(--space-md);
     }
@@ -855,6 +887,14 @@
 
 /* Extra Small Mobile */
 @media (max-width: 480px) {
+    .reward-claim-card {
+        padding: var(--space-sm);
+    }
+
+    .reward-claim-card span {
+        font-size: 0.8125rem;
+    }
+
     .resolution-type-wrapper {
         padding: var(--space-sm) var(--space-md);
     }

@@ -184,8 +184,16 @@ function initCheckButton() {
             const vehicleInput = document.querySelector('.vehicle-input');
             const vehicleNumber = vehicleInput ? vehicleInput.value.trim() : '';
 
+            // Clear any previous field errors
+            FieldError.clear(vehicleInput);
+
             if (!vehicleNumber) {
-                alert('Please enter a vehicle number');
+                FieldError.show(vehicleInput, 'Please enter a vehicle number');
+                return;
+            }
+
+            if (!isValidVehicleNumber(vehicleNumber)) {
+                FieldError.show(vehicleInput, 'Invalid format. Use: DL01AB1234');
                 return;
             }
 
@@ -256,7 +264,8 @@ function initVerificationModal() {
 
             // Validate mobile number
             if (!/^[0-9]{10}$/.test(mobile)) {
-                alert('Please enter a valid 10-digit mobile number');
+                var mobileInput = document.getElementById('modalUserMobile');
+                FieldError.show(mobileInput, 'Please enter a valid 10-digit mobile number');
                 return;
             }
 
@@ -328,7 +337,7 @@ function initVerificationModal() {
             });
 
             if (otp.length !== 4) {
-                alert('Please enter complete 4-digit OTP');
+                Toast.error('Incomplete OTP', 'Please enter the complete 4-digit OTP');
                 return;
             }
 
@@ -358,7 +367,7 @@ function initVerificationModal() {
         resendOtpBtn.addEventListener('click', function() {
             const mobile = sessionStorage.getItem('userMobile');
             console.log('Resending OTP to:', mobile);
-            alert('OTP has been resent to your mobile number');
+            Toast.success('OTP Resent', 'A new OTP has been sent to your mobile number');
 
             // Clear OTP inputs
             otpInputs.forEach(input => {
@@ -458,7 +467,7 @@ function initWhatsAppModal() {
             const vehicleCount = document.getElementById('vehicleCount').value;
 
             if (!companyName || !vehicleCount) {
-                alert('Please fill in all fields');
+                Toast.error('Missing Information', 'Please fill in all fields');
                 return;
             }
 

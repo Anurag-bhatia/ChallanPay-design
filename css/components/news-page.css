@@ -1,0 +1,358 @@
+/* ==========================================================================
+   News Page Styles
+   All classes prefixed with np- to avoid conflicts with news.css (homepage carousel)
+   ========================================================================== */
+
+/* =================================================================
+   Featured News Section - Horizontal Carousel
+   ================================================================= */
+
+.np-featured {
+    padding: var(--space-xl) 0;
+    background: var(--bg-primary);
+}
+
+.np-featured-wrapper {
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+    max-width: 1280px;
+    margin: 0 auto;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Left intro panel */
+.np-featured-intro {
+    flex-shrink: 0;
+    width: 280px;
+    background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 28px;
+    padding: 48px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative blob overlay */
+.np-featured-intro::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.np-featured-intro::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+}
+
+.np-featured-intro .np-section-title {
+    font-size: clamp(1.625rem, 2.5vw, 2.125rem);
+    font-weight: 800;
+    color: white;
+    font-family: var(--font-display);
+    margin: 0;
+    line-height: 1.25;
+    position: relative;
+}
+
+.np-featured-intro .np-section-subtitle {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+    margin: 0;
+    position: relative;
+}
+
+.np-carousel-nav {
+    display: flex;
+    gap: 12px;
+    position: relative;
+}
+
+.np-nav-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.np-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: white;
+    transform: scale(1.08);
+}
+
+.np-nav-btn:active {
+    transform: scale(0.95);
+}
+
+/* Scrollable card track */
+.np-carousel-track {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 28px 28px 28px 20px;
+    flex: 1;
+}
+
+.np-carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* Featured carousel cards - reuse .news-card styles with carousel overrides */
+.np-carousel-card {
+    flex-shrink: 0;
+    width: 300px;
+    min-width: 300px;
+    scroll-snap-align: start;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 20px !important;
+    box-shadow: none !important;
+}
+
+.np-carousel-card .news-content {
+    max-width: 100%;
+}
+
+.np-carousel-card:hover {
+    border-color: var(--primary) !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* =================================================================
+   Shared Components
+   ================================================================= */
+
+.np-section-header {
+    margin-bottom: var(--space-xl);
+}
+
+.np-section-title {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    margin: 0;
+}
+
+/* =================================================================
+   All News Grid Section - Reuses .news-card from news.css (homepage)
+   ================================================================= */
+
+.np-grid-section {
+    padding: var(--space-2xl) 0;
+    background: var(--bg-primary);
+}
+
+.np-grid-section .np-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.np-grid-section .np-section-title {
+    color: var(--text-primary);
+}
+
+/* Year Tabs */
+.np-year-tabs {
+    display: flex;
+    gap: 0;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.np-year-tab {
+    padding: 10px 28px;
+    border: none;
+    border-right: 1px solid #E2E8F0;
+    background: transparent;
+    color: var(--text-light);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.np-year-tab:last-child {
+    border-right: none;
+}
+
+.np-year-tab:hover {
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+}
+
+.np-year-tab.active {
+    background: var(--text-primary);
+    color: white;
+}
+
+/* Tab panels */
+.np-tab-panel {
+    display: none;
+}
+
+.np-tab-panel.active {
+    display: block;
+}
+
+.np-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: var(--space-2xl);
+}
+
+/* Override carousel-specific styles when cards are in the grid */
+.np-grid-section .np-grid .news-card {
+    min-width: unset;
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #E2E8F0 !important;
+    box-shadow: none !important;
+}
+
+.np-grid-section .np-grid .news-card:hover {
+    border-color: var(--primary) !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.np-grid-section .np-grid .news-content {
+    max-width: 100%;
+}
+
+/* =================================================================
+   Responsive Design
+   ================================================================= */
+
+@media (max-width: 1200px) {
+    .np-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .np-featured-wrapper {
+        margin: 0 20px;
+    }
+
+    .np-carousel-card {
+        width: 280px;
+    }
+}
+
+@media (max-width: 968px) {
+    .np-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .np-featured-intro {
+        width: 240px;
+        padding: 36px 28px;
+    }
+
+    .np-carousel-card {
+        width: 260px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .np-featured-wrapper {
+        flex-direction: column;
+        border-radius: 24px;
+        margin: 0 16px;
+    }
+
+    .np-featured-intro {
+        width: 100%;
+        border-radius: 24px 24px 0 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 28px;
+        gap: 16px;
+    }
+
+    .np-featured-intro .np-section-subtitle {
+        display: none;
+    }
+
+    .np-carousel-track {
+        padding: 20px 16px;
+    }
+
+    .np-carousel-card {
+        width: 260px;
+    }
+
+    .np-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .np-grid-section {
+        padding: var(--space-xl) 0;
+    }
+
+    .np-section-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .np-featured-wrapper {
+        margin: 0 12px;
+        border-radius: 20px;
+    }
+
+    .np-featured-intro {
+        padding: 20px 22px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .np-featured-intro .np-section-title {
+        font-size: 1.25rem;
+    }
+
+    .np-nav-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .np-carousel-card {
+        width: 240px;
+    }
+
+}
