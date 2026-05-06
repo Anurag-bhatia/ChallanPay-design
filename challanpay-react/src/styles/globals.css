@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import "@fontsource/sora/300.css";
+@import "@fontsource/sora/400.css";
+@import "@fontsource/sora/600.css";
+@import "@fontsource/sora/700.css";
+@import "@fontsource/sora/800.css";
+@import "@fontsource/dm-sans/400.css";
+@import "@fontsource/dm-sans/500.css";
+@import "@fontsource/dm-sans/700.css";
+
+@theme {
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --color-primary: #0891B2;
+  --color-primary-dark: #0E7490;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #004E89;
+  --color-secondary-light: #1A659E;
+  --color-accent: #FFB627;
+  --color-success: #31AB76;
+  --color-warning: #F59E0B;
+  --color-destructive: #EF4444;
+  --color-info: #0EA5E9;
+  --color-bg-dark: #0A1628;
+
+  --color-border: #E4E4E7;
+  --color-input: #E4E4E7;
+  --color-ring: #0891B2;
+  --color-muted: #F4F4F5;
+  --color-muted-foreground: #737373;
+
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #4B5563;
+  --color-text-light: #6B7280;
+
+  --breakpoint-xs: 480px;
+}
+
+@layer base {
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+}
+
+/* Custom animations */
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-scroll-left {
+  animation: scroll-left 30s linear infinite;
+}
+
+@utility animate-shimmer {
+  animation: shimmer 2s linear infinite;
+  background-size: 200% 100%;
+}
+
+@utility animate-pulse-scale {
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+@utility animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+@utility animate-slide-down {
+  animation: slide-down 0.4s ease-out forwards;
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
