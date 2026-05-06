@@ -782,7 +782,7 @@ function DashboardSection() {
   ]
 
   return (
-    <div className="bg-[#F9FAFB] min-h-screen py-6">
+    <div className="bg-[#F9FAFB] min-h-screen py-6 overflow-x-hidden">
     <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-6">
       {/* Welcome Header */}
       <div className="bg-white rounded-2xl border border-border p-5 mb-6 flex items-center gap-4">
@@ -838,7 +838,7 @@ function DashboardSection() {
                   transition={{ duration: 0.15 }}
                 >
                   {/* Stats Grid */}
-                  <div className="grid grid-cols-4 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {STATS_CARDS.map((card) => (
                       <div key={card.label} className="bg-white rounded-xl border border-border p-4">
                         <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center mb-3', card.color)}>
@@ -895,15 +895,17 @@ function DashboardSection() {
                             key={challan.id}
                             className="bg-white rounded-xl border border-border p-5 hover:border-primary/30 transition-all"
                           >
-                            <p className="font-display font-bold text-sm text-text-primary truncate mb-2">
-                              {challan.challanNumber}
-                            </p>
-                            <span className={cn(
-                              'inline-block text-[10px] font-bold uppercase px-2.5 py-1 rounded-full mb-3',
-                              STATUS_BADGE[challan.status].className
-                            )}>
-                              {challan.status === 'not-settled' ? t.trackStatus.notSettled : challan.status === 'in-progress' ? t.trackStatus.inProgress : challan.status === 'resolved' ? t.trackStatus.resolved : t.trackStatus.refund}
-                            </span>
+                            <div className="flex items-center justify-between gap-2 mb-3">
+                              <p className="font-display font-bold text-sm text-text-primary truncate">
+                                {challan.challanNumber}
+                              </p>
+                              <span className={cn(
+                                'flex-shrink-0 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full',
+                                STATUS_BADGE[challan.status].className
+                              )}>
+                                {challan.status === 'not-settled' ? t.trackStatus.notSettled : challan.status === 'in-progress' ? t.trackStatus.inProgress : challan.status === 'resolved' ? t.trackStatus.resolved : t.trackStatus.refund}
+                              </span>
+                            </div>
                             <div className="space-y-1.5 text-sm text-text-secondary">
                               <p>{t.trackStatus.vehicle}: <span className="font-medium text-text-primary">{challan.vehicleNumber}</span></p>
                               <p>{t.trackStatus.incident}: <span className="font-medium text-text-primary">{challan.incidentId}</span></p>

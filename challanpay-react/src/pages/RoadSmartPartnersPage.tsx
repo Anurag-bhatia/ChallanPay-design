@@ -248,7 +248,7 @@ export function RoadSmartPartnersPage() {
       <RegistrationModal open={isFormOpen} onClose={() => setIsFormOpen(false)} />
 
       {/* ── Hero ── */}
-      <section className="relative pt-8 md:pt-12 pb-16 md:pb-20 overflow-hidden bg-gradient-to-br from-[#f0fdfa] via-white to-[#ecfdf5]">
+      <section className="relative pt-14 md:pt-20 pb-16 md:pb-20 overflow-hidden bg-gradient-to-br from-[#f0fdfa] via-white to-[#ecfdf5]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto">
@@ -277,7 +277,7 @@ export function RoadSmartPartnersPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {stats.map((s, i) => (
               <ScrollReveal key={i} delay={i * 0.08}>
-                <div className="flex items-center gap-4 p-5 md:p-6 rounded-2xl bg-muted/50">
+                <div className="flex flex-col items-center text-center gap-3 p-5 md:p-6 rounded-2xl bg-muted/50 h-full">
                   <div className="w-12 h-12 md:w-14 md:h-14 flex-shrink-0">
                     <img src={s.icon} alt="" className="w-full h-full object-contain" />
                   </div>
