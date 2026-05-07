@@ -695,7 +695,7 @@ function SidebarTabButton({
       className={cn(
         'flex-1 md:flex-none flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all relative',
         active
-          ? 'bg-primary text-white shadow-md border-l-4 border-l-primary/50 md:border-l-4'
+          ? 'bg-primary text-white'
           : 'bg-white border border-border text-text-secondary hover:bg-gray-50'
       )}
     >
