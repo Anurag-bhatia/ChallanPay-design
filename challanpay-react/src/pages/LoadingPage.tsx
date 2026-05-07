@@ -15,7 +15,7 @@ export function LoadingPage() {
   }, [navigate, vehicle])
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
+    <div className="h-screen flex flex-col items-center justify-center bg-white px-4 overflow-hidden">
       <DotLottieReact
         src="/lottie/loading.json"
         loop

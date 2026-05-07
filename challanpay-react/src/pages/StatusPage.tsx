@@ -277,7 +277,7 @@ export function StatusPage() {
 
                 {/* Proceed Bar */}
                 {selectedIds.length > 0 && (
-              <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] sm:static sm:sticky sm:bottom-4 sm:rounded-2xl sm:border sm:border-border sm:shadow-xl overflow-hidden animate-slide-down">
+              <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] animate-slide-down">
                 {/* Pledge & Claim Rewards banner */}
                 <div className="flex items-center justify-between px-4 py-2.5 bg-amber-50 border-b border-amber-200">
                   <span className="text-sm font-semibold text-amber-700">{t.status.pledgeAndClaimRewards}</span>
@@ -285,16 +285,16 @@ export function StatusPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                   </svg>
                 </div>
-                <div className="p-4 flex items-center justify-between">
-                  <div>
-                    <p className="font-display text-xl font-bold text-text-primary">
+                <div className="px-4 py-3 flex items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-xs text-text-light">{t.status.totalAmountToPay}</p>
+                    <p className="font-display text-lg font-bold text-text-primary">
                       ₹{totalAmount.toLocaleString('en-IN')}
                     </p>
-                    <p className="text-sm text-text-secondary">{t.status.totalAmountToPay}</p>
                   </div>
                   <button
                     onClick={handleProceed}
-                    className="px-6 sm:px-10 py-3.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors shadow-md"
+                    className="flex-shrink-0 px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors shadow-md text-sm"
                   >
                     {`${t.status.proceedToPay} >`}
                   </button>

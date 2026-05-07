@@ -303,7 +303,7 @@ export const hi: TranslationKeys = {
 
   // Track Status Page
   trackStatus: {
-    loginTitle: 'अपनी ट्रैक स्थिति जाँचने के लिए लॉगिन करें',
+    loginTitle: 'अपने चालान की स्थिति ट्रैक करने के लिए लॉगिन करें',
     loginSubtitle: 'हम आपका नंबर सत्यापित करने के लिए OTP भेजेंगे',
     fullName: 'पूरा नाम',
     fullNamePlaceholder: 'अपना पूरा नाम दर्ज करें',

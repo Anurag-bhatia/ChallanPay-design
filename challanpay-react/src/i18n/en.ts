@@ -301,7 +301,7 @@ export const en = {
 
   // Track Status Page
   trackStatus: {
-    loginTitle: 'Login to check your track status',
+    loginTitle: 'Login to track your challan status',
     loginSubtitle: "We'll send you an OTP to verify your number",
     fullName: 'Full Name',
     fullNamePlaceholder: 'Enter your full name',

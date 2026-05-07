@@ -248,7 +248,7 @@ export function RoadSmartPartnersPage() {
       <RegistrationModal open={isFormOpen} onClose={() => setIsFormOpen(false)} />
 
       {/* ── Hero ── */}
-      <section className="relative pt-14 md:pt-20 pb-16 md:pb-20 overflow-hidden bg-gradient-to-br from-[#f0fdfa] via-white to-[#ecfdf5]">
+      <section className="relative pt-20 md:pt-28 pb-20 md:pb-24 overflow-hidden bg-gradient-to-br from-[#f0fdfa] via-white to-[#ecfdf5]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto">

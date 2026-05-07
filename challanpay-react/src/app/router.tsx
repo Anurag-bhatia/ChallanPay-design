@@ -21,6 +21,7 @@ const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage').then(m 
 const TermsPage = lazy(() => import('@/pages/TermsPage').then(m => ({ default: m.TermsPage })))
 const RoadSmartPartnersPage = lazy(() => import('@/pages/RoadSmartPartnersPage').then(m => ({ default: m.RoadSmartPartnersPage })))
 const TrackStatusPage = lazy(() => import('@/pages/TrackStatusPage').then(m => ({ default: m.TrackStatusPage })))
+const ProfilePage = lazy(() => import('@/pages/ProfilePage').then(m => ({ default: m.ProfilePage })))
 
 function PageFallback() {
   return (
@@ -51,6 +52,7 @@ export const router = createBrowserRouter([
       { path: 'terms', element: withSuspense(TermsPage) },
       { path: 'road-smart-partners', element: withSuspense(RoadSmartPartnersPage) },
       { path: 'track-status', element: withSuspense(TrackStatusPage) },
+      { path: 'profile', element: withSuspense(ProfilePage) },
     ],
   },
   {

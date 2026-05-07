@@ -840,12 +840,14 @@ function DashboardSection() {
                   {/* Stats Grid */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {STATS_CARDS.map((card) => (
-                      <div key={card.label} className="bg-white rounded-xl border border-border p-4">
-                        <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center mb-3', card.color)}>
-                          <card.icon className="w-5 h-5" />
+                      <div key={card.label} className="bg-white rounded-xl border border-border p-4 flex items-start gap-3">
+                        <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0', card.color)}>
+                          <card.icon className="w-4 h-4" />
                         </div>
-                        <p className="font-display text-2xl font-bold text-text-primary">{card.value}</p>
-                        <p className="text-xs text-text-secondary mt-1">{card.label}</p>
+                        <div>
+                          <p className="font-display text-2xl font-bold text-text-primary">{card.value}</p>
+                          <p className="text-xs text-text-secondary mt-0.5">{card.label}</p>
+                        </div>
                       </div>
                     ))}
                   </div>
