@@ -174,21 +174,13 @@ export function StatusPage() {
           <div className="space-y-6">
             {/* Vehicle Info Card */}
             <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-4">
-              <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-20 h-14 object-contain" />
+              <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-20 h-14 object-contain flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-text-light">Hyundai Creta</p>
                 <p className="font-display font-bold text-text-primary text-lg">{vehicle}</p>
               </div>
-              <span className="hidden sm:inline-flex items-center gap-2 pl-2 pr-5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-sm font-semibold whitespace-nowrap">
-                <img src="/images/govt-verified-badge.png" alt="" className="w-8 h-8" />
-                Govt. Verified Data
-              </span>
-            </div>
-
-            {/* Mobile-only verified badge below card */}
-            <div className="sm:hidden -mt-3">
-              <span className="inline-flex items-center gap-2 pl-2 pr-5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-sm font-semibold whitespace-nowrap">
-                <img src="/images/govt-verified-badge.png" alt="" className="w-8 h-8" />
+              <span className="inline-flex items-center gap-1.5 sm:gap-2 pl-1.5 sm:pl-2 pr-3 sm:pr-5 py-1 sm:py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] sm:text-sm font-semibold whitespace-nowrap flex-shrink-0">
+                <img src="/images/govt-verified-badge.png" alt="" className="w-5 h-5 sm:w-8 sm:h-8" />
                 Govt. Verified Data
               </span>
             </div>
