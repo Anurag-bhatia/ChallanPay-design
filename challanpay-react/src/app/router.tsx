@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, type ComponentType } from 'react'
 import { createBrowserRouter } from 'react-router'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { AppLayout } from '@/components/layout/AppLayout'
@@ -6,22 +6,46 @@ import { AppLayout } from '@/components/layout/AppLayout'
 // Eagerly load the homepage (critical path)
 import { HomePage } from '@/pages/HomePage'
 
+// Reload once when a lazy chunk 404s after a deploy (stale index.html).
+const RELOAD_KEY = 'cp:chunk-reloaded'
+function lazyWithReload<T extends ComponentType<unknown>>(
+  factory: () => Promise<{ default: T }>,
+) {
+  return lazy(async () => {
+    try {
+      return await factory()
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err)
+      const isChunkError =
+        /Failed to fetch dynamically imported module/i.test(msg) ||
+        /Importing a module script failed/i.test(msg) ||
+        /ChunkLoadError/i.test(msg)
+      if (isChunkError && typeof window !== 'undefined' && !sessionStorage.getItem(RELOAD_KEY)) {
+        sessionStorage.setItem(RELOAD_KEY, '1')
+        window.location.reload()
+        return { default: (() => null) as unknown as T }
+      }
+      throw err
+    }
+  })
+}
+
 // Lazy-load all other pages (bundle-dynamic-imports)
-const DashboardPage = lazy(() => import('@/pages/DashboardPage').then(m => ({ default: m.DashboardPage })))
-const StatusPage = lazy(() => import('@/pages/StatusPage').then(m => ({ default: m.StatusPage })))
-const PaymentPage = lazy(() => import('@/pages/PaymentPage').then(m => ({ default: m.PaymentPage })))
-const PaymentCompletedPage = lazy(() => import('@/pages/PaymentCompletedPage').then(m => ({ default: m.PaymentCompletedPage })))
-const ChallanDetailsPage = lazy(() => import('@/pages/ChallanDetailsPage').then(m => ({ default: m.ChallanDetailsPage })))
-const LoadingPage = lazy(() => import('@/pages/LoadingPage').then(m => ({ default: m.LoadingPage })))
-const BlogsPage = lazy(() => import('@/pages/BlogsPage').then(m => ({ default: m.BlogsPage })))
-const NewsPage = lazy(() => import('@/pages/NewsPage').then(m => ({ default: m.NewsPage })))
-const EventsPage = lazy(() => import('@/pages/EventsPage').then(m => ({ default: m.EventsPage })))
-const FAQPage = lazy(() => import('@/pages/FAQPage').then(m => ({ default: m.FAQPage })))
-const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })))
-const TermsPage = lazy(() => import('@/pages/TermsPage').then(m => ({ default: m.TermsPage })))
-const RoadSmartPartnersPage = lazy(() => import('@/pages/RoadSmartPartnersPage').then(m => ({ default: m.RoadSmartPartnersPage })))
-const TrackStatusPage = lazy(() => import('@/pages/TrackStatusPage').then(m => ({ default: m.TrackStatusPage })))
-const ProfilePage = lazy(() => import('@/pages/ProfilePage').then(m => ({ default: m.ProfilePage })))
+const DashboardPage = lazyWithReload(() => import('@/pages/DashboardPage').then(m => ({ default: m.DashboardPage })))
+const StatusPage = lazyWithReload(() => import('@/pages/StatusPage').then(m => ({ default: m.StatusPage })))
+const PaymentPage = lazyWithReload(() => import('@/pages/PaymentPage').then(m => ({ default: m.PaymentPage })))
+const PaymentCompletedPage = lazyWithReload(() => import('@/pages/PaymentCompletedPage').then(m => ({ default: m.PaymentCompletedPage })))
+const ChallanDetailsPage = lazyWithReload(() => import('@/pages/ChallanDetailsPage').then(m => ({ default: m.ChallanDetailsPage })))
+const LoadingPage = lazyWithReload(() => import('@/pages/LoadingPage').then(m => ({ default: m.LoadingPage })))
+const BlogsPage = lazyWithReload(() => import('@/pages/BlogsPage').then(m => ({ default: m.BlogsPage })))
+const NewsPage = lazyWithReload(() => import('@/pages/NewsPage').then(m => ({ default: m.NewsPage })))
+const EventsPage = lazyWithReload(() => import('@/pages/EventsPage').then(m => ({ default: m.EventsPage })))
+const FAQPage = lazyWithReload(() => import('@/pages/FAQPage').then(m => ({ default: m.FAQPage })))
+const PrivacyPolicyPage = lazyWithReload(() => import('@/pages/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })))
+const TermsPage = lazyWithReload(() => import('@/pages/TermsPage').then(m => ({ default: m.TermsPage })))
+const RoadSmartPartnersPage = lazyWithReload(() => import('@/pages/RoadSmartPartnersPage').then(m => ({ default: m.RoadSmartPartnersPage })))
+const TrackStatusPage = lazyWithReload(() => import('@/pages/TrackStatusPage').then(m => ({ default: m.TrackStatusPage })))
+const ProfilePage = lazyWithReload(() => import('@/pages/ProfilePage').then(m => ({ default: m.ProfilePage })))
 
 function PageFallback() {
   return (
@@ -39,9 +63,25 @@ function withSuspense(Component: React.ComponentType) {
   )
 }
 
+function RouteErrorBoundary() {
+  return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
+      <h1 className="font-display text-2xl font-bold text-text-primary mb-2">Something went wrong</h1>
+      <p className="text-sm text-text-secondary mb-6">We couldn't load this page. Please refresh to try again.</p>
+      <button
+        onClick={() => window.location.reload()}
+        className="px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors"
+      >
+        Refresh
+      </button>
+    </div>
+  )
+}
+
 export const router = createBrowserRouter([
   {
     element: <RootLayout />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       { index: true, element: <HomePage /> },
       { path: 'blogs', element: withSuspense(BlogsPage) },
@@ -57,6 +97,7 @@ export const router = createBrowserRouter([
   },
   {
     element: <AppLayout />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       { path: 'loading', element: withSuspense(LoadingPage) },
       { path: 'dashboard', element: withSuspense(DashboardPage) },
