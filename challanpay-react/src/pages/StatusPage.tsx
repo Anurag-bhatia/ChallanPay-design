@@ -300,7 +300,7 @@ export function StatusPage() {
 
                 {/* Proceed Bar */}
                 {selectedIds.length > 0 && (
-              <div className="sticky bottom-16 -mx-4 sm:mx-0 md:fixed md:bottom-0 md:left-0 md:right-0 z-40 bg-white border-t border-border md:rounded-none rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)] overflow-hidden animate-slide-down">
+              <div className="sticky bottom-16 md:bottom-4 -mx-4 sm:mx-0 z-40 bg-white border-t border-border md:border md:rounded-2xl rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:shadow-xl overflow-hidden animate-slide-down">
                 {/* Pledge & Claim Rewards banner */}
                 <div className="flex items-center justify-between px-4 py-2.5 bg-amber-50 border-b border-amber-200">
                   <span className="text-sm font-semibold text-amber-700">{t.status.pledgeAndClaimRewards}</span>
