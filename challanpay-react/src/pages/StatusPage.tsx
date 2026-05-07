@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useSearchParams, useNavigate } from 'react-router'
-import { Copy, Check, Clock, CircleCheck, ArrowRight, X, AlertTriangle } from 'lucide-react'
+import { Copy, Check, Clock, CircleCheck, ArrowRight, X, Coins, FileWarning, Gavel } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
@@ -212,7 +212,7 @@ export function StatusPage() {
                         key={filter}
                         onClick={() => setActiveFilter(filter)}
                         className={cn(
-                          'px-3 py-1.5 rounded-lg text-xs font-medium transition-colors capitalize',
+                          'px-4 py-3 rounded-lg text-xs font-medium transition-colors capitalize',
                           activeFilter === filter
                             ? 'bg-primary text-white'
                             : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
@@ -469,7 +469,7 @@ export function StatusPage() {
       {/* Unpaid Challans Warning Modal */}
       {showUnpaidWarning && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
           onClick={() => setShowUnpaidWarning(false)}
         >
           <div
@@ -478,54 +478,60 @@ export function StatusPage() {
           >
             <button
               onClick={() => setShowUnpaidWarning(false)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors z-10"
+              className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center text-gray-500 hover:bg-white transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="p-6 md:p-8">
-              <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-6 h-6 text-amber-600" />
-              </div>
-              <h3 className="font-display text-xl font-bold text-text-primary mb-2">
+            {/* Warning header */}
+            <div className="bg-gradient-to-b from-amber-50 via-amber-50/50 to-white pt-8 pb-3 px-6 text-center">
+              <div className="text-5xl mb-3">⚠️</div>
+              <h3 className="font-display text-xl font-bold text-text-primary mb-1">
                 Some challans are still unpaid
               </h3>
-              <p className="text-sm text-text-secondary mb-4">
-                You've selected only a few challans for payment while others remain pending.
+              <p className="text-sm text-text-secondary">
+                You've selected only a few challans while others remain pending.
               </p>
-              <p className="text-sm text-text-secondary mb-2">Unpaid challans may:</p>
-              <ul className="space-y-1.5 text-sm text-text-secondary mb-5 pl-1">
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0" />
-                  <span>attract additional penalties,</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0" />
-                  <span>lead to legal notices,</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0" />
-                  <span>or require court appearance.</span>
-                </li>
-              </ul>
-              <p className="text-sm text-text-secondary mb-6">
-                Would you like to continue with selected challans or clear all pending dues?
-              </p>
+            </div>
 
-              <div className="flex flex-col sm:flex-row-reverse gap-3">
-                <button
-                  onClick={handlePayAll}
-                  className="flex-1 px-4 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors text-sm"
-                >
-                  Pay All Challans
-                </button>
-                <button
-                  onClick={handleContinueWithSelected}
-                  className="flex-1 px-4 py-3 bg-white border border-border text-text-primary font-semibold rounded-xl hover:bg-gray-50 transition-colors text-sm"
-                >
-                  Continue with Selected
-                </button>
+            {/* Consequence list */}
+            <div className="px-6 pt-2 pb-6">
+              <div className="space-y-2.5 mb-6">
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-red-50/80">
+                  <div className="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                    <Coins className="w-4 h-4 text-red-500" />
+                  </div>
+                  <span className="text-sm font-medium text-text-primary">Attract additional penalties</span>
+                </div>
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-red-50/80">
+                  <div className="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                    <FileWarning className="w-4 h-4 text-red-500" />
+                  </div>
+                  <span className="text-sm font-medium text-text-primary">Lead to legal notices</span>
+                </div>
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-red-50/80">
+                  <div className="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                    <Gavel className="w-4 h-4 text-red-500" />
+                  </div>
+                  <span className="text-sm font-medium text-text-primary">Require court appearance</span>
+                </div>
               </div>
+
+              {/* Pay All button */}
+              <button
+                onClick={handlePayAll}
+                className="w-full py-3.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors text-sm shadow-sm"
+              >
+                Pay All Challans
+              </button>
+
+              {/* Continue with Selected link */}
+              <button
+                onClick={handleContinueWithSelected}
+                className="w-full py-3 text-text-secondary font-medium text-sm hover:text-text-primary transition-colors mt-1"
+              >
+                Continue with Selected
+              </button>
             </div>
           </div>
         </div>
