@@ -179,12 +179,12 @@ export function StatusPage() {
                 <p className="text-sm text-text-light">Hyundai Creta</p>
                 <p className="font-display font-bold text-text-primary text-lg">{vehicle}</p>
               </div>
-              <span className="hidden sm:inline-flex items-center gap-2.5 pl-1.5 pr-6 py-1 rounded-full bg-emerald-50 text-emerald-700 text-sm font-semibold whitespace-nowrap">
-                <img src="/images/govt-verified-badge.png" alt="" className="w-10 h-10" />
+              <span className="hidden sm:inline-flex items-center gap-2 pl-2 pr-5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-sm font-semibold whitespace-nowrap">
+                <img src="/images/govt-verified-badge.png" alt="" className="w-8 h-8" />
                 Govt. Verified Data
               </span>
               <span className="sm:hidden inline-flex items-center justify-center" title="Govt. Verified Data">
-                <img src="/images/govt-verified-badge.png" alt="Govt. Verified Data" className="w-11 h-11" />
+                <img src="/images/govt-verified-badge.png" alt="Govt. Verified Data" className="w-9 h-9" />
               </span>
             </div>
 
