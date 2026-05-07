@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useSearchParams, useNavigate } from 'react-router'
-import { Copy, Check, Clock, CircleCheck, ArrowRight, X, BadgeCheck } from 'lucide-react'
+import { Copy, Check, Clock, CircleCheck, ArrowRight, X } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
@@ -120,14 +120,14 @@ export function StatusPage() {
               <button
                 onClick={() => setActiveTab('pending')}
                 className={cn(
-                  'flex-1 md:flex-none flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all',
+                  'flex-1 md:flex-none flex items-center justify-between px-4 py-4 md:py-5 rounded-xl text-base md:text-lg font-bold transition-all',
                   activeTab === 'pending'
-                    ? 'bg-primary text-white shadow-md'
+                    ? 'bg-primary text-white'
                     : 'bg-white border border-border text-text-secondary hover:bg-gray-50'
                 )}
               >
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
+                <div className="flex items-center gap-2.5">
+                  <Clock className="w-5 h-5" />
                   <span className="hidden md:inline">{t.status.pendingChallans}</span>
                   <span className="md:hidden">{t.status.pending}</span>
                 </div>
@@ -138,14 +138,14 @@ export function StatusPage() {
               <button
                 onClick={() => setActiveTab('paid')}
                 className={cn(
-                  'flex-1 md:flex-none flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all',
+                  'flex-1 md:flex-none flex items-center justify-between px-4 py-4 md:py-5 rounded-xl text-base md:text-lg font-bold transition-all',
                   activeTab === 'paid'
-                    ? 'bg-success text-white shadow-md'
+                    ? 'bg-success text-white'
                     : 'bg-white border border-border text-text-secondary hover:bg-gray-50'
                 )}
               >
-                <div className="flex items-center gap-2">
-                  <CircleCheck className="w-4 h-4" />
+                <div className="flex items-center gap-2.5">
+                  <CircleCheck className="w-5 h-5" />
                   <span className="hidden md:inline">{t.status.paidChallans}</span>
                   <span className="md:hidden">{t.status.paid}</span>
                 </div>
@@ -163,12 +163,12 @@ export function StatusPage() {
                 <p className="text-sm text-text-light">Hyundai Creta</p>
                 <p className="font-display font-bold text-text-primary text-lg">{vehicle}</p>
               </div>
-              <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold whitespace-nowrap">
-                <BadgeCheck className="w-3.5 h-3.5" strokeWidth={2.5} />
+              <span className="hidden sm:inline-flex items-center gap-2.5 pl-1.5 pr-4 py-1 rounded-full bg-emerald-50 text-emerald-700 text-sm font-semibold whitespace-nowrap">
+                <img src="/images/govt-verified-badge.png" alt="" className="w-10 h-10" />
                 Govt. verified data
               </span>
-              <span className="sm:hidden inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700" title="Govt. verified data">
-                <BadgeCheck className="w-4 h-4" strokeWidth={2.5} />
+              <span className="sm:hidden inline-flex items-center justify-center" title="Govt. verified data">
+                <img src="/images/govt-verified-badge.png" alt="Govt. verified data" className="w-11 h-11" />
               </span>
             </div>
 
