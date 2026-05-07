@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useSearchParams, useNavigate } from 'react-router'
-import { Copy, Check, Clock, CircleCheck, ArrowRight, X } from 'lucide-react'
+import { Copy, Check, Clock, CircleCheck, ArrowRight, X, BadgeCheck } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
@@ -159,10 +159,17 @@ export function StatusPage() {
             {/* Vehicle Info Card */}
             <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-4">
               <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-20 h-14 object-contain" />
-              <div>
+              <div className="flex-1 min-w-0">
                 <p className="text-sm text-text-light">Hyundai Creta</p>
                 <p className="font-display font-bold text-text-primary text-lg">{vehicle}</p>
               </div>
+              <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold whitespace-nowrap">
+                <BadgeCheck className="w-3.5 h-3.5" strokeWidth={2.5} />
+                Govt. verified data
+              </span>
+              <span className="sm:hidden inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700" title="Govt. verified data">
+                <BadgeCheck className="w-4 h-4" strokeWidth={2.5} />
+              </span>
             </div>
 
             {activeTab === 'pending' ? (
