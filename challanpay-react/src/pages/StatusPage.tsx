@@ -317,9 +317,10 @@ export function StatusPage() {
                   </div>
                   <button
                     onClick={handleProceed}
-                    className="flex-shrink-0 px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors shadow-md text-sm"
+                    className="relative flex-shrink-0 overflow-hidden px-7 sm:px-9 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors shadow-md text-base"
                   >
-                    {`${t.status.proceedToPay} >`}
+                    <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shine" />
+                    <span className="relative">{`${t.status.proceedToPay} >`}</span>
                   </button>
                 </div>
               </div>
