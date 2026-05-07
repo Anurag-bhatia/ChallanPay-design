@@ -235,7 +235,7 @@ export const en = {
     statusLabel: 'Status',
     shareOnWhatsApp: 'Share on WhatsApp',
     pledgeAndClaimRewards: 'Pledge & Claim Rewards',
-    totalAmountToPay: 'Total amount to pay',
+    totalAmountToPay: 'Total Challan Amount',
     proceedToPay: 'Proceed To Pay',
   },
 
@@ -274,6 +274,15 @@ export const en = {
     continueToPay: 'Continue to Pay',
     goBack: 'Go Back',
     savedAmount: 'You saved ₹1,000',
+    legalCharges: 'Legal Fees',
+    courtChallanSupport: 'Court Challan Support',
+    legalAssistanceDesc: 'Get complete legal assistance for resolving your court challan without the hassle of court visits.',
+    includedInService: 'Included in the service:',
+    lawyerSupport: 'Dedicated traffic lawyer support',
+    courtDocumentation: 'Court documentation and filing',
+    representationCoordination: 'Representation and case coordination',
+    noPhysicalAppearance: 'No need to appear physically in court',
+    gotIt: 'Got it',
   },
 
   // Payment Completed Page

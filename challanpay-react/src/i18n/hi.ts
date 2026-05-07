@@ -237,7 +237,7 @@ export const hi: TranslationKeys = {
     statusLabel: 'स्थिति',
     shareOnWhatsApp: 'WhatsApp पर शेयर करें',
     pledgeAndClaimRewards: 'प्रतिज्ञा लें और रिवॉर्ड पाएँ',
-    totalAmountToPay: 'कुल भुगतान राशि',
+    totalAmountToPay: 'कुल चालान राशि',
     proceedToPay: 'भुगतान करें',
   },
 
@@ -276,6 +276,15 @@ export const hi: TranslationKeys = {
     continueToPay: 'भुगतान जारी रखें',
     goBack: 'वापस जाएँ',
     savedAmount: 'आपने ₹1,000 बचाए',
+    legalCharges: 'कानूनी फ़ीस',
+    courtChallanSupport: 'कोर्ट चालान सहायता',
+    legalAssistanceDesc: 'अदालत जाने की परेशानी के बिना अपने कोर्ट चालान के समाधान के लिए संपूर्ण कानूनी सहायता पाएँ।',
+    includedInService: 'सेवा में शामिल:',
+    lawyerSupport: 'समर्पित ट्रैफ़िक वकील सहायता',
+    courtDocumentation: 'कोर्ट दस्तावेज़ीकरण और फ़ाइलिंग',
+    representationCoordination: 'प्रतिनिधित्व और केस समन्वय',
+    noPhysicalAppearance: 'कोर्ट में व्यक्तिगत रूप से उपस्थित होने की आवश्यकता नहीं',
+    gotIt: 'समझ गए',
   },
 
   // Payment Completed Page

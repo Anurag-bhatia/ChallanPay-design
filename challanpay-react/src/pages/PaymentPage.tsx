@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { Monitor, Scale, Gift, CheckCircle, ArrowLeft, X, Gavel, IdCard, ShieldAlert, ChevronDown } from 'lucide-react'
+import { Monitor, Scale, Gift, ArrowLeft, X, Gavel, IdCard, ShieldAlert, ChevronDown, Info, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { PageTransition } from '@/components/shared/PageTransition'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -18,6 +18,7 @@ export function PaymentPage() {
   const [activeTab, setActiveTab] = useState<ResolutionType>('online')
   const [pledgeChecked, setPledgeChecked] = useState(false)
   const [showBackConfirm, setShowBackConfirm] = useState(false)
+  const [showLegalChargesModal, setShowLegalChargesModal] = useState(false)
 
   const handlePledge = () => {
     setPledgeChecked(!pledgeChecked)
@@ -38,6 +39,63 @@ export function PaymentPage() {
 
   return (
     <PageTransition>
+      {/* Legal Charges Info Modal */}
+      {showLegalChargesModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          onClick={() => setShowLegalChargesModal(false)}
+        >
+          <div
+            className="relative w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowLegalChargesModal(false)}
+              className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center text-gray-500 hover:bg-white transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="bg-gradient-to-b from-cyan-50 via-cyan-50/40 to-white pt-8 pb-4 px-6 text-left">
+              <h3 className="font-display text-xl font-bold text-text-primary mb-2">
+                {t.payment.legalCharges}
+              </h3>
+              <p className="text-sm text-text-secondary">
+                {t.payment.legalAssistanceDesc}
+              </p>
+            </div>
+
+            <div className="px-6 pt-3 pb-6">
+              <p className="text-sm font-semibold text-text-primary mb-3">
+                {t.payment.includedInService}
+              </p>
+              <div className="space-y-2.5 mb-5">
+                {[
+                  t.payment.lawyerSupport,
+                  t.payment.courtDocumentation,
+                  t.payment.representationCoordination,
+                  t.payment.noPhysicalAppearance,
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3 p-3 rounded-xl bg-emerald-50/70">
+                    <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-emerald-600" strokeWidth={3} />
+                    </div>
+                    <span className="text-sm font-medium text-text-primary">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setShowLegalChargesModal(false)}
+                className="w-full py-3.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors text-sm shadow-sm"
+              >
+                {t.payment.gotIt}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Back Confirmation Modal */}
       {showBackConfirm && (
         <div
@@ -230,7 +288,17 @@ export function PaymentPage() {
                     <span className="font-display font-bold text-text-primary">₹5,500</span>
                   </div>
                   <div className="flex justify-between text-[13px]">
-                    <span className="text-text-light">{t.payment.convenienceFee} <span className="text-text-light/70">(3 x 200)</span></span>
+                    <span className="text-text-light inline-flex items-center gap-1">
+                      {t.payment.convenienceFee} <span className="text-text-light/70">(3 x 200)</span>
+                      <button
+                        type="button"
+                        onClick={() => setShowLegalChargesModal(true)}
+                        aria-label={t.payment.legalCharges}
+                        className="inline-flex items-center justify-center w-4 h-4 rounded-full text-text-light/80 hover:text-primary transition-colors"
+                      >
+                        <Info className="w-3.5 h-3.5" />
+                      </button>
+                    </span>
                     <span className="font-display font-bold text-text-primary">₹600</span>
                   </div>
                 </div>
@@ -242,16 +310,20 @@ export function PaymentPage() {
                     <span className="font-display font-bold text-text-primary">₹1,500</span>
                   </div>
                   <div className="flex justify-between text-[13px]">
-                    <span className="text-text-light">{t.payment.convenienceFee} <span className="text-text-light/70">(2 x 2000)</span></span>
+                    <span className="text-text-light inline-flex items-center gap-1">
+                      {t.payment.convenienceFee} <span className="text-text-light/70">(2 x 2000)</span>
+                      <button
+                        type="button"
+                        onClick={() => setShowLegalChargesModal(true)}
+                        aria-label={t.payment.legalCharges}
+                        className="inline-flex items-center justify-center w-4 h-4 rounded-full text-text-light/80 hover:text-primary transition-colors"
+                      >
+                        <Info className="w-3.5 h-3.5" />
+                      </button>
+                    </span>
                     <span className="font-display font-bold text-text-primary">₹4,000</span>
                   </div>
                 </div>
-              </div>
-
-              {/* Total Amount */}
-              <div className="flex justify-between text-[13px] mt-3.5">
-                <span className="font-medium text-primary">{t.payment.totalAmount}</span>
-                <span className="font-medium text-text-primary">₹11,600</span>
               </div>
 
               {/* Pledge Reward */}
@@ -270,14 +342,6 @@ export function PaymentPage() {
                   ₹{pledgeChecked ? '10,600' : '11,600'}
                 </span>
               </div>
-
-              {/* Savings badge */}
-              {pledgeChecked && (
-                <div className="flex items-center gap-2 bg-emerald-50 rounded-lg px-3.5 py-2.5 mt-4">
-                  <CheckCircle className="w-4 h-4 text-success flex-shrink-0" />
-                  <span className="text-xs font-medium text-success">{t.payment.savedByPledging}</span>
-                </div>
-              )}
 
               <button
                 onClick={handlePayment}
