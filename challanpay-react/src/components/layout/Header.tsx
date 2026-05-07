@@ -135,6 +135,14 @@ export function Header() {
                 <Calendar className="w-4 h-4" />
                 {t.header.trackMyChallans}
               </Link>
+              <Link
+                to="/profile"
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-gray-50 transition-colors"
+                onClick={() => setIsProfileOpen(false)}
+              >
+                <User className="w-4 h-4" />
+                {t.header.myProfile}
+              </Link>
               <hr className="my-1 border-border" />
               <button
                 onClick={handleLogout}
@@ -227,6 +235,14 @@ export function Header() {
           >
             <Calendar className="w-4 h-4" />
             {t.header.trackMyChallans}
+          </Link>
+          <Link
+            to="/profile"
+            className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <User className="w-4 h-4" />
+            {t.header.myProfile}
           </Link>
           <button
             onClick={handleLogout}

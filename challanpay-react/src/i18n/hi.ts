@@ -11,6 +11,7 @@ export const hi: TranslationKeys = {
     new: 'नया',
     login: 'लॉगिन',
     trackMyChallans: 'मेरे चालान ट्रैक करें',
+    myProfile: 'मेरी प्रोफ़ाइल',
     logout: 'लॉगआउट',
   },
 
@@ -332,8 +333,8 @@ export const hi: TranslationKeys = {
     submitOtp: 'OTP जमा करें',
     welcome: 'स्वागत है,',
     mNo: 'मोबाइल नंबर:',
-    challanInfo: 'चालान जानकारी',
-    vehicleInfo: 'वाहन जानकारी',
+    challanInfo: 'चालान',
+    vehicleInfo: 'वाहन',
     challanInfoTooltip: 'आपके भुगतान किए गए सभी चालान जो अभी प्रोसेसिंग में हैं, यहाँ दिखाई देते हैं।',
     vehicleInfoTooltip: 'अपने पंजीकृत वाहनों को प्रबंधित करें और उनके विवरण यहाँ देखें।',
     challansSubmitted: 'चालान जमा किए',

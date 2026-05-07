@@ -9,6 +9,7 @@ export const en = {
     new: 'NEW',
     login: 'Login',
     trackMyChallans: 'Track My Challans',
+    myProfile: 'My Profile',
     logout: 'Logout',
   },
 
@@ -330,8 +331,8 @@ export const en = {
     submitOtp: 'Submit OTP',
     welcome: 'Welcome,',
     mNo: 'Mobile Number:',
-    challanInfo: 'Challan Info',
-    vehicleInfo: 'Vehicle Info',
+    challanInfo: 'Challans',
+    vehicleInfo: 'Vehicles',
     challanInfoTooltip: "All challans you've paid that are still under processing appear here.",
     vehicleInfoTooltip: 'Manage your registered vehicles and view their details here.',
     challansSubmitted: 'Challans Submitted',

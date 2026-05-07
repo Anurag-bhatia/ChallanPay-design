@@ -183,8 +183,13 @@ export function StatusPage() {
                 <img src="/images/govt-verified-badge.png" alt="" className="w-8 h-8" />
                 Govt. Verified Data
               </span>
-              <span className="sm:hidden inline-flex items-center justify-center" title="Govt. Verified Data">
-                <img src="/images/govt-verified-badge.png" alt="Govt. Verified Data" className="w-9 h-9" />
+            </div>
+
+            {/* Mobile-only verified badge below card */}
+            <div className="sm:hidden -mt-3">
+              <span className="inline-flex items-center gap-2 pl-2 pr-5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-sm font-semibold whitespace-nowrap">
+                <img src="/images/govt-verified-badge.png" alt="" className="w-8 h-8" />
+                Govt. Verified Data
               </span>
             </div>
 
@@ -227,7 +232,7 @@ export function StatusPage() {
                 </div>
 
                 {/* Challan Cards Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-36 md:pb-0">
                   {filteredChallans.map((challan) => (
                     <div
                       key={challan.id}
@@ -300,7 +305,7 @@ export function StatusPage() {
 
                 {/* Proceed Bar */}
                 {selectedIds.length > 0 && (
-              <div className="sticky bottom-16 md:bottom-4 -mx-4 sm:mx-0 z-40 bg-white border-t border-border md:border md:rounded-2xl rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:shadow-xl overflow-hidden animate-slide-down">
+              <div className="fixed md:sticky bottom-0 md:bottom-4 left-0 right-0 md:left-auto md:right-auto z-50 md:z-40 bg-white border-t border-border md:border md:rounded-2xl rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:shadow-xl overflow-hidden animate-slide-down">
                 {/* Pledge & Claim Rewards banner */}
                 <div className="flex items-center justify-between px-4 py-2.5 bg-amber-50 border-b border-amber-200">
                   <span className="text-sm font-semibold text-amber-700">{t.status.pledgeAndClaimRewards}</span>
