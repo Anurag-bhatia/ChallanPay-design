@@ -226,6 +226,8 @@ export const hi: TranslationKeys = {
     all: 'सभी',
     onlineChallan: 'ऑनलाइन चालान',
     courtChallan: 'कोर्ट चालान',
+    onlineChallans: 'ऑनलाइन चालान',
+    courtChallans: 'कोर्ट चालान',
     pendingSince: 'लंबित',
     paidOn: 'भुगतान तिथि',
     viewDetails: 'विवरण देखें',

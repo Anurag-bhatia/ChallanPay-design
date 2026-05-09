@@ -27,11 +27,11 @@ interface PaidChallan {
 }
 
 const MOCK_CHALLANS: Challan[] = [
-  { id: '1', challanNumber: 'UP40838230627114376', amount: 2000, violation: 'Over Speeding', date: '27 Jun 2023', location: 'NH-44, Gurgaon', type: 'online', pendingSince: '24 months' },
-  { id: '2', challanNumber: 'DL01234567890123456', amount: 5000, violation: 'Red Light Violation', date: '15 Jul 2023', location: 'Ring Road, Delhi', type: 'court', pendingSince: '23 months' },
-  { id: '3', challanNumber: 'HR26838230627114377', amount: 1000, violation: 'No Helmet', date: '03 Aug 2023', location: 'Sector 29, Gurgaon', type: 'online', pendingSince: '22 months' },
-  { id: '4', challanNumber: 'DL08838230627114378', amount: 2500, violation: 'Wrong Parking', date: '11 Sep 2023', location: 'Connaught Place, Delhi', type: 'online', pendingSince: '20 months' },
-  { id: '5', challanNumber: 'UP16838230627114379', amount: 10000, violation: 'Drunk Driving', date: '22 Oct 2023', location: 'Greater Noida Expressway', type: 'court', pendingSince: '19 months' },
+  { id: '1', challanNumber: 'UP40838230627114376', amount: 2000, violation: 'B[2019][driver] (driving vehicle-other than two wheeler in contravention of section 3 or section 4)-drives vehicle without holding driving license.', date: '27 Jun 2023', location: 'NH-44, Gurgaon, Haryana - 122001', type: 'online', pendingSince: '24 months' },
+  { id: '2', challanNumber: 'DL01234567890123456', amount: 5000, violation: 'Disobedience of any direction or obstruction of any function by a driver', date: '15 Jul 2023', location: 'Outer Ring Road, near Dhaula Kuan, New Delhi', type: 'court', pendingSince: '23 months' },
+  { id: '3', challanNumber: 'HR26838230627114377', amount: 1000, violation: 'No Helmet', date: '03 Aug 2023', location: 'Sector 29 Market, Gurugram', type: 'online', pendingSince: '22 months' },
+  { id: '4', challanNumber: 'DL08838230627114378', amount: 2500, violation: 'Improper Parking', date: '11 Sep 2023', location: 'Connaught Place, New Delhi', type: 'online', pendingSince: '20 months' },
+  { id: '5', challanNumber: 'UP16838230627114379', amount: 10000, violation: 'Driving under the influence of alcohol exceeding permissible blood-alcohol concentration limits', date: '22 Oct 2023', location: 'Greater Noida Expressway, near Pari Chowk', type: 'court', pendingSince: '19 months' },
   { id: '6', challanNumber: 'HR26838230627114380', amount: 1500, violation: 'Without Seatbelt', date: '05 Nov 2023', location: 'NH-8, Manesar', type: 'online', pendingSince: '18 months' },
 ]
 
@@ -51,6 +51,12 @@ type Tab = 'pending' | 'paid'
 
 // Hoist constant arrays outside component (rerender-no-inline-components)
 const FILTERS: Filter[] = ['all', 'online', 'court']
+
+// Truncate a string to the first N words, appending an ellipsis if longer.
+const truncateWords = (text: string, n: number) => {
+  const words = text.split(/\s+/)
+  return words.length > n ? words.slice(0, n).join(' ') + '…' : text
+}
 
 export function StatusPage() {
   const { t } = useTranslation()
@@ -255,7 +261,7 @@ export function StatusPage() {
                       >
                         {filter === 'all'
                           ? `${t.status.all} (${MOCK_CHALLANS.length})`
-                          : `${filter === 'online' ? t.status.onlineChallan : t.status.courtChallan} (${MOCK_CHALLANS.filter((c) => c.type === filter).length})`}
+                          : `${filter === 'online' ? t.status.onlineChallans : t.status.courtChallans} (${MOCK_CHALLANS.filter((c) => c.type === filter).length})`}
                       </button>
                     ))}
                   </div>
@@ -332,9 +338,9 @@ export function StatusPage() {
                       </div>
 
                       {/* Details */}
-                      <div className="space-y-1.5 text-sm text-text-secondary">
-                        <p className="line-clamp-1 leading-snug" title={challan.violation}>{challan.violation}</p>
-                        <p className="text-xs text-text-light line-clamp-1" title={`${challan.date} · ${challan.location}`}>{challan.date} · {challan.location}</p>
+                      <div className="space-y-1.5 text-sm">
+                        <p className="line-clamp-1 leading-snug font-medium text-text-primary" title={challan.violation}>{challan.violation}</p>
+                        <p className="text-xs text-text-light truncate" title={`${challan.date} · ${challan.location}`}>{challan.date} · {truncateWords(challan.location, 3)}</p>
                       </div>
 
                       {/* Divider */}
@@ -469,9 +475,9 @@ export function StatusPage() {
                       </div>
 
                       {/* Details */}
-                      <div className="space-y-1.5 text-sm text-text-secondary">
-                        <p className="line-clamp-1 leading-snug" title={challan.violation}>{challan.violation}</p>
-                        <p className="text-xs text-text-light line-clamp-1" title={`${challan.date} · ${challan.location}`}>{challan.date} · {challan.location}</p>
+                      <div className="space-y-1.5 text-sm">
+                        <p className="line-clamp-1 leading-snug font-medium text-text-primary" title={challan.violation}>{challan.violation}</p>
+                        <p className="text-xs text-text-light truncate" title={`${challan.date} · ${challan.location}`}>{challan.date} · {truncateWords(challan.location, 3)}</p>
                       </div>
 
                       {/* Divider */}
@@ -499,43 +505,34 @@ export function StatusPage() {
           onClick={() => setDetailChallan(null)}
         >
           <div
-            className="relative w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden"
+            className="relative w-full max-w-md bg-gray-100 rounded-2xl border border-border shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setDetailChallan(null)}
-              aria-label="Close"
-              className="absolute top-2 right-2 w-11 h-11 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors z-10"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            {/* Modal header */}
+            <div className="flex items-center justify-between px-5 py-2.5 bg-white border-b border-border">
+              <h3 className="font-display text-base font-bold text-text-primary">{t.status.challanDetails}</h3>
+              <button
+                onClick={() => setDetailChallan(null)}
+                aria-label="Close"
+                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-gray-600 hover:bg-white transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
-            <div className="p-6 md:p-8">
-              <h3 className="font-display text-lg font-semibold text-text-secondary mb-1">{t.status.challanDetails}</h3>
-              <p className="text-base font-bold text-text-primary font-mono mb-6">#{detailChallan.challanNumber}</p>
+            {/* Inner receipt card */}
+            <div className="p-4">
+              <div className="rounded-xl bg-white receipt-zigzag-top border border-border shadow-md">
+                {/* Banner */}
+                <div className="text-text-primary px-6 pt-7 pb-3">
+                  <p className="text-base font-bold font-mono break-all">#{detailChallan.challanNumber}</p>
+                </div>
 
-              <div className="space-y-4">
+                <div className="px-6 pb-5 space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-text-secondary">{t.status.amount}</span>
                   <span className="font-display text-2xl font-bold text-text-primary">
                     ₹{detailChallan.amount.toLocaleString('en-IN')}
                   </span>
-                </div>
-                <hr className="border-border" />
-                <div className="flex justify-between gap-4">
-                  <span className="text-sm text-text-secondary flex-shrink-0">{t.status.violation}</span>
-                  <span className="text-sm font-medium text-text-primary text-right">{detailChallan.violation}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-text-secondary">{t.status.date}</span>
-                  <span className="text-sm font-medium text-text-primary">{detailChallan.date}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-text-secondary">{t.status.location}</span>
-                  <span className="text-sm font-medium text-text-primary">{detailChallan.location}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-text-secondary">{t.status.type}</span>
                   <span className={cn(
                     'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
                     detailChallan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
@@ -543,23 +540,35 @@ export function StatusPage() {
                     {detailChallan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-text-secondary">{t.status.statusLabel}</span>
-                  <span className="text-xs text-red-500 font-medium">{t.status.pendingSince} {detailChallan.pendingSince}</span>
+                <hr className="border-border" />
+                <div className="space-y-1">
+                  <p className="text-xs text-text-secondary">{t.status.violation}</p>
+                  <p className="text-sm font-medium text-text-primary leading-snug">{detailChallan.violation}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-text-secondary">{t.status.date}</p>
+                  <p className="text-sm font-medium text-text-primary leading-snug">{detailChallan.date}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-text-secondary">{t.status.location}</p>
+                  <p className="text-sm font-medium text-text-primary leading-snug">{detailChallan.location}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-text-secondary">{t.status.statusLabel}</p>
+                  <p className="text-sm text-red-500 font-medium leading-snug">{t.status.pendingSince} {detailChallan.pendingSince}</p>
+                </div>
                 </div>
               </div>
 
-              <div className="mt-6 space-y-3">
-                <a
-                  href={`https://wa.me/?text=${encodeURIComponent(`Challan Details\n\nChallan No: #${detailChallan.challanNumber}\nAmount: ₹${detailChallan.amount.toLocaleString('en-IN')}\nViolation: ${detailChallan.violation}\nDate: ${detailChallan.date}\nLocation: ${detailChallan.location}\nType: ${detailChallan.type} Challan\nStatus: Pending since ${detailChallan.pendingSince}\n\nCheck & pay your challans on ChallanPay`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-3 bg-[#25D366] hover:bg-[#1fb855] text-white font-semibold rounded-xl transition-colors text-sm"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  {t.status.shareOnWhatsApp}
-                </a>
-              </div>
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(`Challan Details\n\nChallan No: #${detailChallan.challanNumber}\nAmount: ₹${detailChallan.amount.toLocaleString('en-IN')}\nViolation: ${detailChallan.violation}\nDate: ${detailChallan.date}\nLocation: ${detailChallan.location}\nType: ${detailChallan.type} Challan\nStatus: Pending since ${detailChallan.pendingSince}\n\nCheck & pay your challans on ChallanPay`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 w-full flex items-center justify-center gap-2 py-3 bg-[#25D366] hover:bg-[#1fb855] text-white font-semibold rounded-xl transition-colors text-sm"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                {t.status.shareOnWhatsApp}
+              </a>
             </div>
           </div>
         </div>

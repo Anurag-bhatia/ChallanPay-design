@@ -224,6 +224,8 @@ export const en = {
     all: 'All',
     onlineChallan: 'Online Challan',
     courtChallan: 'Court Challan',
+    onlineChallans: 'Online Challans',
+    courtChallans: 'Court Challans',
     pendingSince: 'Pending since',
     paidOn: 'Paid on',
     viewDetails: 'View Details',

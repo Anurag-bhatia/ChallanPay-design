@@ -145,6 +145,17 @@
   animation: slide-down 0.4s ease-out forwards;
 }
 
+@utility receipt-zigzag-top {
+  --punch: 11px;
+  --tile: 28px;
+  -webkit-mask:
+    radial-gradient(circle at 50% 0, #0000 var(--punch), #000 calc(var(--punch) + 0.5px))
+      0 0 / var(--tile) 100% repeat-x;
+  mask:
+    radial-gradient(circle at 50% 0, #0000 var(--punch), #000 calc(var(--punch) + 0.5px))
+      0 0 / var(--tile) 100% repeat-x;
+}
+
 @utility scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
