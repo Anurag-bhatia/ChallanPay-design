@@ -5,9 +5,11 @@ import { toast } from 'sonner'
 import { BadgeCheck, Monitor, Scale, Gift, ArrowLeft, X, ShieldAlert, AlertTriangle, ChevronDown, Info, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { PageTransition } from '@/components/shared/PageTransition'
+import { Skeleton } from '@/components/shared/Skeleton'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useModalA11y } from '@/hooks/useModalA11y'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { usePageState } from '@/hooks/usePageState'
 import {
   useChallanStore,
   ONLINE_CONVENIENCE_FEE,
@@ -26,8 +28,7 @@ export function PaymentPage() {
   const challans = useChallanStore((s) => s.challans)
   const selectedChallanIds = useChallanStore((s) => s.selectedChallanIds)
   const recordTransaction = useChallanStore((s) => s.recordTransaction)
-  const pledgeConfettiShown = useChallanStore((s) => s.pledgeConfettiShown)
-  const markPledgeConfettiShown = useChallanStore((s) => s.markPledgeConfettiShown)
+  const { state: pageState } = usePageState()
 
   const summary = useMemo(() => {
     const idSet = new Set(selectedChallanIds)
@@ -52,7 +53,7 @@ export function PaymentPage() {
 
   const RESOLUTION_TABS = [
     { id: 'online' as const, label: t.payment.payAndClose, icon: BadgeCheck, description: t.payment.instantPayment, tags: [t.payment.instantBenefit, t.payment.fortyFiveDays], iconBg: 'bg-emerald-50 text-emerald-600 border border-emerald-200' },
-    { id: 'court' as const, label: t.payment.contestAndWait, icon: Scale, description: t.payment.legalRepresentation, tags: [t.payment.refundApplicable, t.payment.sixtyDays], iconBg: 'bg-amber-50 text-amber-600 border border-amber-200' },
+    { id: 'court' as const, label: t.payment.contestAndWait, icon: Scale, description: t.payment.legalRepresentation, tags: [t.payment.refundApplicable, t.payment.sixtyDays], iconBg: 'bg-gray-100 text-gray-600 border border-gray-200' },
   ]
   const [activeTab, setActiveTab] = useState<ResolutionType>('online')
   const [pledgeChecked, setPledgeChecked] = useState(false)
@@ -73,13 +74,12 @@ export function PaymentPage() {
     const next = !pledgeChecked
     setPledgeChecked(next)
     if (next) {
-      if (!prefersReducedMotion && !pledgeConfettiShown) {
+      if (!prefersReducedMotion) {
         confetti({
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
         })
-        markPledgeConfettiShown()
       }
       toast.success('Congratulations! Reward applied 🎉')
     }
@@ -319,7 +319,6 @@ export function PaymentPage() {
             </button>
             <h1 className="font-display text-xl sm:text-2xl font-bold text-text-primary">{t.payment.chooseResolution}</h1>
           </div>
-          <p className="text-text-secondary text-sm ml-14 -mt-2">{t.payment.selectHow}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6 lg:gap-10">
@@ -327,7 +326,25 @@ export function PaymentPage() {
           <div className="space-y-4">
             {/* Resolution Tabs */}
             <div className="space-y-4">
-              {RESOLUTION_TABS.map((tab) => (
+              {pageState === 'loading' && (
+                <>
+                  {[0, 1].map((i) => (
+                    <div key={i} className="bg-white rounded-xl border border-border shadow-sm p-3.5 sm:p-4 flex items-start gap-3 sm:gap-4">
+                      <Skeleton className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg" />
+                      <div className="flex-1 space-y-2">
+                        <Skeleton className="h-4 w-32" />
+                        <Skeleton className="h-3 w-48" />
+                        <div className="flex gap-1.5">
+                          <Skeleton className="h-4 w-20 rounded-full" />
+                          <Skeleton className="h-4 w-24 rounded-full" />
+                        </div>
+                      </div>
+                      <Skeleton className="w-6 h-6 rounded-md" />
+                    </div>
+                  ))}
+                </>
+              )}
+              {pageState !== 'loading' && RESOLUTION_TABS.map((tab) => (
                 <div
                   key={tab.id}
                   role="button"
@@ -373,15 +390,17 @@ export function PaymentPage() {
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-text-light mt-0.5">{tab.description}</p>
+                    <p className="text-xs text-text-secondary mt-0.5">{tab.description}</p>
                     <div className="flex flex-wrap gap-1.5 mt-4">
                       {tab.tags.map((tag) => (
                         <span
                           key={tag}
                           className={cn(
                             'text-[10px] font-medium px-2 py-0.5 rounded-full',
-                            activeTab === tab.id
-                              ? 'bg-primary/10 text-primary'
+                            activeTab === tab.id && tab.id === 'online'
+                              ? tag === t.payment.instantBenefit
+                                ? 'bg-amber-50 text-amber-700'
+                                : 'bg-primary/5 text-primary'
                               : 'bg-gray-100 text-text-secondary'
                           )}
                         >
@@ -401,6 +420,18 @@ export function PaymentPage() {
             </div>
 
             {/* Pledge Section */}
+            {pageState === 'loading' ? (
+              <div className="bg-white rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-3">
+                <div className="flex items-start gap-3">
+                  <Skeleton className="w-6 h-6 rounded" />
+                  <div className="flex-1 space-y-2">
+                    <Skeleton className="h-4 w-56" />
+                    <Skeleton className="h-3 w-72" />
+                  </div>
+                </div>
+                <Skeleton className="h-12 w-full rounded-lg" />
+              </div>
+            ) : (
             <div className="bg-white rounded-xl border border-border shadow-sm p-4 sm:p-5">
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
@@ -428,10 +459,32 @@ export function PaymentPage() {
                 </div>
               </div>
             </div>
+            )}
           </div>
 
           {/* Right: Payment Summary (desktop only) */}
           <div className="hidden lg:block lg:sticky lg:top-20 lg:self-start">
+            {pageState === 'loading' ? (
+              <div className="bg-white rounded-2xl border border-border shadow-sm p-6 space-y-4">
+                <Skeleton className="h-5 w-56" />
+                <Skeleton className="h-9 w-full rounded-lg" />
+                <hr className="border-border" />
+                <div className="space-y-3">
+                  {[0, 1, 2, 3].map((i) => (
+                    <div key={i} className="flex justify-between">
+                      <Skeleton className="h-4 w-32" />
+                      <Skeleton className="h-4 w-16" />
+                    </div>
+                  ))}
+                </div>
+                <hr className="border-border" />
+                <div className="flex justify-between items-baseline">
+                  <Skeleton className="h-5 w-24" />
+                  <Skeleton className="h-6 w-24" />
+                </div>
+                <Skeleton className="h-12 w-full rounded-xl" />
+              </div>
+            ) : (
             <div className="bg-white rounded-2xl border border-border shadow-sm p-6">
               <h3 className="font-display font-bold text-base text-text-primary mb-4">
                 {`${selectedCount} ${selectedCount === 1 ? 'Challan' : 'Challans'} selected for settlement`}
@@ -450,8 +503,8 @@ export function PaymentPage() {
                 {summary.onlineCount > 0 && (
                   <div className="space-y-0.5">
                     <div className="flex justify-between text-[13px]">
-                      <span className="font-medium text-text-primary">{`${t.payment.onlineChallan} (${summary.onlineCount})`}</span>
-                      <span className="font-display font-bold text-text-primary">₹{formatINR(summary.onlineAmount)}</span>
+                      <span className="font-display font-semibold text-text-primary">{`${t.payment.onlineChallan} (${summary.onlineCount})`}</span>
+                      <span className="font-display font-semibold text-text-primary">₹{formatINR(summary.onlineAmount)}</span>
                     </div>
                     <div className="flex justify-between text-[13px]">
                       <span className="text-text-light inline-flex items-center gap-1">
@@ -465,7 +518,7 @@ export function PaymentPage() {
                           <Info className="w-3.5 h-3.5" />
                         </button>
                       </span>
-                      <span className="font-display font-bold text-text-primary">₹{formatINR(summary.onlineFee)}</span>
+                      <span className="font-medium text-text-light">₹{formatINR(summary.onlineFee)}</span>
                     </div>
                   </div>
                 )}
@@ -474,8 +527,8 @@ export function PaymentPage() {
                 {summary.courtCount > 0 && (
                   <div className="space-y-0.5">
                     <div className="flex justify-between text-[13px]">
-                      <span className="font-medium text-text-primary">{`${t.payment.courtChallan} (${summary.courtCount})`}</span>
-                      <span className="font-display font-bold text-text-primary">₹{formatINR(summary.courtAmount)}</span>
+                      <span className="font-display font-semibold text-text-primary">{`${t.payment.courtChallan} (${summary.courtCount})`}</span>
+                      <span className="font-display font-semibold text-text-primary">₹{formatINR(summary.courtAmount)}</span>
                     </div>
                     <div className="flex justify-between text-[13px]">
                       <span className="text-text-light inline-flex items-center gap-1">
@@ -489,7 +542,7 @@ export function PaymentPage() {
                           <Info className="w-3.5 h-3.5" />
                         </button>
                       </span>
-                      <span className="font-display font-bold text-text-primary">₹{formatINR(summary.courtFee)}</span>
+                      <span className="font-medium text-text-light">₹{formatINR(summary.courtFee)}</span>
                     </div>
                   </div>
                 )}
@@ -497,9 +550,9 @@ export function PaymentPage() {
 
               {/* Pledge Reward */}
               {pledgeChecked && (
-                <div className="flex justify-between text-[13px] mt-3.5 bg-emerald-50 -mx-6 px-6 py-2.5">
-                  <span className="font-semibold text-success">{t.payment.pledgeReward}</span>
-                  <span className="font-semibold text-success">-₹{formatINR(PLEDGE_REWARD)}</span>
+                <div className="flex justify-between text-sm mt-3.5 bg-emerald-50 -mx-6 px-6 py-2.5">
+                  <span className="font-display font-semibold text-success">{t.payment.pledgeReward}</span>
+                  <span className="font-display font-semibold text-success">-₹{formatINR(PLEDGE_REWARD)}</span>
                 </div>
               )}
 
@@ -522,10 +575,22 @@ export function PaymentPage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
               </button>
             </div>
+            )}
           </div>
         </div>
 
         {/* Mobile: Sticky bottom payment bar */}
+        {pageState === 'loading' ? (
+          <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-4 py-3 safe-bottom">
+            <div className="flex items-center justify-between gap-4">
+              <div className="space-y-2 flex-1 min-w-0">
+                <Skeleton className="h-3 w-20" />
+                <Skeleton className="h-5 w-28" />
+              </div>
+              <Skeleton className="h-12 w-36 rounded-xl" />
+            </div>
+          </div>
+        ) : (
         <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-4 py-3 safe-bottom">
           <div className="flex items-center justify-between gap-4">
             <div className="min-w-0">
@@ -546,11 +611,30 @@ export function PaymentPage() {
             </button>
           </div>
         </div>
+        )}
 
         {/* Mobile: Expandable summary drawer */}
+        {pageState === 'loading' ? (
+          <div className="lg:hidden mt-4 mb-20 bg-white rounded-xl border border-border shadow-sm p-4 space-y-3">
+            <Skeleton className="h-5 w-40" />
+            <Skeleton className="h-9 w-full rounded-lg" />
+            <hr className="border-border" />
+            {[0, 1, 2, 3].map((i) => (
+              <div key={i} className="flex justify-between">
+                <Skeleton className="h-4 w-32" />
+                <Skeleton className="h-4 w-16" />
+              </div>
+            ))}
+            <hr className="border-border" />
+            <div className="flex justify-between items-baseline">
+              <Skeleton className="h-5 w-24" />
+              <Skeleton className="h-6 w-24" />
+            </div>
+          </div>
+        ) : (
         <details open className="lg:hidden mt-4 mb-20 bg-white rounded-xl border border-border shadow-sm overflow-hidden">
           <summary className="flex items-center justify-between p-4 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden">
-            <span className="font-display font-bold text-sm text-text-primary">{t.payment.paymentSummary}</span>
+            <span className="font-display font-semibold text-sm text-text-primary">{t.payment.paymentSummary}</span>
             <ChevronDown className="w-5 h-5 text-text-light transition-transform [[open]>&]:rotate-180" />
           </summary>
           <div className="px-4 pb-4 space-y-3">
@@ -566,8 +650,8 @@ export function PaymentPage() {
             {summary.onlineCount > 0 && (
               <div className="space-y-0.5">
                 <div className="flex justify-between text-[13px]">
-                  <span className="font-medium text-text-primary">{`${t.payment.onlineChallan} (${summary.onlineCount})`}</span>
-                  <span className="font-display font-bold text-text-primary">₹{formatINR(summary.onlineAmount)}</span>
+                  <span className="font-display font-semibold text-text-primary">{`${t.payment.onlineChallan} (${summary.onlineCount})`}</span>
+                  <span className="font-display font-semibold text-text-primary">₹{formatINR(summary.onlineAmount)}</span>
                 </div>
                 <div className="flex justify-between text-[13px]">
                   <span className="text-text-light inline-flex items-center gap-1">
@@ -581,7 +665,7 @@ export function PaymentPage() {
                       <Info className="w-3.5 h-3.5" />
                     </button>
                   </span>
-                  <span className="font-display font-bold text-text-primary">₹{formatINR(summary.onlineFee)}</span>
+                  <span className="font-medium text-text-light">₹{formatINR(summary.onlineFee)}</span>
                 </div>
               </div>
             )}
@@ -590,8 +674,8 @@ export function PaymentPage() {
             {summary.courtCount > 0 && (
               <div className="space-y-0.5">
                 <div className="flex justify-between text-[13px]">
-                  <span className="font-medium text-text-primary">{`${t.payment.courtChallan} (${summary.courtCount})`}</span>
-                  <span className="font-display font-bold text-text-primary">₹{formatINR(summary.courtAmount)}</span>
+                  <span className="font-display font-semibold text-text-primary">{`${t.payment.courtChallan} (${summary.courtCount})`}</span>
+                  <span className="font-display font-semibold text-text-primary">₹{formatINR(summary.courtAmount)}</span>
                 </div>
                 <div className="flex justify-between text-[13px]">
                   <span className="text-text-light inline-flex items-center gap-1">
@@ -605,15 +689,15 @@ export function PaymentPage() {
                       <Info className="w-3.5 h-3.5" />
                     </button>
                   </span>
-                  <span className="font-display font-bold text-text-primary">₹{formatINR(summary.courtFee)}</span>
+                  <span className="font-medium text-text-light">₹{formatINR(summary.courtFee)}</span>
                 </div>
               </div>
             )}
 
             {pledgeChecked && (
-              <div className="flex justify-between text-xs bg-emerald-50 -mx-4 px-4 py-2">
-                <span className="font-semibold text-success">{t.payment.pledgeReward}</span>
-                <span className="font-semibold text-success">-₹{formatINR(PLEDGE_REWARD)}</span>
+              <div className="flex justify-between text-sm bg-emerald-50 -mx-4 px-4 py-2.5">
+                <span className="font-display font-semibold text-success">{t.payment.pledgeReward}</span>
+                <span className="font-display font-semibold text-success">-₹{formatINR(PLEDGE_REWARD)}</span>
               </div>
             )}
 
@@ -626,6 +710,7 @@ export function PaymentPage() {
             </div>
           </div>
         </details>
+        )}
       </div>
     </PageTransition>
   )

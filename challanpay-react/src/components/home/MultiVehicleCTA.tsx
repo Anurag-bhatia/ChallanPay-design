@@ -17,7 +17,7 @@ export function MultiVehicleCTA() {
     <section className="py-12 md:py-16">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         <ScrollReveal>
-          <div className="rounded-3xl p-6 md:p-10 overflow-hidden border border-border">
+          <div className="bg-white rounded-3xl p-6 md:p-10 overflow-hidden border border-border shadow-sm">
             <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
               {/* Left content */}
               <div className="flex-1 text-center md:text-left">

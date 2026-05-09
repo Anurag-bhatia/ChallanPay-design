@@ -45,10 +45,10 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="font-display font-semibold text-sm mb-4">{t.footer.quickLinks}</h4>
-            <ul className="space-y-3">
+            <ul>
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="inline-flex items-center min-h-11 py-1.5 text-sm text-gray-400 hover:text-white transition-colors">
+                  <Link to={link.href} className="inline-block py-0.5 text-sm text-gray-400 hover:text-white transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -59,10 +59,10 @@ export function Footer() {
           {/* Legal Links */}
           <div>
             <h4 className="font-display font-semibold text-sm mb-4">{t.footer.legal}</h4>
-            <ul className="space-y-3">
+            <ul>
               {legalLinks.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.href} className="inline-flex items-center min-h-11 py-1.5 text-sm text-gray-400 hover:text-white transition-colors">
+                  <Link to={link.href} className="inline-block py-0.5 text-sm text-gray-400 hover:text-white transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -73,20 +73,20 @@ export function Footer() {
           {/* Support */}
           <div>
             <h4 className="font-display font-semibold text-sm mb-4">{t.footer.support}</h4>
-            <ul className="space-y-3">
+            <ul>
               <li>
-                <a href={`mailto:${SUPPORT_EMAIL}`} className="inline-flex items-center min-h-11 py-1.5 text-sm text-gray-400 hover:text-white transition-colors">
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="inline-block py-0.5 text-sm text-gray-400 hover:text-white transition-colors">
                   {SUPPORT_EMAIL}
                 </a>
               </li>
               <li>
-                <a href="tel:+919988441033" className="inline-flex items-center min-h-11 py-1.5 text-sm text-gray-400 hover:text-white transition-colors">
+                <a href="tel:+919988441033" className="inline-block py-0.5 text-sm text-gray-400 hover:text-white transition-colors">
                   Call: +91 99884 41033
                 </a>
               </li>
               {supportLinks.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="inline-flex items-center min-h-11 py-1.5 text-sm text-gray-400 hover:text-white transition-colors">
+                  <Link to={link.href} className="inline-block py-0.5 text-sm text-gray-400 hover:text-white transition-colors">
                     {link.label}
                   </Link>
                 </li>

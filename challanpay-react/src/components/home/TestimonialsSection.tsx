@@ -1,5 +1,4 @@
 import { Star } from 'lucide-react'
-import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { useTranslation } from '@/hooks/useTranslation'
 
 interface Testimonial {
@@ -69,21 +68,19 @@ export function TestimonialsSection() {
     <section className="py-16 md:py-20" style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)' }}>
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <ScrollReveal>
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
-              {t.testimonials.title}
-            </h2>
-            <p className="font-body text-white/80 mt-3 text-lg">
-              {t.testimonials.subtitle}
-            </p>
-          </div>
-        </ScrollReveal>
+        <div className="text-center mb-12">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+            {t.testimonials.title}
+          </h2>
+          <p className="font-body text-white/80 mt-3 text-lg">
+            {t.testimonials.subtitle}
+          </p>
+        </div>
 
         {/* Testimonial Cards */}
         <div className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:snap-none sm:pb-0 scrollbar-hide">
           {testimonials.map((testimonial, index) => (
-            <ScrollReveal key={index} delay={index * 0.1} className="min-w-[85%] snap-center sm:min-w-0">
+            <div key={index} className="min-w-[85%] snap-center sm:min-w-0">
               <div className="bg-white rounded-2xl p-6 h-full flex flex-col">
                 {/* Header */}
                 <div className="flex items-center gap-3 mb-3">
@@ -123,7 +120,7 @@ export function TestimonialsSection() {
                   {testimonial.text}
                 </p>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </div>

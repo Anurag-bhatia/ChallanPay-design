@@ -9,7 +9,7 @@ import { usePageState } from '@/hooks/usePageState'
 import { PageTransition } from '@/components/shared/PageTransition'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
-import { SkeletonCard } from '@/components/shared/Skeleton'
+import { Skeleton, SkeletonCard } from '@/components/shared/Skeleton'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useChallanStore, type ChallanItem } from '@/stores/challanStore'
 
@@ -69,10 +69,14 @@ export function StatusPage() {
   const [detailChallan, setDetailChallan] = useState<Challan | null>(null)
   const [showUnpaidWarning, setShowUnpaidWarning] = useState(false)
 
-  // Sync the page's mock list into the global store so PaymentPage can read it.
+  // Sync the page's mock list into the global store so PaymentPage can read it,
+  // and pre-select all pending challans by default on first load.
   useEffect(() => {
     setChallansInStore(MOCK_CHALLANS)
-  }, [setChallansInStore])
+    selectAllInStore(MOCK_CHALLANS.map((c) => c.id))
+    // Run once on mount; later edits don't reset selection.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useModalA11y(detailChallan !== null, () => setDetailChallan(null))
   useModalA11y(showUnpaidWarning, () => setShowUnpaidWarning(false))
@@ -330,8 +334,21 @@ export function StatusPage() {
                 </div>
                 )}
 
+                {/* Proceed Bar — skeleton during loading */}
+                {state === 'loading' && (
+                  <div className="fixed md:sticky bottom-0 md:bottom-4 left-0 right-0 md:left-auto md:right-auto z-50 md:z-40 bg-white border-t border-border md:border md:rounded-2xl rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:shadow-xl overflow-hidden">
+                    <div className="px-4 py-3 flex items-center justify-between gap-4">
+                      <div className="space-y-2 min-w-0 flex-1">
+                        <Skeleton className="h-3 w-24" />
+                        <Skeleton className="h-5 w-32" />
+                      </div>
+                      <Skeleton className="h-12 w-36 rounded-xl" />
+                    </div>
+                  </div>
+                )}
+
                 {/* Proceed Bar */}
-                {selectedIds.length > 0 && (
+                {state !== 'loading' && selectedIds.length > 0 && (
               <div className="fixed md:sticky bottom-0 md:bottom-4 left-0 right-0 md:left-auto md:right-auto z-50 md:z-40 bg-white border-t border-border md:border md:rounded-2xl rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:shadow-xl overflow-hidden animate-slide-down">
                 {/* Pledge & Claim Rewards banner */}
                 <div className="flex items-center justify-between px-4 py-2.5 bg-gradient-to-r from-amber-100 via-amber-50 to-white border-b border-amber-100">

@@ -104,14 +104,14 @@ export function NewsPreview() {
 
       {/* Scrolling carousel */}
       <div className="relative w-full overflow-hidden">
-        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-bg-dark to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-bg-dark to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-6 md:w-16 bg-gradient-to-r from-bg-dark to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-6 md:w-16 bg-gradient-to-l from-bg-dark to-transparent z-10 pointer-events-none" />
 
         <div className="flex animate-scroll-left hover:[animation-play-state:paused]">
           {newsItems.map((item, index) => (
             <div
               key={`first-${index}`}
-              className="flex-shrink-0 w-[300px] md:w-[350px] mx-3"
+              className="flex-shrink-0 w-[78vw] max-w-[340px] md:w-[350px] md:max-w-none mx-3"
             >
               <NewsCard item={item} readMoreLabel={t.newsPreview.readMore} />
             </div>
@@ -119,7 +119,7 @@ export function NewsPreview() {
           {newsItems.map((item, index) => (
             <div
               key={`second-${index}`}
-              className="flex-shrink-0 w-[300px] md:w-[350px] mx-3"
+              className="flex-shrink-0 w-[78vw] max-w-[340px] md:w-[350px] md:max-w-none mx-3"
             >
               <NewsCard item={item} readMoreLabel={t.newsPreview.readMore} />
             </div>

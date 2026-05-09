@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Play, X } from 'lucide-react'
-import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useModalA11y } from '@/hooks/useModalA11y'
 
@@ -30,21 +29,19 @@ export function VideoTestimonials() {
     <section className="py-16 md:py-20 bg-bg-page">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <ScrollReveal>
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-text-primary">
-              {t.videoTestimonials.title}
-            </h2>
-            <p className="font-body text-text-secondary mt-3 text-lg">
-              {t.videoTestimonials.subtitle}
-            </p>
-          </div>
-        </ScrollReveal>
+        <div className="text-center mb-12">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-text-primary">
+            {t.videoTestimonials.title}
+          </h2>
+          <p className="font-body text-text-secondary mt-3 text-lg">
+            {t.videoTestimonials.subtitle}
+          </p>
+        </div>
 
         {/* Video Cards */}
         <div className="flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:snap-none sm:pb-0 scrollbar-hide">
-          {videos.map((video, index) => (
-            <ScrollReveal key={video.id} delay={index * 0.1} className="min-w-[45%] snap-center sm:min-w-0">
+          {videos.map((video) => (
+            <div key={video.id} className="min-w-[45%] snap-center sm:min-w-0">
               <div
                 className="aspect-[9/16] cursor-pointer group"
                 onClick={() => openVideo(video.src)}
@@ -73,7 +70,7 @@ export function VideoTestimonials() {
                   </div>
                 </div>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </div>

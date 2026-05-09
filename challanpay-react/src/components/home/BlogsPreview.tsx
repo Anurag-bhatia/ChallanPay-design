@@ -1,5 +1,4 @@
 import { ArrowRight } from 'lucide-react'
-import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { Link } from 'react-router'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -41,21 +40,19 @@ export function BlogsPreview() {
     <section id="blogs" className="py-16 md:py-20 bg-white">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <ScrollReveal>
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-text-primary">
-              {t.blogsPreview.title}
-            </h2>
-            <p className="font-body text-text-secondary mt-3 text-lg">
-              {t.blogsPreview.subtitle}
-            </p>
-          </div>
-        </ScrollReveal>
+        <div className="text-center mb-12">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-text-primary">
+            {t.blogsPreview.title}
+          </h2>
+          <p className="font-body text-text-secondary mt-3 text-lg">
+            {t.blogsPreview.subtitle}
+          </p>
+        </div>
 
         {/* Blog Cards */}
         <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 sm:overflow-visible sm:snap-none sm:pb-0 scrollbar-hide">
           {blogs.map((blog, index) => (
-            <ScrollReveal key={index} delay={index * 0.1} className="min-w-[85%] snap-center sm:min-w-0">
+            <div key={index} className="min-w-[85%] snap-center sm:min-w-0">
               <article className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 group h-full flex flex-col">
                 {/* Image */}
                 <div className="relative overflow-hidden aspect-[16/10]">
@@ -79,22 +76,20 @@ export function BlogsPreview() {
                   </p>
                 </div>
               </article>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
 
         {/* View More */}
-        <ScrollReveal>
-          <div className="text-center mt-10">
-            <Link
-              to="/blogs"
-              className="inline-flex items-center gap-2 font-display font-semibold text-primary hover:text-primary-dark transition-colors text-base group"
-            >
-              {t.blogsPreview.viewMore}
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
-        </ScrollReveal>
+        <div className="text-center mt-10">
+          <Link
+            to="/blogs"
+            className="inline-flex items-center gap-2 font-display font-semibold text-primary hover:text-primary-dark transition-colors text-base group"
+          >
+            {t.blogsPreview.viewMore}
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
       </div>
     </section>
   )

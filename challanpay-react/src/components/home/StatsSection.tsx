@@ -1,4 +1,3 @@
-import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { useTranslation } from '@/hooks/useTranslation'
 
 export function StatsSection() {
@@ -19,25 +18,26 @@ export function StatsSection() {
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
           {stats.map((stat, index) => (
-            <ScrollReveal key={index} delay={index * 0.08}>
-              <div className="flex flex-col items-center text-center gap-3 p-4 sm:p-5 md:p-6 rounded-2xl bg-muted/50 border border-transparent h-full">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex-shrink-0 flex items-center justify-center">
-                  <img
-                    src={stat.icon}
-                    alt={`${stat.label} Icon`}
-                    className="w-full h-full object-contain"
-                  />
+            <div
+              key={index}
+              className="flex flex-col items-center text-center gap-3 p-4 sm:p-5 md:p-6 rounded-2xl bg-muted/50 border border-transparent h-full"
+            >
+              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex-shrink-0 flex items-center justify-center">
+                <img
+                  src={stat.icon}
+                  alt={`${stat.label} Icon`}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div>
+                <div className="font-display text-lg sm:text-xl md:text-2xl font-bold text-primary">
+                  {stat.number}
                 </div>
-                <div>
-                  <div className="font-display text-lg sm:text-xl md:text-2xl font-bold text-primary">
-                    {stat.number}
-                  </div>
-                  <div className="font-body text-xs sm:text-sm text-text-secondary mt-0.5">
-                    {stat.label}
-                  </div>
+                <div className="font-body text-xs sm:text-sm text-text-secondary mt-0.5">
+                  {stat.label}
                 </div>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </div>
