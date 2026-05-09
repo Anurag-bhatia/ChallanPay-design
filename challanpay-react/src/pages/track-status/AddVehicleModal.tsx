@@ -58,7 +58,7 @@ export function AddVehicleModal({ onClose }: { onClose: () => void }) {
             autoFocus
             aria-invalid={error ? true : undefined}
             aria-describedby={error ? 'ts-vehicle-error' : undefined}
-            className="w-full px-4 py-3.5 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+            className="w-full px-4 py-3.5 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-500 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
           />
           {error && <p id="ts-vehicle-error" role="alert" className="text-xs text-red-500 mt-1.5">{error}</p>}
         </div>

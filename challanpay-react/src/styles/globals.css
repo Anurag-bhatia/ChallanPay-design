@@ -18,11 +18,12 @@
   --color-secondary: #004E89;
   --color-secondary-light: #1A659E;
   --color-accent: #FFB627;
-  --color-success: #31AB76;
+  --color-success: #10B981;
   --color-warning: #F59E0B;
   --color-destructive: #EF4444;
   --color-info: #0EA5E9;
   --color-bg-dark: #0A1628;
+  --color-bg-page: #F6F8FA;
 
   --color-border: #E4E4E7;
   --color-input: #E4E4E7;
@@ -32,7 +33,7 @@
 
   --color-text-primary: #1A1A1A;
   --color-text-secondary: #4B5563;
-  --color-text-light: #6B7280;
+  --color-text-light: #525C6A;
 
   --breakpoint-xs: 480px;
 }
@@ -45,6 +46,7 @@
   body {
     font-family: var(--font-body);
     color: var(--color-text-primary);
+    background-color: var(--color-bg-page);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -60,6 +62,19 @@
   * {
     border-color: var(--color-border);
   }
+
+  /* Consistent keyboard-focus ring across all interactive elements (WCAG 2.4.7). */
+  button:focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible,
+  [role="tab"]:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  /* Inputs already use ring-based focus styles in component classes. */
 }
 
 /* Custom animations */

@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router'
 import confetti from 'canvas-confetti'
-import { BadgeCheck, Monitor, Scale, Gift, ArrowLeft, X, ShieldAlert, ChevronDown, Info, Check } from 'lucide-react'
+import { toast } from 'sonner'
+import { BadgeCheck, Monitor, Scale, Gift, ArrowLeft, X, ShieldAlert, AlertTriangle, ChevronDown, Info, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { PageTransition } from '@/components/shared/PageTransition'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -71,13 +72,16 @@ export function PaymentPage() {
   const handlePledge = () => {
     const next = !pledgeChecked
     setPledgeChecked(next)
-    if (next && !prefersReducedMotion && !pledgeConfettiShown) {
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      })
-      markPledgeConfettiShown()
+    if (next) {
+      if (!prefersReducedMotion && !pledgeConfettiShown) {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        })
+        markPledgeConfettiShown()
+      }
+      toast.success('Congratulations! Reward applied 🎉')
     }
   }
 
@@ -253,9 +257,9 @@ export function PaymentPage() {
             </button>
 
             {/* Header */}
-            <div className="bg-gradient-to-b from-cyan-50 via-cyan-50/40 to-white pt-8 pb-3 px-6 text-center">
-              <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-3">
-                <Check className="w-6 h-6 text-emerald-600" strokeWidth={2.5} />
+            <div className="bg-gradient-to-b from-amber-50 via-amber-50/40 to-white pt-8 pb-3 px-6 text-center">
+              <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-3">
+                <AlertTriangle className="w-6 h-6 text-amber-600" strokeWidth={2.5} />
               </div>
               <h3 className="font-display text-xl font-bold text-text-primary mb-1">
                 {t.payment.leaveBackTitle}
@@ -305,7 +309,7 @@ export function PaymentPage() {
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-4 sm:py-6">
         {/* Mobile: Header outside grid */}
         <div className="mb-5">
-          <div className="flex items-center gap-3 mb-1">
+          <div className="flex items-center gap-3">
             <button
               onClick={handleBack}
               aria-label="Back"
@@ -315,12 +319,12 @@ export function PaymentPage() {
             </button>
             <h1 className="font-display text-xl sm:text-2xl font-bold text-text-primary">{t.payment.chooseResolution}</h1>
           </div>
-          <p className="text-text-secondary text-sm ml-11">{t.payment.selectHow}</p>
+          <p className="text-text-secondary text-sm ml-14 -mt-2">{t.payment.selectHow}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6 lg:gap-10">
           {/* Left: Resolution Options */}
-          <div className="space-y-5">
+          <div className="space-y-4">
             {/* Resolution Tabs */}
             <div className="space-y-4">
               {RESOLUTION_TABS.map((tab) => (
@@ -336,10 +340,10 @@ export function PaymentPage() {
                     }
                   }}
                   className={cn(
-                    'relative w-full flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl border text-left transition-all cursor-pointer',
+                    'relative w-full flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl border text-left transition-all cursor-pointer bg-white outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
                     activeTab === tab.id
-                      ? 'border-primary bg-primary/5 shadow-sm'
-                      : 'border-border bg-white hover:border-primary/30'
+                      ? 'border-primary shadow-md'
+                      : 'border-border shadow-sm hover:border-primary/30 hover:shadow-md'
                   )}
                 >
                   <div className={cn(
@@ -370,14 +374,14 @@ export function PaymentPage() {
                       )}
                     </div>
                     <p className="text-xs text-text-light mt-0.5">{tab.description}</p>
-                    <div className="flex flex-wrap gap-1.5 mt-3">
+                    <div className="flex flex-wrap gap-1.5 mt-4">
                       {tab.tags.map((tag) => (
                         <span
                           key={tag}
                           className={cn(
                             'text-[10px] font-medium px-2 py-0.5 rounded-full',
                             activeTab === tab.id
-                              ? 'bg-white text-primary'
+                              ? 'bg-primary/10 text-primary'
                               : 'bg-gray-100 text-text-secondary'
                           )}
                         >
@@ -397,7 +401,7 @@ export function PaymentPage() {
             </div>
 
             {/* Pledge Section */}
-            <div className="bg-white rounded-xl p-4 sm:p-5">
+            <div className="bg-white rounded-xl border border-border shadow-sm p-4 sm:p-5">
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
                   type="checkbox"
@@ -416,20 +420,19 @@ export function PaymentPage() {
               </label>
 
               {/* Reward Info */}
-              <div className="mt-4 flex items-center gap-3 bg-amber-50 rounded-lg p-3 border border-amber-200">
-                <Gift className="w-5 h-5 text-amber-600 flex-shrink-0" />
+              <div className="mt-4 flex items-center gap-3 bg-gradient-to-r from-amber-100 via-amber-50 to-white rounded-lg p-3">
+                <Gift className="w-5 h-5 text-amber-700 flex-shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-amber-700">{t.payment.rewardAmount}</p>
+                  <p className="text-sm font-bold text-amber-700">{t.payment.rewardAmount}</p>
                   <p className="text-xs text-text-light">{t.payment.rewardApplied}</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right: Payment Summary */}
-          <div className="lg:sticky lg:top-20 lg:self-start">
-            {/* Mobile: fixed bottom bar summary; Desktop: full card */}
-            <div className="hidden lg:block bg-white rounded-2xl border border-border shadow-sm p-6">
+          {/* Right: Payment Summary (desktop only) */}
+          <div className="hidden lg:block lg:sticky lg:top-20 lg:self-start">
+            <div className="bg-white rounded-2xl border border-border shadow-sm p-6">
               <h3 className="font-display font-bold text-base text-text-primary mb-4">
                 {`${selectedCount} ${selectedCount === 1 ? 'Challan' : 'Challans'} selected for settlement`}
               </h3>
@@ -519,32 +522,33 @@ export function PaymentPage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
               </button>
             </div>
+          </div>
+        </div>
 
-            {/* Mobile: Sticky bottom payment bar */}
-            <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-4 py-3 safe-bottom">
-              <div className="flex items-center justify-between gap-4">
-                <div className="min-w-0">
-                  <p className="text-xs text-text-light">{t.payment.grandTotal}</p>
-                  <p className="font-display text-lg font-bold text-text-primary">
-                    ₹{formatINR(grandTotal)}
-                  </p>
-                  {pledgeChecked && (
-                    <p className="text-[10px] text-success font-medium">{t.payment.savedAmount}</p>
-                  )}
-                </div>
-                <button
-                  onClick={handlePayment}
-                  className="flex-shrink-0 px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors shadow-md text-sm"
-                >
-                  {t.payment.proceedToPay}
-                </button>
-              </div>
+        {/* Mobile: Sticky bottom payment bar */}
+        <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-4 py-3 safe-bottom">
+          <div className="flex items-center justify-between gap-4">
+            <div className="min-w-0">
+              <p className="text-xs text-text-light">{t.payment.grandTotal}</p>
+              <p className="font-display text-lg font-bold text-text-primary">
+                ₹{formatINR(grandTotal)}
+              </p>
+              {pledgeChecked && (
+                <p className="text-[10px] text-success font-medium">{t.payment.savedAmount}</p>
+              )}
             </div>
+            <button
+              onClick={handlePayment}
+              className="relative flex-shrink-0 overflow-hidden px-7 sm:px-9 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors shadow-md text-base"
+            >
+              <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shine" />
+              <span className="relative">{t.payment.proceedToPay}</span>
+            </button>
           </div>
         </div>
 
         {/* Mobile: Expandable summary drawer */}
-        <details open className="lg:hidden mt-5 mb-20 bg-white rounded-xl border border-border overflow-hidden">
+        <details open className="lg:hidden mt-4 mb-20 bg-white rounded-xl border border-border shadow-sm overflow-hidden">
           <summary className="flex items-center justify-between p-4 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden">
             <span className="font-display font-bold text-sm text-text-primary">{t.payment.paymentSummary}</span>
             <ChevronDown className="w-5 h-5 text-text-light transition-transform [[open]>&]:rotate-180" />
@@ -605,12 +609,6 @@ export function PaymentPage() {
                 </div>
               </div>
             )}
-
-            {/* Total */}
-            <div className="flex justify-between text-xs mt-2">
-              <span className="font-medium text-primary">{t.payment.totalAmount}</span>
-              <span className="font-medium text-text-primary">₹{formatINR(summary.subtotal)}</span>
-            </div>
 
             {pledgeChecked && (
               <div className="flex justify-between text-xs bg-emerald-50 -mx-4 px-4 py-2">

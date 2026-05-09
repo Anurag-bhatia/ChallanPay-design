@@ -96,7 +96,7 @@ export function ComparisonSection() {
   ]
 
   return (
-    <section className="py-16 md:py-20 bg-[#f3f4f6]">
+    <section className="py-16 md:py-20 bg-bg-page">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <ScrollReveal>
@@ -135,7 +135,7 @@ export function ComparisonSection() {
                   <tr
                     key={index}
                     className={cn(
-                      'hover:bg-[#f3f4f6] transition-colors',
+                      'hover:bg-gray-50 transition-colors',
                       index < comparisonData.length - 1 && 'border-b border-border'
                     )}
                   >

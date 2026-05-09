@@ -255,7 +255,7 @@ export const hi: TranslationKeys = {
     refundApplicable: 'रिफंड लागू',
     sixtyDays: '60 दिन समाधान',
     pledgeTitle: 'मैं ट्रैफ़िक नियमों का पालन करने की प्रतिज्ञा करता हूँ 🤝',
-    pledgeDesc: 'प्रतिज्ञा लें और अपने अगले भुगतान के लिए रिवॉर्ड पॉइंट कमाएँ!',
+    pledgeDesc: 'प्रतिज्ञा लें और अपनी कुल राशि पर रिवॉर्ड कमाएँ',
     rewardAmount: 'आपके लिए ₹1,000 रिवॉर्ड!',
     rewardApplied: 'आपके भुगतान में लागू',
     challansSelected: '5 चालान निपटान के लिए चुने गए',

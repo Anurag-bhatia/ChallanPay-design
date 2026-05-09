@@ -136,7 +136,7 @@ export function NewsPage() {
   return (
     <PageTransition>
       {/* ── Hero ── */}
-      <section className="relative pt-8 md:pt-12 pb-12 md:pb-16 overflow-hidden bg-[#f9fafb]">
+      <section className="relative pt-8 md:pt-12 pb-12 md:pb-16 overflow-hidden bg-bg-page">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <ScrollReveal>
@@ -201,7 +201,7 @@ export function NewsPage() {
       </section>
 
       {/* ─�� All News ── */}
-      <section className="py-14 md:py-18 bg-[#f9fafb]">
+      <section className="py-14 md:py-18 bg-bg-page">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">

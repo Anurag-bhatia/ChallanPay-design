@@ -117,7 +117,7 @@ export function BlogsPage() {
   return (
     <PageTransition>
       {/* ── Hero ── */}
-      <section className="relative pt-8 md:pt-12 pb-12 md:pb-16 overflow-hidden bg-[#f9fafb]">
+      <section className="relative pt-8 md:pt-12 pb-12 md:pb-16 overflow-hidden bg-bg-page">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <ScrollReveal>
@@ -144,7 +144,7 @@ export function BlogsPage() {
       {isEmpty ? (
         <section className="py-14 md:py-18 bg-white">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-            <div className="bg-[#f9fafb] rounded-2xl border border-border">
+            <div className="bg-bg-page rounded-2xl border border-border">
               <EmptyState
                 icon={FileText}
                 title="No articles yet"
@@ -194,7 +194,7 @@ export function BlogsPage() {
       </section>
 
       {/* ── Blog Grid ── */}
-      <section className="py-14 md:py-18 bg-[#f9fafb]">
+      <section className="py-14 md:py-18 bg-bg-page">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <h2 className="font-display text-2xl md:text-3xl font-bold text-text-primary mb-8">

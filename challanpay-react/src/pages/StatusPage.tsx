@@ -136,7 +136,7 @@ export function StatusPage() {
   return (
     <PageTransition>
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-3 md:gap-6">
           {/* Sidebar */}
           <aside className="md:sticky md:top-24 md:self-start md:min-h-[calc(100vh-7rem)] bg-white rounded-2xl border border-border p-3">
             <nav className="flex md:flex-col gap-2">
@@ -222,10 +222,10 @@ export function StatusPage() {
                         key={filter}
                         onClick={() => setActiveFilter(filter)}
                         className={cn(
-                          'px-4 py-3 rounded-lg text-xs font-medium transition-colors capitalize',
+                          'px-4 py-3 rounded-lg text-xs font-medium transition-colors capitalize border',
                           activeFilter === filter
-                            ? 'bg-primary text-white'
-                            : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+                            ? 'bg-primary text-white border-primary'
+                            : 'bg-white text-text-secondary border-border hover:bg-gray-50'
                         )}
                       >
                         {filter === 'all'
@@ -264,8 +264,8 @@ export function StatusPage() {
                       className={cn(
                         'bg-white rounded-xl border p-5 transition-all',
                         selectedIdsSet.has(challan.id)
-                          ? 'border-primary shadow-sm'
-                          : 'border-border hover:border-primary/30'
+                          ? 'border-primary shadow-md'
+                          : 'border-border shadow-sm hover:border-primary/30 hover:shadow-md'
                       )}
                     >
                       {/* Card Header */}
@@ -299,18 +299,17 @@ export function StatusPage() {
                           ₹{challan.amount.toLocaleString('en-IN')}
                         </p>
                         <span className={cn(
-                          'inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
+                          'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
                           challan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
                         )}>
-                          {challan.type === 'online' ? <FileWarning className="w-3 h-3" aria-hidden /> : <Gavel className="w-3 h-3" aria-hidden />}
                           {challan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
                         </span>
                       </div>
 
                       {/* Details */}
                       <div className="space-y-1.5 text-sm text-text-secondary">
-                        <p className="line-clamp-3 leading-snug">{challan.violation}</p>
-                        <p className="text-xs text-text-light">{challan.date} · {challan.location}</p>
+                        <p className="line-clamp-1 leading-snug" title={challan.violation}>{challan.violation}</p>
+                        <p className="text-xs text-text-light line-clamp-1" title={`${challan.date} · ${challan.location}`}>{challan.date} · {challan.location}</p>
                       </div>
 
                       {/* Pending since + View Details */}
@@ -335,9 +334,9 @@ export function StatusPage() {
                 {selectedIds.length > 0 && (
               <div className="fixed md:sticky bottom-0 md:bottom-4 left-0 right-0 md:left-auto md:right-auto z-50 md:z-40 bg-white border-t border-border md:border md:rounded-2xl rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:shadow-xl overflow-hidden animate-slide-down">
                 {/* Pledge & Claim Rewards banner */}
-                <div className="flex items-center justify-between px-4 py-2.5 bg-amber-50 border-b border-amber-200">
+                <div className="flex items-center justify-between px-4 py-2.5 bg-gradient-to-r from-amber-100 via-amber-50 to-white border-b border-amber-100">
                   <span className="text-sm font-semibold text-amber-700">{t.status.pledgeAndClaimRewards}</span>
-                  <svg className="w-5 h-5 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="w-7 h-7 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                   </svg>
                 </div>
@@ -390,7 +389,7 @@ export function StatusPage() {
                   {MOCK_PAID_CHALLANS.map((challan) => (
                     <div
                       key={challan.id}
-                      className="bg-white rounded-xl border border-border p-5"
+                      className="bg-white rounded-xl border border-border shadow-sm p-5"
                     >
                       {/* Card Header */}
                       <div className="flex items-center justify-between mb-3">
@@ -421,18 +420,17 @@ export function StatusPage() {
                           ₹{challan.amount.toLocaleString('en-IN')}
                         </p>
                         <span className={cn(
-                          'inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
+                          'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
                           challan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
                         )}>
-                          {challan.type === 'online' ? <FileWarning className="w-3 h-3" aria-hidden /> : <Gavel className="w-3 h-3" aria-hidden />}
                           {challan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
                         </span>
                       </div>
 
                       {/* Details */}
                       <div className="space-y-1.5 text-sm text-text-secondary">
-                        <p className="line-clamp-3 leading-snug">{challan.violation}</p>
-                        <p className="text-xs text-text-light">{challan.date} · {challan.location}</p>
+                        <p className="line-clamp-1 leading-snug" title={challan.violation}>{challan.violation}</p>
+                        <p className="text-xs text-text-light line-clamp-1" title={`${challan.date} · ${challan.location}`}>{challan.date} · {challan.location}</p>
                       </div>
 
                       {/* Paid on */}
@@ -495,10 +493,9 @@ export function StatusPage() {
                 <div className="flex justify-between">
                   <span className="text-sm text-text-secondary">{t.status.type}</span>
                   <span className={cn(
-                    'inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
+                    'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
                     detailChallan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
                   )}>
-                    {detailChallan.type === 'online' ? <FileWarning className="w-3 h-3" aria-hidden /> : <Gavel className="w-3 h-3" aria-hidden />}
                     {detailChallan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
                   </span>
                 </div>

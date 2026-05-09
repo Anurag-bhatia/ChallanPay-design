@@ -69,7 +69,7 @@ export function PaymentCompletedPage() {
 
   return (
     <PageTransition>
-      <div className="max-w-lg mx-auto px-4 py-8 space-y-8">
+      <div className="max-w-lg mx-auto px-4 py-8 space-y-4">
         {/* Success Section */}
         <div className="text-center space-y-6 bg-white rounded-2xl border border-border shadow-sm p-6 md:p-8">
           {/* Success Animation */}

@@ -165,7 +165,7 @@ function RegistrationModal({ open, onClose }: { open: boolean; onClose: () => vo
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
                         placeholder="Enter your full name"
-                        className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-500 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                       />
                     </div>
                     <div>
@@ -178,7 +178,7 @@ function RegistrationModal({ open, onClose }: { open: boolean; onClose: () => vo
                         value={form.mobile}
                         onChange={(e) => setForm({ ...form, mobile: e.target.value })}
                         placeholder="Enter your mobile number"
-                        className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-500 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                       />
                     </div>
                     <div>
@@ -191,7 +191,7 @@ function RegistrationModal({ open, onClose }: { open: boolean; onClose: () => vo
                         value={form.city}
                         onChange={(e) => setForm({ ...form, city: e.target.value })}
                         placeholder="Enter your city"
-                        className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-500 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                       />
                     </div>
                     <div>
@@ -218,7 +218,7 @@ function RegistrationModal({ open, onClose }: { open: boolean; onClose: () => vo
                       type="submit"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full bg-[#EF4444] hover:bg-[#DC2626] text-white font-display font-semibold py-3.5 rounded-xl transition-colors text-sm mt-2"
+                      className="w-full bg-red-500 hover:bg-red-600 text-white font-display font-semibold py-3.5 rounded-xl transition-colors text-sm mt-2"
                     >
                       Register Now
                     </motion.button>
@@ -262,7 +262,7 @@ export function RoadSmartPartnersPage() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsFormOpen(true)}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#EF4444] hover:bg-[#DC2626] text-white font-display font-semibold py-4 px-20 rounded-xl transition-colors text-lg"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-red-500 hover:bg-red-600 text-white font-display font-semibold py-4 px-20 rounded-xl transition-colors text-lg"
               >
                 Register Now
               </motion.button>
@@ -293,7 +293,7 @@ export function RoadSmartPartnersPage() {
       </section>
 
       {/* ── Why Partner with Us ── */}
-      <section className="py-16 md:py-20 bg-[#f0f1f3]">
+      <section className="py-16 md:py-20 bg-bg-page">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="text-center mb-12">
@@ -331,7 +331,7 @@ export function RoadSmartPartnersPage() {
       </section>
 
       {/* ── How It Works ── */}
-      <section className="py-16 md:py-20 bg-[#f9fafb]">
+      <section className="py-16 md:py-20 bg-bg-page">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="text-center mb-12">
@@ -424,7 +424,7 @@ export function RoadSmartPartnersPage() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setIsFormOpen(true)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#EF4444] hover:bg-[#DC2626] text-white font-display font-semibold py-4 px-20 rounded-xl transition-colors text-lg"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-red-500 hover:bg-red-600 text-white font-display font-semibold py-4 px-20 rounded-xl transition-colors text-lg"
             >
               Register Now
             </motion.button>

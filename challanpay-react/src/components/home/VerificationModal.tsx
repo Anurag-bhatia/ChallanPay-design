@@ -145,7 +145,7 @@ export function VerificationModal() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm md:p-4"
+          className="fixed inset-0 z-[70] flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm md:p-4"
           onClick={closeVerificationModal}
         >
           <motion.div
@@ -225,7 +225,7 @@ export function VerificationModal() {
                         autoFocus
                         aria-invalid={nameError ? true : undefined}
                         aria-describedby={nameError ? 'vm-name-error' : undefined}
-                        className="w-full px-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+                        className="w-full px-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-500 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                       />
                       {nameError && (
                         <p id="vm-name-error" role="alert" className="text-xs text-red-500 mt-1.5 font-body">{nameError}</p>
@@ -255,7 +255,7 @@ export function VerificationModal() {
                           placeholder="10-digit mobile number"
                           aria-invalid={mobileError ? true : undefined}
                           aria-describedby={mobileError ? 'vm-mobile-error' : undefined}
-                          className="w-full pl-12 pr-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+                          className="w-full pl-12 pr-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-500 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                         />
                       </div>
                       {mobileError && (

@@ -33,7 +33,7 @@ export function HeroSection() {
   return (
     <section
       id="track"
-      className="relative pt-6 md:pt-20 overflow-hidden bg-[#f9fafb]"
+      className="relative pt-6 md:pt-20 overflow-hidden bg-bg-page"
     >
       {/* Background illustration */}
       <div
@@ -67,7 +67,7 @@ export function HeroSection() {
                 <h3 className="font-display text-lg font-semibold text-text-primary">
                   {t.hero.enterVehicleNumber}
                 </h3>
-                <span className="px-3 py-1 text-xs font-extrabold bg-[#C6FBEA] text-[#08714F] rounded-full uppercase tracking-wide animate-shimmer">
+                <span className="px-3 py-1 text-xs font-extrabold bg-emerald-100 text-emerald-700 rounded-full uppercase tracking-wide animate-shimmer">
                   {t.hero.free}
                 </span>
               </div>
@@ -104,7 +104,7 @@ export function HeroSection() {
                       maxLength={12}
                       aria-invalid={inputError ? true : undefined}
                       aria-describedby={inputError ? 'hero-vehicle-error' : undefined}
-                      className="flex-1 px-4 py-3.5 text-base font-body font-medium text-text-primary placeholder:text-[#9CA3AF] placeholder:normal-case outline-none bg-transparent uppercase tracking-wider"
+                      className="flex-1 px-4 py-3.5 text-base font-body font-medium text-text-primary placeholder:text-gray-500 placeholder:normal-case outline-none bg-transparent uppercase tracking-wider"
                     />
                   </motion.div>
                   {inputError && (
@@ -118,7 +118,7 @@ export function HeroSection() {
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleCheck}
-                  className="w-full flex items-center justify-center gap-2 bg-[#EF4444] hover:bg-[#DC2626] text-white font-display font-semibold py-4 px-6 rounded-[14px] transition-colors text-base"
+                  className="w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-display font-semibold py-4 px-6 rounded-[14px] transition-colors text-base"
                 >
                   {t.hero.checkChallans}
                 </motion.button>

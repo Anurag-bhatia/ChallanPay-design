@@ -5,7 +5,7 @@ import { OfflineBanner } from '@/components/shared/OfflineBanner'
 
 export function AppLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-bg-page">
       <SkipToContent />
       <OfflineBanner />
       <Header />

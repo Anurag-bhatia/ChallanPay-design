@@ -109,7 +109,7 @@ export function DashboardPage() {
               <Link
                 key={vehicle.id}
                 to={`/status?vehicle=${vehicle.number.replace(/\s/g, '')}`}
-                className="group bg-white rounded-2xl border border-border p-5 hover:shadow-md hover:border-primary/30 transition-all"
+                className="group bg-white rounded-2xl border border-border shadow-sm p-5 hover:shadow-md hover:border-primary/30 transition-all"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">

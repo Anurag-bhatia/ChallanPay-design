@@ -156,7 +156,7 @@ function LoginSection({ onSuccess }: { onSuccess: (name: string, mobile: string)
                   autoFocus
                   aria-invalid={nameError ? true : undefined}
                   aria-describedby={nameError ? 'ts-name-error' : undefined}
-                  className="w-full px-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+                  className="w-full px-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-500 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                 />
                 {nameError && <p id="ts-name-error" role="alert" className="text-xs text-red-500 mt-1.5 font-body">{nameError}</p>}
               </div>
@@ -181,7 +181,7 @@ function LoginSection({ onSuccess }: { onSuccess: (name: string, mobile: string)
                     placeholder={t.trackStatus.mobilePlaceholder}
                     aria-invalid={mobileError ? true : undefined}
                     aria-describedby={mobileError ? 'ts-mobile-error' : undefined}
-                    className="w-full pl-12 pr-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+                    className="w-full pl-12 pr-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-500 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                   />
                 </div>
                 {mobileError && <p id="ts-mobile-error" role="alert" className="text-xs text-red-500 mt-1.5 font-body">{mobileError}</p>}
@@ -400,10 +400,10 @@ function DashboardSection() {
   ]
 
   return (
-    <div className="bg-[#F9FAFB] min-h-screen py-6 overflow-x-hidden">
+    <div className="bg-bg-page min-h-screen py-6 overflow-x-hidden">
     <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-6">
       {/* Welcome Header */}
-      <div className="bg-white rounded-2xl border border-border p-5 mb-6 flex items-center gap-4">
+      <div className="bg-white rounded-2xl border border-border shadow-sm p-5 mb-6 flex items-center gap-4">
         <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
           <User className="w-6 h-6 text-primary" />
         </div>
@@ -458,7 +458,7 @@ function DashboardSection() {
                   {/* Stats Grid */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {STATS_CARDS.map((card) => (
-                      <div key={card.label} className="bg-white rounded-xl border border-border p-4 flex items-start gap-3">
+                      <div key={card.label} className="bg-white rounded-xl border border-border shadow-sm p-4 flex items-start gap-3">
                         <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0', card.color)}>
                           <card.icon className="w-4 h-4" />
                         </div>
@@ -484,7 +484,7 @@ function DashboardSection() {
                           placeholder={t.trackStatus.searchChallan}
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          className="pl-9 pr-4 py-2.5 rounded-lg border border-border bg-gray-50 text-sm text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all w-full sm:w-56"
+                          className="pl-9 pr-4 py-2.5 rounded-lg border border-border bg-gray-50 text-sm text-text-primary placeholder:text-gray-500 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all w-full sm:w-56"
                         />
                       </div>
                     </div>
@@ -523,7 +523,7 @@ function DashboardSection() {
                         {filteredChallans.map((challan) => (
                           <div
                             key={challan.id}
-                            className="bg-white rounded-xl border border-border p-5 hover:border-primary/30 transition-all"
+                            className="bg-white rounded-xl border border-border shadow-sm p-5 hover:border-primary/30 hover:shadow-md transition-all"
                           >
                             <div className="flex items-center justify-between gap-2 mb-3">
                               <p className="font-display font-bold text-sm text-text-primary truncate">

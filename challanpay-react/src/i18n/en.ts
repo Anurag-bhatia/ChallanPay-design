@@ -253,7 +253,7 @@ export const en = {
     refundApplicable: 'Refund Applicable',
     sixtyDays: '60 Days Resolution',
     pledgeTitle: 'I pledge to follow traffic rules 🤝',
-    pledgeDesc: 'Take the pledge and earn reward points towards your next payment!',
+    pledgeDesc: 'Take the pledge and earn rewards on your total amount',
     rewardAmount: '₹1,000 reward for you!',
     rewardApplied: 'Applied to your payment',
     challansSelected: '5 Challans selected for settlement',

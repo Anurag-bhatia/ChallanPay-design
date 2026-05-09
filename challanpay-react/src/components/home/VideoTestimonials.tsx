@@ -27,7 +27,7 @@ export function VideoTestimonials() {
   useModalA11y(activeVideo !== null, closeVideo)
 
   return (
-    <section className="py-16 md:py-20 bg-gray-50">
+    <section className="py-16 md:py-20 bg-bg-page">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <ScrollReveal>

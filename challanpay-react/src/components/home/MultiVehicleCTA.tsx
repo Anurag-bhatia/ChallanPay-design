@@ -31,7 +31,7 @@ export function MultiVehicleCTA() {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={handleWhatsAppClick}
-                  className="inline-flex items-center gap-2.5 bg-[#059669] hover:bg-[#047857] text-white font-display font-semibold py-3.5 px-7 rounded-xl transition-colors "
+                  className="inline-flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-display font-semibold py-3.5 px-7 rounded-xl transition-colors "
                 >
                   <MessageCircle className="w-5 h-5" />
                   {t.multiVehicle.chatOnWhatsApp}
