@@ -80,7 +80,7 @@ export function Header() {
           <div className="relative">
             <button
               onClick={() => { setIsLangOpen(!isLangOpen); setIsProfileOpen(false) }}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-gray-200 hover:bg-gray-50 transition-colors text-sm font-medium text-text-secondary"
+              className="flex items-center gap-1.5 px-3 min-h-11 rounded-full border border-gray-200 hover:bg-gray-50 transition-colors text-sm font-medium text-text-secondary"
               aria-label="Switch language"
             >
               <Globe className="w-4 h-4" />
@@ -95,7 +95,7 @@ export function Header() {
                     key={lang.code}
                     onClick={() => handleLangChange(lang.code)}
                     className={cn(
-                      'flex items-center justify-between w-full px-4 py-2.5 text-sm transition-colors',
+                      'flex items-center justify-between w-full px-4 py-3 min-h-11 text-sm transition-colors',
                       language === lang.code
                         ? 'text-primary font-semibold bg-primary/5'
                         : 'text-text-secondary hover:bg-gray-50'
@@ -113,7 +113,7 @@ export function Header() {
           <div className="relative">
           <button
             onClick={() => setIsProfileOpen(!isProfileOpen)}
-            className="flex items-center gap-3 px-4 py-2 rounded-full border border-gray-200 bg-gradient-to-br from-gray-50 to-white hover:from-gray-100 hover:to-gray-50 hover:shadow-sm transition-all"
+            className="flex items-center gap-3 pl-2 pr-4 py-2 min-h-11 rounded-full border border-gray-200 bg-gradient-to-br from-gray-50 to-white hover:from-gray-100 hover:to-gray-50 hover:shadow-sm transition-all"
           >
             <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
               <User className="w-5 h-5 text-gray-600" />
@@ -129,7 +129,7 @@ export function Header() {
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-border py-2 animate-slide-down">
               <Link
                 to="/track-status"
-                className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 transition-colors"
                 onClick={() => setIsProfileOpen(false)}
               >
                 <Calendar className="w-4 h-4" />
@@ -137,7 +137,7 @@ export function Header() {
               </Link>
               <Link
                 to="/profile"
-                className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 transition-colors"
                 onClick={() => setIsProfileOpen(false)}
               >
                 <User className="w-4 h-4" />
@@ -146,7 +146,7 @@ export function Header() {
               <hr className="my-1 border-border" />
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-gray-50 transition-colors w-full text-left"
+                className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 transition-colors w-full text-left"
               >
                 <LogOut className="w-4 h-4" />
                 {t.header.logout}
@@ -158,7 +158,7 @@ export function Header() {
 
         {/* Hamburger Button */}
         <button
-          className="md:hidden p-2 rounded-lg hover:bg-gray-50 transition-colors"
+          className="md:hidden p-3 min-w-11 min-h-11 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
           aria-expanded={isMobileMenuOpen}
@@ -208,7 +208,7 @@ export function Header() {
                 key={lang.code}
                 onClick={() => handleLangChange(lang.code)}
                 className={cn(
-                  'px-3 py-1.5 rounded-full text-sm font-medium transition-colors',
+                  'px-4 py-2.5 min-h-11 rounded-full text-sm font-medium transition-colors',
                   language === lang.code
                     ? 'bg-primary text-white'
                     : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
@@ -230,7 +230,7 @@ export function Header() {
           </div>
           <Link
             to="/track-status"
-            className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors"
+            className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <Calendar className="w-4 h-4" />
@@ -238,7 +238,7 @@ export function Header() {
           </Link>
           <Link
             to="/profile"
-            className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors"
+            className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <User className="w-4 h-4" />
@@ -246,7 +246,7 @@ export function Header() {
           </Link>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
+            className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
           >
             <LogOut className="w-4 h-4" />
             {t.header.logout}

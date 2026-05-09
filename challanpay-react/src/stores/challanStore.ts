@@ -1,43 +1,69 @@
 import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
 
-interface Challan {
+export interface ChallanItem {
   id: string
+  challanNumber: string
   amount: number
+  violation: string
+  date: string
+  location: string
+  type: 'online' | 'court'
+  pendingSince?: string
 }
+
+export const ONLINE_CONVENIENCE_FEE = 200
+export const COURT_CONVENIENCE_FEE = 2000
+export const PLEDGE_REWARD = 1000
 
 interface ChallanState {
+  challans: ChallanItem[]
   selectedChallanIds: string[]
-  totalAmount: number
+  lastTransactionId: string | null
+  lastTransactionAmount: number | null
+  pledgeConfettiShown: boolean
   activeTab: 'pending' | 'paid'
-  toggleChallan: (id: string, amount: number) => void
-  selectAll: (challans: Challan[]) => void
+  setChallans: (challans: ChallanItem[]) => void
+  toggleChallan: (id: string) => void
+  selectAll: (ids: string[]) => void
   clearSelection: () => void
   setActiveTab: (tab: 'pending' | 'paid') => void
+  recordTransaction: (id: string, amount: number) => void
+  markPledgeConfettiShown: () => void
 }
 
-export const useChallanStore = create<ChallanState>((set) => ({
-  selectedChallanIds: [],
-  totalAmount: 0,
-  activeTab: 'pending',
-  toggleChallan: (id, amount) =>
-    set((state) => {
-      const isSelected = state.selectedChallanIds.includes(id)
-      if (isSelected) {
-        return {
-          selectedChallanIds: state.selectedChallanIds.filter((cid) => cid !== id),
-          totalAmount: state.totalAmount - amount,
-        }
-      }
-      return {
-        selectedChallanIds: [...state.selectedChallanIds, id],
-        totalAmount: state.totalAmount + amount,
-      }
+export const useChallanStore = create<ChallanState>()(
+  persist(
+    (set) => ({
+      challans: [],
+      selectedChallanIds: [],
+      lastTransactionId: null,
+      lastTransactionAmount: null,
+      pledgeConfettiShown: false,
+      activeTab: 'pending',
+      setChallans: (challans) => set({ challans }),
+      toggleChallan: (id) =>
+        set((state) => ({
+          selectedChallanIds: state.selectedChallanIds.includes(id)
+            ? state.selectedChallanIds.filter((cid) => cid !== id)
+            : [...state.selectedChallanIds, id],
+        })),
+      selectAll: (ids) => set({ selectedChallanIds: ids }),
+      clearSelection: () => set({ selectedChallanIds: [] }),
+      setActiveTab: (tab) => set({ activeTab: tab }),
+      recordTransaction: (id, amount) => set({ lastTransactionId: id, lastTransactionAmount: amount }),
+      markPledgeConfettiShown: () => set({ pledgeConfettiShown: true }),
     }),
-  selectAll: (challans) =>
-    set({
-      selectedChallanIds: challans.map((c) => c.id),
-      totalAmount: challans.reduce((sum, c) => sum + c.amount, 0),
-    }),
-  clearSelection: () => set({ selectedChallanIds: [], totalAmount: 0 }),
-  setActiveTab: (tab) => set({ activeTab: tab }),
-}))
+    {
+      name: 'challanpay-challans',
+      storage: createJSONStorage(() => sessionStorage),
+      partialize: (state) => ({
+        challans: state.challans,
+        selectedChallanIds: state.selectedChallanIds,
+        lastTransactionId: state.lastTransactionId,
+        lastTransactionAmount: state.lastTransactionAmount,
+        pledgeConfettiShown: state.pledgeConfettiShown,
+      }),
+    }
+  )
+)

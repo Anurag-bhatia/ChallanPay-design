@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Play, X } from 'lucide-react'
 import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useModalA11y } from '@/hooks/useModalA11y'
 
 interface VideoItem {
   id: number
@@ -20,15 +21,10 @@ export function VideoTestimonials() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null)
   const { t } = useTranslation()
 
-  const openVideo = (src: string) => {
-    setActiveVideo(src)
-    document.body.style.overflow = 'hidden'
-  }
+  const openVideo = (src: string) => setActiveVideo(src)
+  const closeVideo = () => setActiveVideo(null)
 
-  const closeVideo = () => {
-    setActiveVideo(null)
-    document.body.style.overflow = ''
-  }
+  useModalA11y(activeVideo !== null, closeVideo)
 
   return (
     <section className="py-16 md:py-20 bg-gray-50">
@@ -102,7 +98,7 @@ export function VideoTestimonials() {
             >
               <button
                 onClick={closeVideo}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+                className="absolute top-3 right-3 z-20 w-11 h-11 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/30 transition-colors"
                 aria-label="Close dialog"
               >
                 <X className="w-5 h-5" />

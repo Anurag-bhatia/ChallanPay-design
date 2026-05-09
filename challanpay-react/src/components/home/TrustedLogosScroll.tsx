@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Pause, Play } from 'lucide-react'
 import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -15,6 +17,7 @@ const logos = [
 
 export function TrustedLogosScroll() {
   const { t } = useTranslation()
+  const [paused, setPaused] = useState(false)
 
   return (
     <section className="py-12 md:py-16 bg-white overflow-hidden">
@@ -32,8 +35,22 @@ export function TrustedLogosScroll() {
         <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
+        {/* Pause/play control — visible on focus, also on hover for mouse users */}
+        <button
+          type="button"
+          onClick={() => setPaused((p) => !p)}
+          aria-label={paused ? 'Play logo carousel' : 'Pause logo carousel'}
+          aria-pressed={paused}
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:right-2 focus:z-20 focus:w-11 focus:h-11 focus:bg-white focus:border focus:border-border focus:rounded-full focus:flex focus:items-center focus:justify-center focus:shadow-md focus:text-text-secondary"
+        >
+          {paused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
+        </button>
+
         {/* Scrolling track */}
-        <div className="flex animate-scroll-left hover:[animation-play-state:paused]">
+        <div
+          className="flex animate-scroll-left hover:[animation-play-state:paused]"
+          style={paused ? { animationPlayState: 'paused' } : undefined}
+        >
           {/* First set */}
           {logos.map((logo, index) => (
             <div

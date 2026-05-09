@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, FileText } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { PageTransition } from '@/components/shared/PageTransition'
 import { ScrollReveal } from '@/components/shared/ScrollReveal'
+import { EmptyState } from '@/components/shared/EmptyState'
 import { useTranslation } from '@/hooks/useTranslation'
 
 /* ------------------------------------------------------------------ */
@@ -111,6 +112,8 @@ export function BlogsPage() {
     page * ITEMS_PER_PAGE,
   )
 
+  const isEmpty = allBlogs.length === 0
+
   return (
     <PageTransition>
       {/* ── Hero ── */}
@@ -138,6 +141,20 @@ export function BlogsPage() {
         </div>
       </section>
 
+      {isEmpty ? (
+        <section className="py-14 md:py-18 bg-white">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+            <div className="bg-[#f9fafb] rounded-2xl border border-border">
+              <EmptyState
+                icon={FileText}
+                title="No articles yet"
+                description="We're working on new content. Check back soon for updates and insights."
+              />
+            </div>
+          </div>
+        </section>
+      ) : (
+      <>
       {/* ── Featured ── */}
       <section className="py-14 md:py-18 bg-white">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
@@ -222,7 +239,7 @@ export function BlogsPage() {
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="flex items-center gap-1 px-4 py-2 rounded-lg border border-border text-sm font-medium text-text-secondary hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center gap-1 px-4 min-h-11 rounded-lg border border-border text-sm font-medium text-text-secondary hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <ChevronLeft className="w-4 h-4" />
                 {t.blogs.previous}
@@ -232,7 +249,7 @@ export function BlogsPage() {
                   key={p}
                   onClick={() => setPage(p)}
                   className={cn(
-                    'w-10 h-10 rounded-lg text-sm font-medium transition-colors',
+                    'w-11 h-11 rounded-lg text-sm font-medium transition-colors',
                     page === p
                       ? 'bg-primary text-white'
                       : 'border border-border text-text-secondary hover:bg-white',
@@ -244,7 +261,7 @@ export function BlogsPage() {
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className="flex items-center gap-1 px-4 py-2 rounded-lg border border-border text-sm font-medium text-text-secondary hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center gap-1 px-4 min-h-11 rounded-lg border border-border text-sm font-medium text-text-secondary hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 {t.blogs.next}
                 <ChevronRight className="w-4 h-4" />
@@ -253,6 +270,8 @@ export function BlogsPage() {
           )}
         </div>
       </section>
+      </>
+      )}
     </PageTransition>
   )
 }

@@ -10,415 +10,23 @@ import {
   Search,
   User,
   Car,
-  ChevronDown,
   ChevronRight,
   Shield,
-  Copy,
-  Check,
-  Download,
   Plus,
   Info,
-  X,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUserStore } from '@/stores/userStore'
 import { mobileSchema, otpSchema, userNameSchema } from '@/lib/validators'
+import { usePageState } from '@/hooks/usePageState'
+import { ErrorState } from '@/components/shared/ErrorState'
+import { SkeletonCard } from '@/components/shared/Skeleton'
 import { PageTransition } from '@/components/shared/PageTransition'
-import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useTranslation } from '@/hooks/useTranslation'
-
-// --- Types ---
-type TrackingStatus = 'not-settled' | 'in-progress' | 'resolved' | 'refund'
-type FilterTab = 'all' | 'in-progress' | 'resolved' | 'refund'
-type SidebarTab = 'challan' | 'vehicle'
-type LoginStep = 'details' | 'otp'
-
-interface TimelineEntry {
-  date: string
-  title: string
-  description?: string
-}
-
-interface TrackingChallan {
-  id: string
-  challanNumber: string
-  status: TrackingStatus
-  vehicleNumber: string
-  incidentId: string
-  amount: number
-  resolutionDate: string
-  timeline: TimelineEntry[]
-}
-
-interface VehicleInfo {
-  vehicleNumber: string
-  ownerName: string
-  fatherName: string
-  address: string
-  vehicleType: string
-  registrationDate: string
-  makeModel: string
-  vehicleTypeColor: string
-  engineNumber: string
-  chassisNumber: string
-  pucExpiry: string
-  insuranceExpiry: string
-  rcExpiry: string
-}
-
-// --- Mock Data ---
-const MOCK_CHALLANS: TrackingChallan[] = [
-  {
-    id: '1',
-    challanNumber: 'UP4083823062711437',
-    status: 'not-settled',
-    vehicleNumber: 'UP32 GJ 4083',
-    incidentId: 'IRN-4680065',
-    amount: 0,
-    resolutionDate: '20 Nov, 2024',
-    timeline: [
-      { date: '06 Nov, 02:22 PM', title: 'Challan Submitted', description: 'Your challan has been submitted for processing. Our team will review it shortly.' },
-      { date: '06 Nov, 03:45 PM', title: 'Under Review', description: 'Challan is being reviewed by our resolution team.' },
-      { date: '07 Nov, 10:00 AM', title: 'Documents Verified', description: 'All submitted documents have been verified successfully.' },
-    ],
-  },
-  {
-    id: '2',
-    challanNumber: 'UP4083823062711438',
-    status: 'not-settled',
-    vehicleNumber: 'UP32 GJ 4083',
-    incidentId: 'IRN-4679986',
-    amount: 500,
-    resolutionDate: '22 Nov, 2024',
-    timeline: [
-      { date: '05 Nov, 11:30 AM', title: 'Challan Submitted', description: 'Your challan has been submitted for processing.' },
-      { date: '05 Nov, 04:00 PM', title: 'Payment Pending', description: 'Awaiting payment confirmation from the authority.' },
-    ],
-  },
-  {
-    id: '3',
-    challanNumber: 'UP4083823062711439',
-    status: 'in-progress',
-    vehicleNumber: 'UP32 GJ 4083',
-    incidentId: 'IRN-4679900',
-    amount: 1000,
-    resolutionDate: '25 Nov, 2024',
-    timeline: [
-      { date: '04 Nov, 09:15 AM', title: 'Challan Submitted', description: 'Your challan has been submitted for processing.' },
-      { date: '04 Nov, 02:00 PM', title: 'Under Review', description: 'Challan is being reviewed by our resolution team.' },
-      { date: '05 Nov, 11:00 AM', title: 'Resolution In Progress', description: 'Our team is actively working on resolving this challan with the traffic authority.' },
-    ],
-  },
-  {
-    id: '4',
-    challanNumber: 'UP4083823062711440',
-    status: 'in-progress',
-    vehicleNumber: 'UP32 GJ 4083',
-    incidentId: 'IRN-4679850',
-    amount: 2000,
-    resolutionDate: '28 Nov, 2024',
-    timeline: [
-      { date: '03 Nov, 10:00 AM', title: 'Challan Submitted', description: 'Your challan has been submitted for processing.' },
-      { date: '03 Nov, 05:30 PM', title: 'Documents Requested', description: 'Additional documents requested for verification.' },
-      { date: '04 Nov, 09:00 AM', title: 'Documents Uploaded', description: 'Documents have been uploaded and are pending review.' },
-      { date: '05 Nov, 02:00 PM', title: 'Resolution In Progress', description: 'Resolution process initiated with traffic department.' },
-    ],
-  },
-  {
-    id: '5',
-    challanNumber: 'UP4083823062711441',
-    status: 'not-settled',
-    vehicleNumber: 'UP32 GJ 4083',
-    incidentId: 'IRN-4679801',
-    amount: 0,
-    resolutionDate: '30 Nov, 2024',
-    timeline: [
-      { date: '02 Nov, 08:45 AM', title: 'Challan Submitted', description: 'Your challan has been submitted for processing.' },
-    ],
-  },
-  {
-    id: '6',
-    challanNumber: 'UP4083823062711442',
-    status: 'not-settled',
-    vehicleNumber: 'UP32 GJ 4083',
-    incidentId: 'IRN-4679750',
-    amount: 750,
-    resolutionDate: '02 Dec, 2024',
-    timeline: [
-      { date: '01 Nov, 04:30 PM', title: 'Challan Submitted', description: 'Your challan has been submitted for processing.' },
-      { date: '02 Nov, 10:00 AM', title: 'Under Review', description: 'Challan is being reviewed by our resolution team.' },
-    ],
-  },
-]
-
-const MOCK_VEHICLES: VehicleInfo[] = [
-  {
-    vehicleNumber: 'UP32 GJ 4083',
-    ownerName: 'Anurag Bhatia',
-    fatherName: 'Rajesh Bhatia',
-    address: '45, Sector 12, Noida, Uttar Pradesh - 201301',
-    vehicleType: 'Car',
-    registrationDate: '15 Mar 2020',
-    makeModel: 'Hyundai Creta SX',
-    vehicleTypeColor: 'White',
-    engineNumber: 'G4NAHU456789',
-    chassisNumber: 'MALC381CJKM12345',
-    pucExpiry: '22 Dec 2025',
-    insuranceExpiry: '14 Mar 2026',
-    rcExpiry: '15 Mar 2035',
-  },
-  {
-    vehicleNumber: 'DL01 AB 1234',
-    ownerName: 'Anurag Bhatia',
-    fatherName: 'Rajesh Bhatia',
-    address: '45, Sector 12, Noida, Uttar Pradesh - 201301',
-    vehicleType: 'Bike',
-    registrationDate: '22 Jun 2019',
-    makeModel: 'Royal Enfield Classic 350',
-    vehicleTypeColor: 'Black',
-    engineNumber: 'JBSBBH78901',
-    chassisNumber: 'ME3J1AG11KC23456',
-    pucExpiry: '10 Aug 2025',
-    insuranceExpiry: '21 Jun 2026',
-    rcExpiry: '22 Jun 2034',
-  },
-]
-
-const STATUS_BADGE: Record<TrackingStatus, { label: string; className: string }> = {
-  'not-settled': { label: 'NOT SETTLED', className: 'bg-gray-100 text-gray-600' },
-  'in-progress': { label: 'IN PROGRESS', className: 'bg-amber-50 text-amber-600' },
-  'resolved': { label: 'RESOLVED', className: 'bg-emerald-50 text-emerald-600' },
-  'refund': { label: 'REFUND', className: 'bg-purple-50 text-purple-600' },
-}
-
-// --- Challan Detail View ---
-function ChallanDetailView({ challan, onBack }: { challan: TrackingChallan; onBack: () => void }) {
-  const { t } = useTranslation()
-  const { copied, copy } = useCopyToClipboard()
-  const [expandedEntries, setExpandedEntries] = useState<Set<number>>(new Set())
-
-  const toggleEntry = (index: number) => {
-    setExpandedEntries((prev) => {
-      const next = new Set(prev)
-      if (next.has(index)) next.delete(index)
-      else next.add(index)
-      return next
-    })
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
-      transition={{ duration: 0.2 }}
-    >
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-6">
-        <button
-          onClick={onBack}
-          className="w-9 h-9 rounded-lg border border-border flex items-center justify-center hover:bg-gray-50 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4 text-text-secondary" />
-        </button>
-        <h2 className="font-display text-lg font-bold text-text-primary">{t.trackStatus.challanDetail}</h2>
-      </div>
-
-      {/* Two Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
-        {/* Left — Resolution Timeline */}
-        <div className="bg-white rounded-xl border border-border p-5">
-          <h3 className="font-display font-semibold text-sm text-text-primary mb-5">{t.trackStatus.resolutionTimeline}</h3>
-
-          <div className="relative">
-            {/* Vertical connecting line */}
-            {challan.timeline.length > 1 && (
-              <div className="absolute left-[7px] top-3 bottom-3 w-[2px] bg-primary/20" />
-            )}
-
-            <div className="space-y-6">
-              {challan.timeline.map((entry, index) => (
-                <div key={index} className="relative flex gap-4">
-                  {/* Blue dot */}
-                  <div className="relative z-10 w-4 h-4 rounded-full bg-primary border-[3px] border-primary/20 flex-shrink-0 mt-0.5" />
-
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-text-light mb-0.5">{entry.date}</p>
-                    <p className="text-sm font-medium text-text-primary">{entry.title}</p>
-
-                    {entry.description && (
-                      <>
-                        <button
-                          onClick={() => toggleEntry(index)}
-                          className="flex items-center gap-1 mt-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
-                        >
-                          {t.trackStatus.viewDetails}
-                          <ChevronDown className={cn(
-                            'w-3 h-3 transition-transform',
-                            expandedEntries.has(index) && 'rotate-180'
-                          )} />
-                        </button>
-
-                        <AnimatePresence>
-                          {expandedEntries.has(index) && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.15 }}
-                              className="overflow-hidden"
-                            >
-                              <p className="text-xs text-text-secondary mt-2 leading-relaxed bg-gray-50 rounded-lg p-3">
-                                {entry.description}
-                              </p>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Right — Challan Summary Card */}
-        <div className="bg-white rounded-xl border border-border overflow-hidden lg:self-start">
-          {/* Primary Header */}
-          <div className="bg-primary px-5 py-4">
-            <p className="text-xs text-white/70 mb-1">{t.trackStatus.challan}</p>
-            <div className="flex items-center gap-2">
-              <p className="font-display font-bold text-white text-sm truncate">
-                {challan.challanNumber}
-              </p>
-              <button
-                onClick={() => copy(challan.challanNumber)}
-                className="flex-shrink-0 text-white/80 hover:text-white transition-colors"
-              >
-                {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-              </button>
-            </div>
-          </div>
-
-          {/* Amount Row */}
-          <div className="px-5 py-4 border-b border-border flex items-center justify-between">
-            <p className="font-display text-xl font-bold text-text-primary">
-              ₹{challan.amount.toFixed(2)}
-            </p>
-            <span className={cn(
-              'text-[10px] font-bold uppercase px-2.5 py-1 rounded-full',
-              STATUS_BADGE[challan.status].className
-            )}>
-              {challan.status === 'not-settled' ? t.trackStatus.notSettled : challan.status === 'in-progress' ? t.trackStatus.inProgress : challan.status === 'resolved' ? t.trackStatus.resolved : t.trackStatus.refund}
-            </span>
-          </div>
-
-          {/* Info Rows */}
-          <div className="px-5 py-4 space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-text-light">{t.trackStatus.incidentId}</span>
-              <span className="text-sm font-medium text-text-primary">{challan.incidentId}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-text-light">{t.trackStatus.vehicleLabel}</span>
-              <span className="text-sm font-medium text-text-primary">{challan.vehicleNumber}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-text-light">{t.trackStatus.resolutionDate}</span>
-              <span className="text-sm font-medium text-text-primary">{challan.resolutionDate}</span>
-            </div>
-          </div>
-
-          {/* Download Button */}
-          <div className="px-5 pb-5">
-            <button className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-sm font-medium text-text-primary hover:bg-gray-50 transition-colors">
-              <Download className="w-4 h-4" />
-              {t.trackStatus.downloadReceipt}
-            </button>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
-// --- Add Vehicle Modal ---
-function AddVehicleModal({ onClose }: { onClose: () => void }) {
-  const { t } = useTranslation()
-  const [vehicleNumber, setVehicleNumber] = useState('')
-  const [error, setError] = useState('')
-
-  const handleSubmit = () => {
-    if (!vehicleNumber.trim()) {
-      setError('Please enter a vehicle number')
-      return
-    }
-    if (vehicleNumber.trim().length < 4) {
-      setError('Please enter a valid vehicle number')
-      return
-    }
-    // In production, this would make an API call
-    onClose()
-  }
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        transition={{ duration: 0.15 }}
-        className="relative bg-white rounded-2xl border border-border p-6 w-full max-w-md shadow-xl"
-      >
-        <div className="flex items-center justify-between mb-5">
-          <h3 className="font-display font-bold text-lg text-text-primary">{t.trackStatus.addVehicle}</h3>
-          <button
-            onClick={onClose}
-            className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors"
-          >
-            <X className="w-4 h-4 text-text-secondary" />
-          </button>
-        </div>
-
-        <div className="mb-5">
-          <label className="block text-xs font-medium text-text-secondary mb-2">
-            {t.trackStatus.vehicleNumber}
-          </label>
-          <input
-            type="text"
-            value={vehicleNumber}
-            onChange={(e) => { setVehicleNumber(e.target.value.toUpperCase()); setError('') }}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit() }}
-            placeholder={t.trackStatus.vehiclePlaceholder}
-            autoFocus
-            className="w-full px-4 py-3.5 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
-          />
-          {error && <p className="text-xs text-red-500 mt-1.5">{error}</p>}
-        </div>
-
-        <div className="flex gap-3">
-          <button
-            onClick={onClose}
-            className="flex-1 py-3 rounded-xl border border-border text-sm font-medium text-text-secondary hover:bg-gray-50 transition-colors"
-          >
-            {t.trackStatus.cancel}
-          </button>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={handleSubmit}
-            className="flex-1 py-3 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors"
-          >
-            {t.trackStatus.addVehicle}
-          </motion.button>
-        </div>
-      </motion.div>
-    </div>
-  )
-}
+import { ChallanDetailView } from './track-status/ChallanDetailView'
+import { AddVehicleModal } from './track-status/AddVehicleModal'
+import { MOCK_CHALLANS, MOCK_VEHICLES, STATUS_BADGE } from './track-status/mocks'
+import type { FilterTab, LoginStep, SidebarTab, TrackingChallan } from './track-status/types'
 
 // --- Login Section ---
 function LoginSection({ onSuccess }: { onSuccess: (name: string, mobile: string) => void }) {
@@ -535,24 +143,27 @@ function LoginSection({ onSuccess }: { onSuccess: (name: string, mobile: string)
 
               {/* Name input */}
               <div className="mb-5">
-                <label className="block text-xs font-medium text-text-secondary mb-2 font-body">
+                <label htmlFor="ts-name" className="block text-xs font-medium text-text-secondary mb-2 font-body">
                   {t.trackStatus.fullName}
                 </label>
                 <input
+                  id="ts-name"
                   type="text"
                   value={name}
                   onChange={(e) => { setName(e.target.value); setNameError('') }}
                   onKeyDown={handleKeyDown}
                   placeholder={t.trackStatus.fullNamePlaceholder}
                   autoFocus
+                  aria-invalid={nameError ? true : undefined}
+                  aria-describedby={nameError ? 'ts-name-error' : undefined}
                   className="w-full px-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                 />
-                {nameError && <p className="text-xs text-red-500 mt-1.5 font-body">{nameError}</p>}
+                {nameError && <p id="ts-name-error" role="alert" className="text-xs text-red-500 mt-1.5 font-body">{nameError}</p>}
               </div>
 
               {/* Mobile input */}
               <div>
-                <label className="block text-xs font-medium text-text-secondary mb-2 font-body">
+                <label htmlFor="ts-mobile" className="block text-xs font-medium text-text-secondary mb-2 font-body">
                   {t.trackStatus.mobileNumber}
                 </label>
                 <div className="relative">
@@ -560,6 +171,7 @@ function LoginSection({ onSuccess }: { onSuccess: (name: string, mobile: string)
                     +91
                   </span>
                   <input
+                    id="ts-mobile"
                     type="tel"
                     inputMode="numeric"
                     maxLength={10}
@@ -567,10 +179,12 @@ function LoginSection({ onSuccess }: { onSuccess: (name: string, mobile: string)
                     onChange={(e) => { setMobile(e.target.value.replace(/\D/g, '')); setMobileError('') }}
                     onKeyDown={handleKeyDown}
                     placeholder={t.trackStatus.mobilePlaceholder}
+                    aria-invalid={mobileError ? true : undefined}
+                    aria-describedby={mobileError ? 'ts-mobile-error' : undefined}
                     className="w-full pl-12 pr-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                   />
                 </div>
-                {mobileError && <p className="text-xs text-red-500 mt-1.5 font-body">{mobileError}</p>}
+                {mobileError && <p id="ts-mobile-error" role="alert" className="text-xs text-red-500 mt-1.5 font-body">{mobileError}</p>}
               </div>
 
               <motion.button
@@ -608,7 +222,7 @@ function LoginSection({ onSuccess }: { onSuccess: (name: string, mobile: string)
                 {t.trackStatus.verifySubtitle} +91 {mobile}
               </p>
 
-              <div className="flex gap-3 justify-center">
+              <div className="flex gap-3 justify-center" role="group" aria-label="One-time password">
                 {[0, 1, 2, 3].map((i) => (
                   <input
                     key={i}
@@ -625,11 +239,14 @@ function LoginSection({ onSuccess }: { onSuccess: (name: string, mobile: string)
                       if (pasted) handleOtpChange(i, pasted)
                     }}
                     autoFocus={i === 0}
+                    aria-label={`OTP digit ${i + 1}`}
+                    aria-invalid={error ? true : undefined}
+                    aria-describedby={error ? 'ts-otp-error' : undefined}
                     className="w-14 h-14 md:w-16 md:h-16 rounded-xl border-2 border-border bg-gray-50 text-center text-xl font-display font-bold text-text-primary outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                   />
                 ))}
               </div>
-              {error && <p className="text-xs text-red-500 text-center mt-3 font-body">{error}</p>}
+              {error && <p id="ts-otp-error" role="alert" className="text-xs text-red-500 text-center mt-3 font-body">{error}</p>}
 
               <div className="text-center mt-5">
                 <p className="text-xs text-text-light">
@@ -639,7 +256,7 @@ function LoginSection({ onSuccess }: { onSuccess: (name: string, mobile: string)
                   ) : (
                     <button
                       onClick={startResendTimer}
-                      className="text-primary font-medium hover:underline"
+                      className="text-primary font-medium hover:underline inline-flex items-center justify-center px-3 py-2 -my-2 min-h-11"
                     >
                       {t.trackStatus.resendOtp}
                     </button>
@@ -729,6 +346,7 @@ function DashboardSection() {
   const [selectedChallan, setSelectedChallan] = useState<TrackingChallan | null>(null)
   const [showAddVehicleModal, setShowAddVehicleModal] = useState(false)
   const [expandedVehicleSections, setExpandedVehicleSections] = useState<Record<string, Set<string>>>({})
+  const { state: pageState, retry: pageRetry } = usePageState()
 
   const toggleVehicleSection = (vehicleNumber: string, section: string) => {
     setExpandedVehicleSections((prev) => {
@@ -890,7 +508,17 @@ function DashboardSection() {
                     </div>
 
                     {/* Challan Cards Grid */}
-                    {filteredChallans.length > 0 ? (
+                    {pageState === 'loading' ? (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {Array.from({ length: 4 }).map((_, i) => (
+                          <SkeletonCard key={i} />
+                        ))}
+                      </div>
+                    ) : pageState === 'error' ? (
+                      <div className="bg-white rounded-2xl border border-border">
+                        <ErrorState onRetry={pageRetry} />
+                      </div>
+                    ) : filteredChallans.length > 0 ? (
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {filteredChallans.map((challan) => (
                           <div
@@ -901,12 +529,18 @@ function DashboardSection() {
                               <p className="font-display font-bold text-sm text-text-primary truncate">
                                 {challan.challanNumber}
                               </p>
-                              <span className={cn(
-                                'flex-shrink-0 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full',
-                                STATUS_BADGE[challan.status].className
-                              )}>
-                                {challan.status === 'not-settled' ? t.trackStatus.notSettled : challan.status === 'in-progress' ? t.trackStatus.inProgress : challan.status === 'resolved' ? t.trackStatus.resolved : t.trackStatus.refund}
-                              </span>
+                              {(() => {
+                                const StatusIcon = STATUS_BADGE[challan.status].icon
+                                return (
+                                  <span className={cn(
+                                    'flex-shrink-0 inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full',
+                                    STATUS_BADGE[challan.status].className
+                                  )}>
+                                    <StatusIcon className="w-3 h-3" aria-hidden />
+                                    {challan.status === 'not-settled' ? t.trackStatus.notSettled : challan.status === 'in-progress' ? t.trackStatus.inProgress : challan.status === 'resolved' ? t.trackStatus.resolved : t.trackStatus.refund}
+                                  </span>
+                                )
+                              })()}
                             </div>
                             <div className="space-y-1.5 text-sm text-text-secondary">
                               <p>{t.trackStatus.vehicle}: <span className="font-medium text-text-primary">{challan.vehicleNumber}</span></p>

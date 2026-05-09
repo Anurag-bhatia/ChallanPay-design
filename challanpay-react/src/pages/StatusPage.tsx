@@ -1,22 +1,19 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams, useNavigate } from 'react-router'
-import { Copy, Check, Clock, CircleCheck, ArrowRight, X, Coins, FileWarning, Gavel } from 'lucide-react'
+import { Copy, Check, Clock, CircleCheck, ArrowRight, X, Coins, FileWarning, Gavel, Inbox } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
+import { useModalA11y } from '@/hooks/useModalA11y'
+import { usePageState } from '@/hooks/usePageState'
 import { PageTransition } from '@/components/shared/PageTransition'
+import { EmptyState } from '@/components/shared/EmptyState'
+import { ErrorState } from '@/components/shared/ErrorState'
+import { SkeletonCard } from '@/components/shared/Skeleton'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useChallanStore, type ChallanItem } from '@/stores/challanStore'
 
-interface Challan {
-  id: string
-  challanNumber: string
-  amount: number
-  violation: string
-  date: string
-  location: string
-  type: 'online' | 'court'
-  pendingSince: string
-}
+type Challan = ChallanItem & { pendingSince: string }
 
 interface PaidChallan {
   id: string
@@ -62,11 +59,23 @@ export function StatusPage() {
   const vehicle = searchParams.get('vehicle') || 'DL 01 AB 1234'
   const [activeTab, setActiveTab] = useState<Tab>('pending')
   const [activeFilter, setActiveFilter] = useState<Filter>('all')
-  const [selectedIds, setSelectedIds] = useState<string[]>(MOCK_CHALLANS.map((c) => c.id))
+  const selectedIds = useChallanStore((s) => s.selectedChallanIds)
+  const toggleChallanInStore = useChallanStore((s) => s.toggleChallan)
+  const selectAllInStore = useChallanStore((s) => s.selectAll)
+  const setChallansInStore = useChallanStore((s) => s.setChallans)
+  const { state, retry } = usePageState()
   const { copy } = useCopyToClipboard()
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [detailChallan, setDetailChallan] = useState<Challan | null>(null)
   const [showUnpaidWarning, setShowUnpaidWarning] = useState(false)
+
+  // Sync the page's mock list into the global store so PaymentPage can read it.
+  useEffect(() => {
+    setChallansInStore(MOCK_CHALLANS)
+  }, [setChallansInStore])
+
+  useModalA11y(detailChallan !== null, () => setDetailChallan(null))
+  useModalA11y(showUnpaidWarning, () => setShowUnpaidWarning(false))
 
   const filteredChallans = useMemo(() => {
     if (activeFilter === 'all') return MOCK_CHALLANS
@@ -84,16 +93,14 @@ export function StatusPage() {
   const isAllSelected = filteredChallans.length > 0 && filteredChallans.every((c) => selectedIdsSet.has(c.id))
 
   const toggleChallan = (id: string) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-    )
+    toggleChallanInStore(id)
   }
 
   const toggleSelectAll = () => {
     if (isAllSelected) {
-      setSelectedIds([])
+      selectAllInStore([])
     } else {
-      setSelectedIds(filteredChallans.map((c) => c.id))
+      selectAllInStore(filteredChallans.map((c) => c.id))
     }
   }
 
@@ -121,7 +128,7 @@ export function StatusPage() {
   }
 
   const handlePayAll = () => {
-    setSelectedIds(filteredChallans.map((c) => c.id))
+    selectAllInStore(filteredChallans.map((c) => c.id))
     setShowUnpaidWarning(false)
     navigate('/payment')
   }
@@ -173,14 +180,20 @@ export function StatusPage() {
           {/* Main Content */}
           <div className="space-y-6">
             {/* Vehicle Info Card */}
-            <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-4">
-              <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-20 h-14 object-contain flex-shrink-0" />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-text-light">Hyundai Creta</p>
-                <p className="font-display font-bold text-text-primary text-lg">{vehicle}</p>
+            <div className="bg-white rounded-2xl border border-border p-4">
+              <div className="flex items-center gap-4">
+                <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-20 h-14 object-contain flex-shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-text-light">Hyundai Creta</p>
+                  <p className="font-display font-bold text-text-primary text-lg truncate" title={vehicle}>{vehicle}</p>
+                </div>
+                <span className="hidden sm:inline-flex items-center gap-2 pl-2 pr-5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-sm font-semibold whitespace-nowrap flex-shrink-0">
+                  <img src="/images/govt-verified-badge.png" alt="" className="w-8 h-8" />
+                  Govt. Verified Data
+                </span>
               </div>
-              <span className="inline-flex items-center gap-1.5 sm:gap-2 pl-1.5 sm:pl-2 pr-3 sm:pr-5 py-1 sm:py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] sm:text-sm font-semibold whitespace-nowrap flex-shrink-0">
-                <img src="/images/govt-verified-badge.png" alt="" className="w-5 h-5 sm:w-8 sm:h-8" />
+              <span className="sm:hidden mt-3 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold w-full">
+                <img src="/images/govt-verified-badge.png" alt="" className="w-5 h-5" />
                 Govt. Verified Data
               </span>
             </div>
@@ -193,12 +206,12 @@ export function StatusPage() {
                     <h2 className="font-display font-bold text-lg text-text-primary">
                       {`${t.status.pendingChallans} (${filteredChallans.length})`}
                     </h2>
-                    <label className="flex items-center gap-2 cursor-pointer text-sm text-text-secondary">
+                    <label className="flex items-center gap-2 cursor-pointer text-sm text-text-secondary min-h-11 px-2 -mx-2">
                       <input
                         type="checkbox"
                         checked={isAllSelected}
                         onChange={toggleSelectAll}
-                        className="w-4 h-4 rounded border-border text-primary accent-primary focus:ring-primary"
+                        className="w-5 h-5 rounded border-border text-primary accent-primary focus:ring-primary"
                       />
                       {t.status.selectAll}
                     </label>
@@ -224,6 +237,26 @@ export function StatusPage() {
                 </div>
 
                 {/* Challan Cards Grid */}
+                {state === 'loading' ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-36 md:pb-0">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <SkeletonCard key={i} />
+                    ))}
+                  </div>
+                ) : state === 'error' ? (
+                  <div className="bg-white rounded-2xl border border-border">
+                    <ErrorState onRetry={retry} />
+                  </div>
+                ) : filteredChallans.length === 0 || state === 'empty' ? (
+                  <div className="bg-white rounded-2xl border border-border">
+                    <EmptyState
+                      icon={CircleCheck}
+                      title="No pending challans"
+                      description="You're all clear for this vehicle. Try changing the filter or check another vehicle."
+                      action={{ label: 'Check another vehicle', onClick: () => navigate('/') }}
+                    />
+                  </div>
+                ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-36 md:pb-0">
                   {filteredChallans.map((challan) => (
                     <div
@@ -241,8 +274,9 @@ export function StatusPage() {
                           <span className="text-xs font-mono text-text-light">#{challan.challanNumber.slice(0, 12)}...</span>
                           <button
                             onClick={() => handleCopyChallan(challan.challanNumber)}
-                            className="text-text-light hover:text-primary transition-colors"
+                            aria-label="Copy challan number"
                             title="Copy challan number"
+                            className="text-text-light hover:text-primary transition-colors flex items-center justify-center p-2.5 -m-2.5"
                           >
                             {copiedId === challan.challanNumber ? (
                               <Check className="w-3.5 h-3.5 text-success" />
@@ -265,9 +299,10 @@ export function StatusPage() {
                           ₹{challan.amount.toLocaleString('en-IN')}
                         </p>
                         <span className={cn(
-                          'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
+                          'inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
                           challan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
                         )}>
+                          {challan.type === 'online' ? <FileWarning className="w-3 h-3" aria-hidden /> : <Gavel className="w-3 h-3" aria-hidden />}
                           {challan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
                         </span>
                       </div>
@@ -294,6 +329,7 @@ export function StatusPage() {
                     </div>
                   ))}
                 </div>
+                )}
 
                 {/* Proceed Bar */}
                 {selectedIds.length > 0 && (
@@ -331,6 +367,25 @@ export function StatusPage() {
                 </h2>
 
                 {/* Paid Challan Cards Grid */}
+                {state === 'loading' ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <SkeletonCard key={i} />
+                    ))}
+                  </div>
+                ) : state === 'error' ? (
+                  <div className="bg-white rounded-2xl border border-border">
+                    <ErrorState onRetry={retry} />
+                  </div>
+                ) : MOCK_PAID_CHALLANS.length === 0 || state === 'empty' ? (
+                  <div className="bg-white rounded-2xl border border-border">
+                    <EmptyState
+                      icon={Inbox}
+                      title="No paid challans yet"
+                      description="Once you settle a challan, it will appear here for your records."
+                    />
+                  </div>
+                ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {MOCK_PAID_CHALLANS.map((challan) => (
                     <div
@@ -343,8 +398,9 @@ export function StatusPage() {
                           <span className="text-xs font-mono text-text-light">#{challan.challanNumber.slice(0, 12)}...</span>
                           <button
                             onClick={() => handleCopyChallan(challan.challanNumber)}
-                            className="text-text-light hover:text-primary transition-colors"
+                            aria-label="Copy challan number"
                             title="Copy challan number"
+                            className="text-text-light hover:text-primary transition-colors flex items-center justify-center p-2.5 -m-2.5"
                           >
                             {copiedId === challan.challanNumber ? (
                               <Check className="w-3.5 h-3.5 text-success" />
@@ -365,9 +421,10 @@ export function StatusPage() {
                           ₹{challan.amount.toLocaleString('en-IN')}
                         </p>
                         <span className={cn(
-                          'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
+                          'inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
                           challan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
                         )}>
+                          {challan.type === 'online' ? <FileWarning className="w-3 h-3" aria-hidden /> : <Gavel className="w-3 h-3" aria-hidden />}
                           {challan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
                         </span>
                       </div>
@@ -387,6 +444,7 @@ export function StatusPage() {
                     </div>
                   ))}
                 </div>
+                )}
               </>
             )}
           </div>
@@ -404,9 +462,10 @@ export function StatusPage() {
           >
             <button
               onClick={() => setDetailChallan(null)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors z-10"
+              aria-label="Close"
+              className="absolute top-2 right-2 w-11 h-11 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors z-10"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
 
             <div className="p-6 md:p-8">
@@ -436,9 +495,10 @@ export function StatusPage() {
                 <div className="flex justify-between">
                   <span className="text-sm text-text-secondary">{t.status.type}</span>
                   <span className={cn(
-                    'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
+                    'inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
                     detailChallan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
                   )}>
+                    {detailChallan.type === 'online' ? <FileWarning className="w-3 h-3" aria-hidden /> : <Gavel className="w-3 h-3" aria-hidden />}
                     {detailChallan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
                   </span>
                 </div>
@@ -476,9 +536,10 @@ export function StatusPage() {
           >
             <button
               onClick={() => setShowUnpaidWarning(false)}
-              className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center text-gray-500 hover:bg-white transition-colors"
+              aria-label="Close"
+              className="absolute top-2 right-2 z-10 w-11 h-11 rounded-full bg-white/80 flex items-center justify-center text-gray-500 hover:bg-white transition-colors"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
 
             {/* Warning header */}

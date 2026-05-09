@@ -15,13 +15,19 @@ export function LoadingPage() {
   }, [navigate, vehicle])
 
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-white px-4">
-      <DotLottieReact
-        src="/lottie/loading.json"
-        loop
-        autoplay
-        className="w-48 h-48"
-      />
+    <div
+      className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-white px-4"
+      role="status"
+      aria-live="polite"
+    >
+      <div aria-hidden="true">
+        <DotLottieReact
+          src="/lottie/loading.json"
+          loop
+          autoplay
+          className="w-48 h-48"
+        />
+      </div>
       <p className="mt-4 text-text-secondary text-sm font-medium animate-pulse">
         Fetching your challan details...
       </p>

@@ -1,10 +1,21 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import confetti from 'canvas-confetti'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
-import { Download, CheckCircle, Circle, Clock, FileText, CreditCard } from 'lucide-react'
+import { Download, CheckCircle, Circle, Clock, FileText, CreditCard, MapPinCheck } from 'lucide-react'
+import { Link } from 'react-router'
 import { cn } from '@/lib/utils'
 import { PageTransition } from '@/components/shared/PageTransition'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { useChallanStore } from '@/stores/challanStore'
+
+const formatINR = (n: number) => n.toLocaleString('en-IN')
+
+const formatDateTime = (d: Date) =>
+  d.toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
 
 interface TimelineStep {
   id: number
@@ -16,7 +27,10 @@ interface TimelineStep {
 }
 
 export function PaymentCompletedPage() {
+  const prefersReducedMotion = useReducedMotion()
+
   useEffect(() => {
+    if (prefersReducedMotion) return
     const timer = setTimeout(() => {
       confetti({
         particleCount: 100,
@@ -25,15 +39,32 @@ export function PaymentCompletedPage() {
       })
     }, 500)
     return () => clearTimeout(timer)
-  }, [])
+  }, [prefersReducedMotion])
 
   const { t } = useTranslation()
+  const lastTransactionId = useChallanStore((s) => s.lastTransactionId)
+  const lastTransactionAmount = useChallanStore((s) => s.lastTransactionAmount)
+  const clearSelection = useChallanStore((s) => s.clearSelection)
+
+  useEffect(() => {
+    clearSelection()
+  }, [clearSelection])
+
+  // Capture the timestamp once at mount so timeline dates remain stable on re-render.
+  const paidAtRef = useRef<Date>(new Date())
+  const paidAt = paidAtRef.current
+  const processingAt = useMemo(() => new Date(paidAt.getTime() + 60_000), [paidAt])
+  const estimatedResolution = useMemo(() => new Date(paidAt.getTime() + 3 * 24 * 60 * 60 * 1000), [paidAt])
+
+  const handleDownloadReceipt = () => {
+    window.print()
+  }
 
   const TIMELINE: TimelineStep[] = [
-    { id: 1, title: t.paymentCompleted.paymentReceived, description: t.paymentCompleted.paymentReceivedDesc, date: 'May 4, 2026 · 12:34 PM', status: 'completed', icon: CreditCard },
-    { id: 2, title: t.paymentCompleted.processingStarted, description: t.paymentCompleted.processingStartedDesc, date: 'May 4, 2026 · 12:35 PM', status: 'completed', icon: FileText },
+    { id: 1, title: t.paymentCompleted.paymentReceived, description: t.paymentCompleted.paymentReceivedDesc, date: formatDateTime(paidAt), status: 'completed', icon: CreditCard },
+    { id: 2, title: t.paymentCompleted.processingStarted, description: t.paymentCompleted.processingStartedDesc, date: formatDateTime(processingAt), status: 'completed', icon: FileText },
     { id: 3, title: t.paymentCompleted.underReview, description: t.paymentCompleted.underReviewDesc, date: 'In Progress', status: 'current', icon: Clock },
-    { id: 4, title: t.paymentCompleted.resolutionComplete, description: t.paymentCompleted.resolutionCompleteDesc, date: 'Estimated: May 7, 2026', status: 'pending', icon: CheckCircle },
+    { id: 4, title: t.paymentCompleted.resolutionComplete, description: t.paymentCompleted.resolutionCompleteDesc, date: `Estimated: ${formatDate(estimatedResolution)}`, status: 'pending', icon: CheckCircle },
   ]
 
   return (
@@ -42,7 +73,7 @@ export function PaymentCompletedPage() {
         {/* Success Section */}
         <div className="text-center space-y-6 bg-white rounded-2xl border border-border shadow-sm p-6 md:p-8">
           {/* Success Animation */}
-          <div className="w-32 h-32 mx-auto">
+          <div className="w-32 h-32 mx-auto" aria-hidden="true">
             <DotLottieReact
               src="/lottie/Check.json"
               autoplay
@@ -56,7 +87,11 @@ export function PaymentCompletedPage() {
               {t.paymentCompleted.title}
             </h1>
             <p className="text-text-secondary mt-2">
-              {t.paymentCompleted.subtitle} <strong className="text-primary">₹8,616.82</strong> {t.paymentCompleted.processedSuccessfully}
+              {t.paymentCompleted.subtitle}{' '}
+              {lastTransactionAmount !== null && (
+                <strong className="text-primary">₹{formatINR(lastTransactionAmount)}</strong>
+              )}{' '}
+              {t.paymentCompleted.processedSuccessfully}
             </p>
           </div>
 
@@ -64,11 +99,11 @@ export function PaymentCompletedPage() {
           <div className="bg-gray-50 rounded-xl p-4 text-left space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-text-light">{t.paymentCompleted.transactionId}</span>
-              <span className="font-mono text-text-primary font-medium">TXN2026050412345</span>
+              <span className="font-mono text-text-primary font-medium">{lastTransactionId ?? '—'}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-text-light">{t.paymentCompleted.date}</span>
-              <span className="text-text-primary">May 4, 2026</span>
+              <span className="text-text-primary">{formatDate(paidAt)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-text-light">{t.paymentCompleted.statusLabel}</span>
@@ -76,10 +111,22 @@ export function PaymentCompletedPage() {
             </div>
           </div>
 
-          <button className="w-full py-3 bg-white border border-border text-text-primary font-medium rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-            <Download className="w-5 h-5" />
-            {t.paymentCompleted.downloadReceipt}
-          </button>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <button
+              onClick={handleDownloadReceipt}
+              className="flex-1 min-h-11 py-3 bg-white border border-border text-text-primary font-medium rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+            >
+              <Download className="w-5 h-5" />
+              {t.paymentCompleted.downloadReceipt}
+            </button>
+            <Link
+              to="/track-status"
+              className="flex-1 min-h-11 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+            >
+              <MapPinCheck className="w-5 h-5" />
+              {t.header.trackMyChallans}
+            </Link>
+          </div>
         </div>
 
         {/* Resolution Progress */}

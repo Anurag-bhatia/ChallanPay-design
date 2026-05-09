@@ -1,16 +1,25 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
 import { useUserStore } from '@/stores/userStore'
 import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { useTranslation } from '@/hooks/useTranslation'
 
 export function HeroSection() {
   const [vehicleInput, setVehicleInput] = useState('')
+  const [inputError, setInputError] = useState('')
+  const [shake, setShake] = useState(false)
   const { setVehicleNumber, openVerificationModal } = useUserStore()
   const { t } = useTranslation()
 
   const handleCheck = () => {
-    if (!vehicleInput.trim()) return
+    if (!vehicleInput.trim()) {
+      setInputError('Please enter a vehicle number')
+      setShake(true)
+      setTimeout(() => setShake(false), 400)
+      return
+    }
+    setInputError('')
     setVehicleNumber(vehicleInput.trim().toUpperCase())
     openVerificationModal()
   }
@@ -65,23 +74,44 @@ export function HeroSection() {
 
               {/* Input group */}
               <div className="space-y-5">
-                <div className="flex items-center bg-[#F7F8FA] border-2 border-[#E5E7EB] rounded-[14px] overflow-hidden focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(8,145,178,0.1)] transition-all">
-                  <div className="flex items-center gap-1.5 px-3 py-3.5 border-r border-[#E5E7EB]">
-                    <img
-                      src="/images/flag.png"
-                      alt="India Flag"
-                      className="w-7 h-auto object-contain"
+                <div>
+                  <motion.div
+                    animate={shake ? { x: [-6, 6, -4, 4, 0] } : { x: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className={cn(
+                      'flex items-center bg-[#F7F8FA] border-2 rounded-[14px] overflow-hidden focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(8,145,178,0.1)] transition-all',
+                      inputError ? 'border-red-400' : 'border-[#E5E7EB]'
+                    )}
+                  >
+                    <div className="flex items-center gap-1.5 px-3 py-3.5 border-r border-[#E5E7EB]">
+                      <img
+                        src="/images/flag.png"
+                        alt="India Flag"
+                        className="w-7 h-auto object-contain"
+                      />
+                    </div>
+                    <input
+                      id="hero-vehicle"
+                      type="text"
+                      value={vehicleInput}
+                      onChange={(e) => {
+                        setVehicleInput(e.target.value.toUpperCase())
+                        if (inputError) setInputError('')
+                      }}
+                      onKeyDown={handleKeyDown}
+                      placeholder={t.hero.placeholder}
+                      aria-label="Vehicle number"
+                      maxLength={12}
+                      aria-invalid={inputError ? true : undefined}
+                      aria-describedby={inputError ? 'hero-vehicle-error' : undefined}
+                      className="flex-1 px-4 py-3.5 text-base font-body font-medium text-text-primary placeholder:text-[#9CA3AF] placeholder:normal-case outline-none bg-transparent uppercase tracking-wider"
                     />
-                  </div>
-                  <input
-                    type="text"
-                    value={vehicleInput}
-                    onChange={(e) => setVehicleInput(e.target.value.toUpperCase())}
-                    onKeyDown={handleKeyDown}
-                    placeholder={t.hero.placeholder}
-                    aria-label="Vehicle number"
-                    className="flex-1 px-4 py-3.5 text-base font-body font-medium text-text-primary placeholder:text-[#9CA3AF] placeholder:normal-case outline-none bg-transparent uppercase tracking-wider"
-                  />
+                  </motion.div>
+                  {inputError && (
+                    <p id="hero-vehicle-error" role="alert" className="text-xs text-red-500 mt-1.5 font-body">
+                      {inputError}
+                    </p>
+                  )}
                 </div>
 
                 <motion.button

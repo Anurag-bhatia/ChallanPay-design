@@ -2,6 +2,7 @@ import { lazy, Suspense, type ComponentType } from 'react'
 import { createBrowserRouter } from 'react-router'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { AppLayout } from '@/components/layout/AppLayout'
+import { RequireSelection, RequireTransaction } from '@/components/shared/RouteGuards'
 
 // Eagerly load the homepage (critical path)
 import { HomePage } from '@/pages/HomePage'
@@ -39,7 +40,6 @@ const ChallanDetailsPage = lazyWithReload(() => import('@/pages/ChallanDetailsPa
 const LoadingPage = lazyWithReload(() => import('@/pages/LoadingPage').then(m => ({ default: m.LoadingPage })))
 const BlogsPage = lazyWithReload(() => import('@/pages/BlogsPage').then(m => ({ default: m.BlogsPage })))
 const NewsPage = lazyWithReload(() => import('@/pages/NewsPage').then(m => ({ default: m.NewsPage })))
-const EventsPage = lazyWithReload(() => import('@/pages/EventsPage').then(m => ({ default: m.EventsPage })))
 const FAQPage = lazyWithReload(() => import('@/pages/FAQPage').then(m => ({ default: m.FAQPage })))
 const PrivacyPolicyPage = lazyWithReload(() => import('@/pages/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })))
 const TermsPage = lazyWithReload(() => import('@/pages/TermsPage').then(m => ({ default: m.TermsPage })))
@@ -86,7 +86,6 @@ export const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'blogs', element: withSuspense(BlogsPage) },
       { path: 'news', element: withSuspense(NewsPage) },
-      { path: 'events', element: withSuspense(EventsPage) },
       { path: 'faq', element: withSuspense(FAQPage) },
       { path: 'privacy-policy', element: withSuspense(PrivacyPolicyPage) },
       { path: 'terms', element: withSuspense(TermsPage) },
@@ -103,8 +102,8 @@ export const router = createBrowserRouter([
       { path: 'dashboard', element: withSuspense(DashboardPage) },
       { path: 'status', element: withSuspense(StatusPage) },
       { path: 'challan/:id', element: withSuspense(ChallanDetailsPage) },
-      { path: 'payment', element: withSuspense(PaymentPage) },
-      { path: 'payment/completed', element: withSuspense(PaymentCompletedPage) },
+      { path: 'payment', element: <RequireSelection>{withSuspense(PaymentPage)}</RequireSelection> },
+      { path: 'payment/completed', element: <RequireTransaction>{withSuspense(PaymentCompletedPage)}</RequireTransaction> },
     ],
   },
 ])

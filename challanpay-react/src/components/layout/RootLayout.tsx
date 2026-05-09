@@ -3,6 +3,8 @@ import { Search, MapPinCheck, UserRound } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Header } from './Header'
 import { Footer } from './Footer'
+import { SkipToContent } from '@/components/shared/SkipToContent'
+import { OfflineBanner } from '@/components/shared/OfflineBanner'
 
 const BOTTOM_NAV_ITEMS = [
   { label: 'Check Challans', icon: Search, path: '/' },
@@ -10,7 +12,7 @@ const BOTTOM_NAV_ITEMS = [
   { label: 'Profile', icon: UserRound, path: '/profile' },
 ]
 
-const HIDE_BOTTOM_NAV = ['/road-smart-partners', '/blogs', '/news', '/events', '/faq', '/privacy-policy', '/terms']
+const HIDE_BOTTOM_NAV = ['/road-smart-partners', '/blogs', '/news', '/faq', '/privacy-policy', '/terms']
 
 export function RootLayout() {
   const location = useLocation()
@@ -19,8 +21,10 @@ export function RootLayout() {
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
+      <SkipToContent />
+      <OfflineBanner />
       <Header />
-      <main className={cn('flex-1 pt-16', showBottomNav ? 'pb-16 md:pb-0' : '')}>
+      <main id="main" className={cn('flex-1 pt-16', showBottomNav ? 'pb-16 md:pb-0' : '')}>
         <Outlet />
       </main>
       <Footer />

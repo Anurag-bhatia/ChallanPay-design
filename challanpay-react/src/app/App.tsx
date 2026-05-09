@@ -10,6 +10,10 @@ export function App() {
         position="top-right"
         toastOptions={{
           className: 'font-body',
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
         }}
       />
     </>

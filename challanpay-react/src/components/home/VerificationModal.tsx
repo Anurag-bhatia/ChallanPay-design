@@ -4,6 +4,7 @@ import { X, ArrowRight, ArrowLeft } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import { useUserStore } from '@/stores/userStore'
 import { mobileSchema, otpSchema, userNameSchema } from '@/lib/validators'
+import { useModalA11y } from '@/hooks/useModalA11y'
 
 type Step = 'details' | 'otp'
 
@@ -20,7 +21,18 @@ export function VerificationModal() {
   const [error, setError] = useState('')
   const [mobileError, setMobileError] = useState('')
   const [nameError, setNameError] = useState('')
+  const [resendTimer, setResendTimer] = useState(0)
   const otpRefs = useRef<(HTMLInputElement | null)[]>([])
+
+  const startResendTimer = () => {
+    setResendTimer(30)
+    const interval = setInterval(() => {
+      setResendTimer((prev) => {
+        if (prev <= 1) { clearInterval(interval); return 0 }
+        return prev - 1
+      })
+    }, 1000)
+  }
 
   const handleOtpChange = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return
@@ -60,7 +72,9 @@ export function VerificationModal() {
     }
   }
 
-  // Reset state when modal opens/closes
+  useModalA11y(isVerificationModalOpen, closeVerificationModal)
+
+  // Reset state when modal closes
   useEffect(() => {
     if (!isVerificationModalOpen) {
       setStep('details')
@@ -70,11 +84,6 @@ export function VerificationModal() {
       setError('')
       setMobileError('')
       setNameError('')
-    } else {
-      document.body.style.overflow = 'hidden'
-    }
-    return () => {
-      document.body.style.overflow = ''
     }
   }, [isVerificationModalOpen])
 
@@ -99,6 +108,7 @@ export function VerificationModal() {
 
     if (hasError) return
     setStep('otp')
+    startResendTimer()
   }
 
   const handleOtpSubmitWithDigits = (digits: string[]) => {
@@ -154,9 +164,10 @@ export function VerificationModal() {
             {/* Close */}
             <button
               onClick={closeVerificationModal}
-              className="absolute top-4 right-4 md:top-5 md:right-5 w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors z-10"
+              aria-label="Close"
+              className="absolute top-2 right-2 md:top-3 md:right-3 w-11 h-11 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors z-10"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
 
             <div className="p-6 pb-8 md:p-10">
@@ -198,10 +209,11 @@ export function VerificationModal() {
 
                     {/* Name input */}
                     <div className="mb-5">
-                      <label className="block text-xs font-medium text-text-secondary mb-2 font-body">
+                      <label htmlFor="vm-name" className="block text-xs font-medium text-text-secondary mb-2 font-body">
                         Full Name
                       </label>
                       <input
+                        id="vm-name"
                         type="text"
                         value={name}
                         onChange={(e) => {
@@ -211,16 +223,18 @@ export function VerificationModal() {
                         onKeyDown={handleKeyDown}
                         placeholder="Enter your full name"
                         autoFocus
+                        aria-invalid={nameError ? true : undefined}
+                        aria-describedby={nameError ? 'vm-name-error' : undefined}
                         className="w-full px-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                       />
                       {nameError && (
-                        <p className="text-xs text-red-500 mt-1.5 font-body">{nameError}</p>
+                        <p id="vm-name-error" role="alert" className="text-xs text-red-500 mt-1.5 font-body">{nameError}</p>
                       )}
                     </div>
 
                     {/* Mobile input */}
                     <div>
-                      <label className="block text-xs font-medium text-text-secondary mb-2 font-body">
+                      <label htmlFor="vm-mobile" className="block text-xs font-medium text-text-secondary mb-2 font-body">
                         Mobile Number
                       </label>
                       <div className="relative">
@@ -228,6 +242,7 @@ export function VerificationModal() {
                           +91
                         </span>
                         <input
+                          id="vm-mobile"
                           type="tel"
                           inputMode="numeric"
                           maxLength={10}
@@ -238,11 +253,13 @@ export function VerificationModal() {
                           }}
                           onKeyDown={handleKeyDown}
                           placeholder="10-digit mobile number"
+                          aria-invalid={mobileError ? true : undefined}
+                          aria-describedby={mobileError ? 'vm-mobile-error' : undefined}
                           className="w-full pl-12 pr-4 py-4 rounded-xl border border-border bg-gray-50 text-sm font-body text-text-primary placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                         />
                       </div>
                       {mobileError && (
-                        <p className="text-xs text-red-500 mt-1.5 font-body">{mobileError}</p>
+                        <p id="vm-mobile-error" role="alert" className="text-xs text-red-500 mt-1.5 font-body">{mobileError}</p>
                       )}
                     </div>
 
@@ -280,7 +297,7 @@ export function VerificationModal() {
                     <p className="font-body text-sm text-text-secondary mb-7">
                       Enter the 4-digit code sent to +91 {mobile}
                     </p>
-                    <div className="flex gap-3 justify-center">
+                    <div className="flex gap-3 justify-center" role="group" aria-label="One-time password">
                       {[0, 1, 2, 3].map((i) => (
                         <input
                           key={i}
@@ -297,14 +314,37 @@ export function VerificationModal() {
                             if (pasted) handleOtpChange(i, pasted)
                           }}
                           autoFocus={i === 0}
+                          aria-label={`OTP digit ${i + 1}`}
+                          aria-invalid={error ? true : undefined}
+                          aria-describedby={error ? 'vm-otp-error' : undefined}
                           className="w-14 h-14 md:w-16 md:h-16 rounded-xl border-2 border-border bg-gray-50 text-center text-xl font-display font-bold text-text-primary outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                         />
                       ))}
                     </div>
                     {error && (
-                      <p className="text-xs text-red-500 mt-2 font-body">{error}</p>
+                      <p id="vm-otp-error" role="alert" className="text-xs text-red-500 mt-2 font-body">{error}</p>
                     )}
-                    <div className="flex gap-3 mt-7">
+                    <div className="text-center mt-4">
+                      <p className="text-xs text-text-light">
+                        Didn't receive the code?{' '}
+                        {resendTimer > 0 ? (
+                          <span className="text-text-secondary font-medium">Resend in {resendTimer}s</span>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setOtpDigits(['', '', '', ''])
+                              setError('')
+                              startResendTimer()
+                            }}
+                            className="text-primary font-medium hover:underline inline-flex items-center justify-center px-3 py-2 -my-2 min-h-11"
+                          >
+                            Resend OTP
+                          </button>
+                        )}
+                      </p>
+                    </div>
+                    <div className="flex gap-3 mt-5">
                       <button
                         onClick={() => {
                           setStep('details')
