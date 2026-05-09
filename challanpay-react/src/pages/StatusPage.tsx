@@ -140,17 +140,32 @@ export function StatusPage() {
   return (
     <PageTransition>
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-3 md:gap-6">
+        {/* Mobile: Vehicle Info Card stacked above tabs */}
+        <div className="md:hidden bg-white rounded-2xl rounded-b-none border border-border p-4">
+          <div className="flex items-center gap-4">
+            <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-20 h-14 object-contain flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm text-text-light">Hyundai Creta</p>
+              <p className="font-display font-bold text-text-primary text-lg truncate" title={vehicle}>{vehicle}</p>
+            </div>
+          </div>
+          <span className="mt-3 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold w-full">
+            <img src="/images/govt-verified-badge.png" alt="" className="w-5 h-5" />
+            Govt. Verified Data
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-0 md:gap-6">
           {/* Sidebar */}
-          <aside className="md:sticky md:top-24 md:self-start md:min-h-[calc(100vh-7rem)] bg-white rounded-2xl border border-border p-3">
+          <aside className="md:sticky md:top-24 md:self-start md:min-h-[calc(100vh-7rem)] bg-white rounded-2xl rounded-t-none md:rounded-t-2xl border border-border border-t-0 md:border-t p-3">
             <nav className="flex md:flex-col gap-2">
               <button
                 onClick={() => setActiveTab('pending')}
                 className={cn(
-                  'flex-1 md:flex-none flex items-center justify-between px-4 py-4 md:py-5 rounded-xl text-sm md:text-base font-semibold transition-all',
+                  'flex-1 md:flex-none flex items-center justify-between px-4 py-3 md:py-5 rounded-xl text-sm md:text-base font-semibold border transition-all',
                   activeTab === 'pending'
-                    ? 'bg-primary text-white'
-                    : 'bg-white border border-border text-text-secondary hover:bg-gray-50'
+                    ? 'bg-primary/10 text-primary border-primary'
+                    : 'bg-white border-border text-text-secondary hover:bg-gray-50'
                 )}
               >
                 <div className="flex items-center gap-2.5">
@@ -158,17 +173,20 @@ export function StatusPage() {
                   <span className="hidden md:inline">{t.status.pendingChallans}</span>
                   <span className="md:hidden">{t.status.pending}</span>
                 </div>
-                <span className="text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">
+                <span className={cn(
+                  'text-xs font-bold px-2 py-0.5 rounded-full',
+                  activeTab === 'pending' ? 'bg-primary/15 text-primary' : 'bg-gray-100 text-text-secondary'
+                )}>
                   {MOCK_CHALLANS.length}
                 </span>
               </button>
               <button
                 onClick={() => setActiveTab('paid')}
                 className={cn(
-                  'flex-1 md:flex-none flex items-center justify-between px-4 py-4 md:py-5 rounded-xl text-sm md:text-base font-semibold transition-all',
+                  'flex-1 md:flex-none flex items-center justify-between px-4 py-3 md:py-5 rounded-xl text-sm md:text-base font-semibold border transition-all',
                   activeTab === 'paid'
-                    ? 'bg-success text-white'
-                    : 'bg-white border border-border text-text-secondary hover:bg-gray-50'
+                    ? 'bg-success/10 text-success border-success'
+                    : 'bg-white border-border text-text-secondary hover:bg-gray-50'
                 )}
               >
                 <div className="flex items-center gap-2.5">
@@ -176,15 +194,18 @@ export function StatusPage() {
                   <span className="hidden md:inline">{t.status.paidChallans}</span>
                   <span className="md:hidden">{t.status.paid}</span>
                 </div>
-                <span className="text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">8</span>
+                <span className={cn(
+                  'text-xs font-bold px-2 py-0.5 rounded-full',
+                  activeTab === 'paid' ? 'bg-success/15 text-success' : 'bg-gray-100 text-text-secondary'
+                )}>8</span>
               </button>
             </nav>
           </aside>
 
           {/* Main Content */}
-          <div className="space-y-6">
-            {/* Vehicle Info Card */}
-            <div className="bg-white rounded-2xl border border-border p-4">
+          <div className="mt-6 md:mt-0 space-y-6">
+            {/* Vehicle Info Card (desktop only) */}
+            <div className="hidden md:block bg-white rounded-2xl border border-border p-4">
               <div className="flex items-center gap-4">
                 <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-20 h-14 object-contain flex-shrink-0" />
                 <div className="flex-1 min-w-0">
@@ -316,8 +337,11 @@ export function StatusPage() {
                         <p className="text-xs text-text-light line-clamp-1" title={`${challan.date} · ${challan.location}`}>{challan.date} · {challan.location}</p>
                       </div>
 
+                      {/* Divider */}
+                      <hr className="border-border mt-4" />
+
                       {/* Pending since + View Details */}
-                      <div className="mt-4 flex items-center justify-between">
+                      <div className="mt-3 flex items-center justify-between">
                         <span className="text-xs text-red-500 font-medium">
                           {t.status.pendingSince} {challan.pendingSince}
                         </span>
@@ -450,8 +474,11 @@ export function StatusPage() {
                         <p className="text-xs text-text-light line-clamp-1" title={`${challan.date} · ${challan.location}`}>{challan.date} · {challan.location}</p>
                       </div>
 
+                      {/* Divider */}
+                      <hr className="border-border mt-4" />
+
                       {/* Paid on */}
-                      <div className="mt-4 flex items-center justify-between">
+                      <div className="mt-3 flex items-center justify-between">
                         <span className="text-xs text-success font-medium">
                           {t.status.paidOn} {challan.paidOn}
                         </span>

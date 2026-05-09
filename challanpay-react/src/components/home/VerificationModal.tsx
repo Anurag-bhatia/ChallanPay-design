@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ArrowRight, ArrowLeft } from 'lucide-react'
+import { X, ArrowRight } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import { useUserStore } from '@/stores/userStore'
 import { mobileSchema, otpSchema, userNameSchema } from '@/lib/validators'
@@ -345,17 +345,6 @@ export function VerificationModal() {
                       </p>
                     </div>
                     <div className="flex gap-3 mt-5">
-                      <button
-                        onClick={() => {
-                          setStep('details')
-                          setOtpDigits(['', '', '', ''])
-                          setError('')
-                        }}
-                        className="flex items-center justify-center gap-1.5 px-5 py-4 rounded-xl border border-border text-sm font-display font-semibold text-text-secondary hover:bg-gray-50 transition-colors"
-                      >
-                        <ArrowLeft className="w-4 h-4" />
-                        Back
-                      </button>
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
