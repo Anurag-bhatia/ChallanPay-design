@@ -13,7 +13,7 @@ import { Skeleton, SkeletonCard } from '@/components/shared/Skeleton'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useChallanStore, type ChallanItem } from '@/stores/challanStore'
 
-type Challan = ChallanItem & { pendingSince: string }
+type Challan = ChallanItem & { pendingSince: string; reportedByUser?: boolean }
 
 interface PaidChallan {
   id: string
@@ -77,8 +77,13 @@ export function StatusPage() {
   const [showMissingModal, setShowMissingModal] = useState(false)
   const [missingFile, setMissingFile] = useState<File | null>(null)
   const [missingChallanNo, setMissingChallanNo] = useState('')
+  const [missingOffence, setMissingOffence] = useState('')
+  const [missingLocation, setMissingLocation] = useState('')
   const [missingSubmitting, setMissingSubmitting] = useState(false)
   const [missingDragOver, setMissingDragOver] = useState(false)
+  const [reportedChallans, setReportedChallans] = useState<Challan[]>([])
+
+  const allChallans = useMemo<Challan[]>(() => [...reportedChallans, ...MOCK_CHALLANS], [reportedChallans])
 
   // Sync the page's mock list into the global store so PaymentPage can read it,
   // and pre-select all pending challans by default on first load.
@@ -89,14 +94,20 @@ export function StatusPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Keep the global store in sync whenever a new reported challan is appended.
+  useEffect(() => {
+    if (reportedChallans.length === 0) return
+    setChallansInStore(allChallans)
+  }, [reportedChallans, allChallans, setChallansInStore])
+
   useModalA11y(detailChallan !== null, () => setDetailChallan(null))
   useModalA11y(showUnpaidWarning, () => setShowUnpaidWarning(false))
   useModalA11y(showMissingModal, () => closeMissingModal())
 
   const filteredChallans = useMemo(() => {
-    if (activeFilter === 'all') return MOCK_CHALLANS
-    return MOCK_CHALLANS.filter((c) => c.type === activeFilter)
-  }, [activeFilter])
+    if (activeFilter === 'all') return allChallans
+    return allChallans.filter((c) => c.type === activeFilter)
+  }, [activeFilter, allChallans])
 
   // Use Set for O(1) lookups (js-set-map-lookups)
   const selectedIdsSet = useMemo(() => new Set(selectedIds), [selectedIds])
@@ -154,14 +165,15 @@ export function StatusPage() {
     setShowMissingModal(false)
     setMissingFile(null)
     setMissingChallanNo('')
+    setMissingOffence('')
+    setMissingLocation('')
     setMissingDragOver(false)
   }
 
   const handleMissingFile = (file: File | null) => {
     if (!file) return
-    const okType = file.type.startsWith('image/') || file.type === 'application/pdf'
-    if (!okType) {
-      toast.error('Please upload an image or PDF')
+    if (file.type !== 'application/pdf') {
+      toast.error('Please upload a PDF document')
       return
     }
     if (file.size > 10 * 1024 * 1024) {
@@ -178,12 +190,30 @@ export function StatusPage() {
     }
     setMissingSubmitting(true)
     setTimeout(() => {
+      const today = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
+      const challanNo = missingChallanNo.trim() || `REPORTED-${Date.now().toString().slice(-10)}`
+      const offence = missingOffence.trim()
+      const location = missingLocation.trim()
+      const newChallan: Challan = {
+        id: `reported-${Date.now()}`,
+        challanNumber: challanNo,
+        amount: 0,
+        violation: offence || '—',
+        date: today,
+        location: location || '—',
+        type: 'online',
+        pendingSince: 'Just submitted',
+        reportedByUser: true,
+      }
+      setReportedChallans((prev) => [newChallan, ...prev])
       setMissingSubmitting(false)
       setShowMissingModal(false)
       setMissingFile(null)
       setMissingChallanNo('')
+      setMissingOffence('')
+      setMissingLocation('')
       setMissingDragOver(false)
-      toast.success("Submitted — we'll review your challan and update your account shortly.")
+      toast.success('Challan added — pending verification by our team.')
     }, 900)
   }
 
@@ -227,7 +257,7 @@ export function StatusPage() {
                   'text-xs font-bold px-2 py-0.5 rounded-full',
                   activeTab === 'pending' ? 'bg-primary/15 text-primary' : 'bg-gray-100 text-text-secondary'
                 )}>
-                  {MOCK_CHALLANS.length}
+                  {allChallans.length}
                 </span>
               </button>
               <button
@@ -287,11 +317,10 @@ export function StatusPage() {
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-text-primary">Missing a challan?</p>
                   </div>
-                  <span className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-text-primary flex-shrink-0">
-                    Report
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-text-primary flex-shrink-0">
+                    Submit
                     <ArrowRight className="w-4 h-4" />
                   </span>
-                  <ArrowRight className="sm:hidden w-4 h-4 text-text-primary flex-shrink-0" />
                 </button>
 
                 {/* Section Header + Filters */}
@@ -323,8 +352,8 @@ export function StatusPage() {
                         )}
                       >
                         {filter === 'all'
-                          ? `${t.status.all} (${MOCK_CHALLANS.length})`
-                          : `${filter === 'online' ? t.status.onlineChallans : t.status.courtChallans} (${MOCK_CHALLANS.filter((c) => c.type === filter).length})`}
+                          ? `${t.status.all} (${allChallans.length})`
+                          : `${filter === 'online' ? t.status.onlineChallans : t.status.courtChallans} (${allChallans.filter((c) => c.type === filter).length})`}
                       </button>
                     ))}
                   </div>
@@ -357,14 +386,18 @@ export function StatusPage() {
                       key={challan.id}
                       className={cn(
                         'bg-white rounded-xl border p-5 transition-all',
-                        selectedIdsSet.has(challan.id)
-                          ? 'border-primary shadow-md'
-                          : 'border-border shadow-sm hover:border-primary/30 hover:shadow-md'
+                        challan.reportedByUser
+                          ? selectedIdsSet.has(challan.id)
+                            ? 'border-amber-400 shadow-md'
+                            : 'border-amber-400 shadow-sm hover:shadow-md'
+                          : selectedIdsSet.has(challan.id)
+                            ? 'border-primary shadow-md'
+                            : 'border-border shadow-sm hover:border-primary/30 hover:shadow-md'
                       )}
                     >
                       {/* Card Header */}
                       <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
                           <span className="text-xs font-mono text-text-light">#{challan.challanNumber.slice(0, 12)}...</span>
                           <button
                             onClick={() => handleCopyChallan(challan.challanNumber)}
@@ -378,6 +411,11 @@ export function StatusPage() {
                               <Copy className="w-3.5 h-3.5" />
                             )}
                           </button>
+                          {challan.reportedByUser && (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 tracking-wide whitespace-nowrap">
+                              Added by you
+                            </span>
+                          )}
                         </div>
                         <input
                           type="checkbox"
@@ -661,7 +699,7 @@ export function StatusPage() {
 
             <div className="p-5 space-y-4">
               <p className="text-sm text-text-secondary">
-                Have a challan that isn't showing here? Upload a clear photo or PDF and we'll verify and add it.
+                Have a challan that isn't showing here? Upload a clear PDF and we'll verify and add it.
               </p>
 
               <div>
@@ -697,11 +735,11 @@ export function StatusPage() {
                     <Upload className="w-5 h-5 text-primary" />
                   </div>
                   <p className="text-sm font-medium text-text-primary">Click to upload or drag and drop</p>
-                  <p className="text-xs text-text-light">PNG, JPG, or PDF · up to 10 MB</p>
+                  <p className="text-xs text-text-light">PDF only · up to 10 MB</p>
                   <input
                     id="missing-challan-file"
                     type="file"
-                    accept="image/*,application/pdf"
+                    accept="application/pdf"
                     onChange={(e) => handleMissingFile(e.target.files?.[0] ?? null)}
                     className="sr-only"
                   />
