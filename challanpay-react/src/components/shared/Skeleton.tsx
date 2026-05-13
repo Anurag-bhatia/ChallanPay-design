@@ -29,7 +29,7 @@ export function SkeletonCard({ className }: { className?: string }) {
       role="status"
       aria-busy="true"
       aria-label="Loading"
-      className={cn('bg-white rounded-xl border border-border p-5 space-y-3', className)}
+      className={cn('bg-white rounded-xl p-5 space-y-3', className)}
     >
       <div className="flex items-center justify-between">
         <Skeleton className="h-3 w-24" />

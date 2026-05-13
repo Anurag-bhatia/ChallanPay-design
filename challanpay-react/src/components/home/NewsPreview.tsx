@@ -1,7 +1,9 @@
+import { useEffect, useRef } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { ScrollReveal } from '@/components/shared/ScrollReveal'
 import { Link } from 'react-router'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 
 interface NewsItem {
   publication: string
@@ -85,6 +87,40 @@ function NewsCard({ item, readMoreLabel }: { item: NewsItem; readMoreLabel: stri
 
 export function NewsPreview() {
   const { t } = useTranslation()
+  const trackRef = useRef<HTMLDivElement>(null)
+  const pausedRef = useRef(false)
+  const prefersReducedMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (prefersReducedMotion) return
+    const track = trackRef.current
+    if (!track) return
+
+    let rafId = 0
+    let lastTime = performance.now()
+    const speed = 50 // px/sec
+
+    const tick = (time: number) => {
+      const dt = time - lastTime
+      lastTime = time
+      if (!pausedRef.current && track.scrollWidth > track.clientWidth) {
+        const half = track.scrollWidth / 2
+        let next = track.scrollLeft + (speed * dt) / 1000
+        if (next >= half) next -= half
+        track.scrollLeft = next
+      }
+      rafId = requestAnimationFrame(tick)
+    }
+    rafId = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(rafId)
+  }, [prefersReducedMotion])
+
+  const pause = () => {
+    pausedRef.current = true
+  }
+  const resume = () => {
+    pausedRef.current = false
+  }
 
   return (
     <section className="py-16 md:py-20 bg-bg-dark overflow-hidden">
@@ -102,12 +138,20 @@ export function NewsPreview() {
         </ScrollReveal>
       </div>
 
-      {/* Scrolling carousel */}
-      <div className="relative w-full overflow-hidden">
+      {/* Scrolling carousel — auto-scrolls, manual scroll/drag also works */}
+      <div className="relative w-full">
         <div className="absolute left-0 top-0 bottom-0 w-6 md:w-16 bg-gradient-to-r from-bg-dark to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-6 md:w-16 bg-gradient-to-l from-bg-dark to-transparent z-10 pointer-events-none" />
 
-        <div className="flex animate-scroll-left hover:[animation-play-state:paused]">
+        <div
+          ref={trackRef}
+          className="flex overflow-x-auto scrollbar-hide"
+          onMouseEnter={pause}
+          onMouseLeave={resume}
+          onTouchStart={pause}
+          onTouchEnd={resume}
+          onTouchCancel={resume}
+        >
           {newsItems.map((item, index) => (
             <div
               key={`first-${index}`}

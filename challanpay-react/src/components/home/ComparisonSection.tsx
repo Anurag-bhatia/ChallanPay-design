@@ -46,10 +46,16 @@ export function ComparisonSection() {
 
   const comparisonData: ComparisonRow[] = [
     {
-      feature: t.comparison.processingTime,
-      challanpay: t.comparison.instant,
-      traditional: t.comparison.daysToWeeks,
-      others: t.comparison.oneTo3Days,
+      feature: t.comparison.onlineChallans,
+      challanpay: { icon: 'check' },
+      traditional: { icon: 'cross' },
+      others: { icon: 'check' },
+    },
+    {
+      feature: t.comparison.courtChallans,
+      challanpay: { icon: 'check' },
+      traditional: { icon: 'cross' },
+      others: t.comparison.limited,
     },
     {
       feature: t.comparison.courtVisitRequired,
@@ -78,20 +84,14 @@ export function ComparisonSection() {
     {
       feature: t.comparison.customerSupport,
       challanpay: t.comparison.available247,
-      traditional: t.comparison.officeHoursOnly,
-      others: t.comparison.limitedHours,
+      traditional: { icon: 'cross' },
+      others: t.comparison.officeHoursOnly,
     },
     {
       feature: t.comparison.successRate,
       challanpay: '98%',
-      traditional: '60-70%',
-      others: '75-80%',
-    },
-    {
-      feature: t.comparison.costSavings,
-      challanpay: t.comparison.upTo5000,
-      traditional: t.comparison.highLegalFees,
-      others: t.comparison.moderateFees,
+      traditional: '40-50%',
+      others: '60-70%',
     },
   ]
 

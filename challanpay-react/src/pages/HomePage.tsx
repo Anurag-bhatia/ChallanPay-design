@@ -20,7 +20,7 @@ export function HomePage() {
       <VerificationModal />
       <HeroSection />
       <TrustedLogosScroll />
-      <BeRoadSmartBanner />
+      {/* <BeRoadSmartBanner /> */}
       <StatsSection />
       <MultiVehicleCTA />
       <TestimonialsSection />
@@ -28,10 +28,10 @@ export function HomePage() {
       <HowItWorksAccordion />
       <BlogsPreview />
       <NewsPreview />
-      <PartnersSection />
+      <BackedBySection />
       <ComparisonSection />
       <NeedHelpSection />
-      <BackedBySection />
+      <PartnersSection />
     </>
   )
 }

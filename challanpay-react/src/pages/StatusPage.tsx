@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams, useNavigate } from 'react-router'
-import { Copy, Check, Clock, CircleCheck, ArrowRight, X, Coins, FileWarning, Gavel, Inbox } from 'lucide-react'
+import { Copy, Check, Clock, CircleCheck, ArrowRight, X, Coins, FileWarning, Gavel, Inbox, FilePlus2, Upload, FileText, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
@@ -74,6 +74,11 @@ export function StatusPage() {
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [detailChallan, setDetailChallan] = useState<Challan | null>(null)
   const [showUnpaidWarning, setShowUnpaidWarning] = useState(false)
+  const [showMissingModal, setShowMissingModal] = useState(false)
+  const [missingFile, setMissingFile] = useState<File | null>(null)
+  const [missingChallanNo, setMissingChallanNo] = useState('')
+  const [missingSubmitting, setMissingSubmitting] = useState(false)
+  const [missingDragOver, setMissingDragOver] = useState(false)
 
   // Sync the page's mock list into the global store so PaymentPage can read it,
   // and pre-select all pending challans by default on first load.
@@ -86,6 +91,7 @@ export function StatusPage() {
 
   useModalA11y(detailChallan !== null, () => setDetailChallan(null))
   useModalA11y(showUnpaidWarning, () => setShowUnpaidWarning(false))
+  useModalA11y(showMissingModal, () => closeMissingModal())
 
   const filteredChallans = useMemo(() => {
     if (activeFilter === 'all') return MOCK_CHALLANS
@@ -141,6 +147,44 @@ export function StatusPage() {
     selectAllInStore(filteredChallans.map((c) => c.id))
     setShowUnpaidWarning(false)
     navigate('/payment')
+  }
+
+  const closeMissingModal = () => {
+    if (missingSubmitting) return
+    setShowMissingModal(false)
+    setMissingFile(null)
+    setMissingChallanNo('')
+    setMissingDragOver(false)
+  }
+
+  const handleMissingFile = (file: File | null) => {
+    if (!file) return
+    const okType = file.type.startsWith('image/') || file.type === 'application/pdf'
+    if (!okType) {
+      toast.error('Please upload an image or PDF')
+      return
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error('File must be under 10 MB')
+      return
+    }
+    setMissingFile(file)
+  }
+
+  const handleMissingSubmit = () => {
+    if (!missingFile) {
+      toast.warning('Please attach your challan document')
+      return
+    }
+    setMissingSubmitting(true)
+    setTimeout(() => {
+      setMissingSubmitting(false)
+      setShowMissingModal(false)
+      setMissingFile(null)
+      setMissingChallanNo('')
+      setMissingDragOver(false)
+      toast.success("Submitted — we'll review your challan and update your account shortly.")
+    }, 900)
   }
 
   return (
@@ -231,6 +275,25 @@ export function StatusPage() {
 
             {activeTab === 'pending' ? (
               <>
+                {/* Report Missing Challan banner */}
+                <button
+                  type="button"
+                  onClick={() => setShowMissingModal(true)}
+                  className="w-full flex items-center gap-2.5 bg-white hover:bg-primary/5 rounded-lg px-3 py-2 text-left transition-colors"
+                >
+                  <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                    <FilePlus2 className="w-3.5 h-3.5 text-red-500" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-text-primary">Missing a challan?</p>
+                  </div>
+                  <span className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-text-primary flex-shrink-0">
+                    Report
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
+                  <ArrowRight className="sm:hidden w-4 h-4 text-text-primary flex-shrink-0" />
+                </button>
+
                 {/* Section Header + Filters */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center justify-between w-full sm:w-auto gap-4">
@@ -569,6 +632,120 @@ export function StatusPage() {
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 {t.status.shareOnWhatsApp}
               </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Report Missing Challan Modal */}
+      {showMissingModal && (
+        <div
+          className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          onClick={closeMissingModal}
+        >
+          <div
+            className="relative w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-3 border-b border-border">
+              <h3 className="font-display text-base font-bold text-text-primary">Report Missing Challan</h3>
+              <button
+                onClick={closeMissingModal}
+                aria-label="Close"
+                disabled={missingSubmitting}
+                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-50"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-5 space-y-4">
+              <p className="text-sm text-text-secondary">
+                Have a challan that isn't showing here? Upload a clear photo or PDF and we'll verify and add it.
+              </p>
+
+              <div>
+                <label htmlFor="missing-challan-no" className="text-xs font-medium text-text-secondary">
+                  Challan number <span className="text-text-light">(optional)</span>
+                </label>
+                <input
+                  id="missing-challan-no"
+                  type="text"
+                  value={missingChallanNo}
+                  onChange={(e) => setMissingChallanNo(e.target.value.toUpperCase())}
+                  placeholder="e.g. UP4083823062711..."
+                  className="mt-1.5 w-full px-3 py-2.5 text-sm font-mono border border-border rounded-xl outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white"
+                />
+              </div>
+
+              {!missingFile ? (
+                <label
+                  htmlFor="missing-challan-file"
+                  onDragOver={(e) => { e.preventDefault(); setMissingDragOver(true) }}
+                  onDragLeave={() => setMissingDragOver(false)}
+                  onDrop={(e) => {
+                    e.preventDefault()
+                    setMissingDragOver(false)
+                    handleMissingFile(e.dataTransfer.files?.[0] ?? null)
+                  }}
+                  className={cn(
+                    'flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-6 cursor-pointer transition-colors text-center',
+                    missingDragOver ? 'border-primary bg-primary/5' : 'border-border bg-gray-50 hover:border-primary/40 hover:bg-primary/5'
+                  )}
+                >
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Upload className="w-5 h-5 text-primary" />
+                  </div>
+                  <p className="text-sm font-medium text-text-primary">Click to upload or drag and drop</p>
+                  <p className="text-xs text-text-light">PNG, JPG, or PDF · up to 10 MB</p>
+                  <input
+                    id="missing-challan-file"
+                    type="file"
+                    accept="image/*,application/pdf"
+                    onChange={(e) => handleMissingFile(e.target.files?.[0] ?? null)}
+                    className="sr-only"
+                  />
+                </label>
+              ) : (
+                <div className="flex items-center gap-3 rounded-xl border border-border bg-gray-50 px-3 py-2.5">
+                  <div className="w-9 h-9 rounded-lg bg-white border border-border flex items-center justify-center flex-shrink-0">
+                    <FileText className="w-4 h-4 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-text-primary truncate" title={missingFile.name}>{missingFile.name}</p>
+                    <p className="text-xs text-text-light">{(missingFile.size / 1024).toFixed(0)} KB</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setMissingFile(null)}
+                    aria-label="Remove file"
+                    disabled={missingSubmitting}
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-text-light hover:text-text-primary hover:bg-white transition-colors disabled:opacity-50"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+
+              <div className="flex flex-col-reverse sm:flex-row gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={closeMissingModal}
+                  disabled={missingSubmitting}
+                  className="flex-1 py-3 rounded-xl border border-border text-text-primary font-medium text-sm hover:bg-gray-50 transition-colors disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleMissingSubmit}
+                  disabled={missingSubmitting || !missingFile}
+                  className="flex-1 py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:hover:bg-primary flex items-center justify-center gap-2"
+                >
+                  {missingSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {missingSubmitting ? 'Submitting…' : 'Submit'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

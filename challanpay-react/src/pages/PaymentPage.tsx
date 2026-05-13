@@ -58,14 +58,14 @@ export function PaymentPage() {
   const [activeTab, setActiveTab] = useState<ResolutionType>('online')
   const [pledgeChecked, setPledgeChecked] = useState(false)
   const [showBackConfirm, setShowBackConfirm] = useState(false)
-  const [showLegalChargesModal, setShowLegalChargesModal] = useState(false)
+  const [legalChargesInfo, setLegalChargesInfo] = useState<ResolutionType | null>(null)
   const [resolutionInfo, setResolutionInfo] = useState<ResolutionType | null>(null)
 
   const grandTotal = pledgeChecked ? Math.max(0, summary.subtotal - PLEDGE_REWARD) : summary.subtotal
   const selectedCount = selectedChallanIds.length
 
   useModalA11y(resolutionInfo !== null, () => setResolutionInfo(null))
-  useModalA11y(showLegalChargesModal, () => setShowLegalChargesModal(false))
+  useModalA11y(legalChargesInfo !== null, () => setLegalChargesInfo(null))
   useModalA11y(showBackConfirm, () => setShowBackConfirm(false))
 
   const prefersReducedMotion = useReducedMotion()
@@ -132,18 +132,12 @@ export function PaymentPage() {
               )}>
                 {resolutionInfo === 'online' ? <BadgeCheck className="w-5 h-5" /> : <Scale className="w-5 h-5" />}
               </div>
-              <h3 className="font-display text-xl font-bold text-text-primary mb-2">
+              <h3 className="font-display text-xl font-bold text-text-primary">
                 {resolutionInfo === 'online' ? t.payment.payAndCloseInfoTitle : t.payment.contestAndWaitInfoTitle}
               </h3>
-              <p className="text-sm text-text-secondary">
-                {resolutionInfo === 'online' ? t.payment.payAndCloseInfoDesc : t.payment.contestAndWaitInfoDesc}
-              </p>
             </div>
 
-            <div className="px-6 pt-3 pb-6">
-              <p className="text-sm font-semibold text-text-primary mb-3">
-                {t.payment.includedInService}
-              </p>
+            <div className="px-6 pt-4 pb-6">
               <div className="space-y-2.5 mb-5">
                 {(resolutionInfo === 'online'
                   ? [
@@ -153,15 +147,32 @@ export function PaymentPage() {
                       t.payment.payAndCloseBenefit4,
                     ]
                   : [
-                      t.payment.lawyerSupport,
-                      t.payment.courtDocumentation,
-                      t.payment.representationCoordination,
-                      t.payment.noPhysicalAppearance,
+                      t.payment.contestAndWaitBenefit1,
+                      t.payment.contestAndWaitBenefit2,
+                      t.payment.contestAndWaitBenefit3,
+                      t.payment.contestAndWaitBenefit4,
                     ]
                 ).map((item) => (
-                  <div key={item} className="flex items-center gap-3 p-3 rounded-xl bg-emerald-50/70">
-                    <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-4 h-4 text-emerald-600" strokeWidth={3} />
+                  <div
+                    key={item}
+                    className={cn(
+                      'flex items-center gap-3 p-3 rounded-xl',
+                      resolutionInfo === 'online' ? 'bg-emerald-50/70' : 'bg-amber-50/70'
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        'w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0',
+                        resolutionInfo === 'online' ? 'bg-emerald-100' : 'bg-amber-100'
+                      )}
+                    >
+                      <Check
+                        className={cn(
+                          'w-4 h-4',
+                          resolutionInfo === 'online' ? 'text-emerald-600' : 'text-amber-600'
+                        )}
+                        strokeWidth={3}
+                      />
                     </div>
                     <span className="text-sm font-medium text-text-primary">{item}</span>
                   </div>
@@ -180,17 +191,17 @@ export function PaymentPage() {
       )}
 
       {/* Legal Charges Info Modal */}
-      {showLegalChargesModal && (
+      {legalChargesInfo && (
         <div
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-          onClick={() => setShowLegalChargesModal(false)}
+          onClick={() => setLegalChargesInfo(null)}
         >
           <div
             className="relative w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={() => setShowLegalChargesModal(false)}
+              onClick={() => setLegalChargesInfo(null)}
               className="absolute top-2 right-2 z-10 w-11 h-11 rounded-full bg-white/80 flex items-center justify-center text-gray-500 hover:bg-white transition-colors"
               aria-label="Close"
             >
@@ -201,33 +212,14 @@ export function PaymentPage() {
               <h3 className="font-display text-xl font-bold text-text-primary mb-2">
                 {t.payment.legalCharges}
               </h3>
-              <p className="text-sm text-text-secondary">
-                {t.payment.legalAssistanceDesc}
+              <p className="text-base leading-relaxed text-text-primary">
+                {legalChargesInfo === 'online' ? t.payment.onlineLegalFeeDesc : t.payment.courtLegalFeeDesc}
               </p>
             </div>
 
-            <div className="px-6 pt-3 pb-6">
-              <p className="text-sm font-semibold text-text-primary mb-3">
-                {t.payment.includedInService}
-              </p>
-              <div className="space-y-2.5 mb-5">
-                {[
-                  t.payment.lawyerSupport,
-                  t.payment.courtDocumentation,
-                  t.payment.representationCoordination,
-                  t.payment.noPhysicalAppearance,
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-3 p-3 rounded-xl bg-emerald-50/70">
-                    <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-4 h-4 text-emerald-600" strokeWidth={3} />
-                    </div>
-                    <span className="text-sm font-medium text-text-primary">{item}</span>
-                  </div>
-                ))}
-              </div>
-
+            <div className="px-6 pt-4 pb-6">
               <button
-                onClick={() => setShowLegalChargesModal(false)}
+                onClick={() => setLegalChargesInfo(null)}
                 className="w-full py-3.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors text-sm shadow-sm"
               >
                 {t.payment.gotIt}
@@ -329,7 +321,7 @@ export function PaymentPage() {
               {pageState === 'loading' && (
                 <>
                   {[0, 1].map((i) => (
-                    <div key={i} className="bg-white rounded-xl border border-border shadow-sm p-3.5 sm:p-4 flex items-start gap-3 sm:gap-4">
+                    <div key={i} className="bg-white rounded-xl p-3.5 sm:p-4 flex items-start gap-3 sm:gap-4">
                       <Skeleton className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg" />
                       <div className="flex-1 space-y-2">
                         <Skeleton className="h-4 w-32" />
@@ -396,7 +388,7 @@ export function PaymentPage() {
                         <span
                           key={tag}
                           className={cn(
-                            'text-[10px] font-medium px-2 py-0.5 rounded-full',
+                            'text-xs font-medium px-2.5 py-1 rounded-full',
                             activeTab === tab.id && tab.id === 'online'
                               ? tag === t.payment.instantBenefit
                                 ? 'bg-amber-50 text-amber-700'
@@ -421,7 +413,7 @@ export function PaymentPage() {
 
             {/* Pledge Section */}
             {pageState === 'loading' ? (
-              <div className="bg-white rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-3">
+              <div className="bg-white rounded-xl p-4 sm:p-5 space-y-3">
                 <div className="flex items-start gap-3">
                   <Skeleton className="w-6 h-6 rounded" />
                   <div className="flex-1 space-y-2">
@@ -465,7 +457,7 @@ export function PaymentPage() {
           {/* Right: Payment Summary (desktop only) */}
           <div className="hidden lg:block lg:sticky lg:top-20 lg:self-start">
             {pageState === 'loading' ? (
-              <div className="bg-white rounded-2xl border border-border shadow-sm p-6 space-y-4">
+              <div className="bg-white rounded-2xl p-6 space-y-4">
                 <Skeleton className="h-5 w-56" />
                 <Skeleton className="h-9 w-full rounded-lg" />
                 <hr className="border-border" />
@@ -511,8 +503,8 @@ export function PaymentPage() {
                         {t.payment.convenienceFee} <span className="text-text-light/70">{`(${summary.onlineCount} x ${ONLINE_CONVENIENCE_FEE})`}</span>
                         <button
                           type="button"
-                          onClick={() => setShowLegalChargesModal(true)}
-                          aria-label={t.payment.legalCharges}
+                          onClick={() => setLegalChargesInfo('online')}
+                          aria-label={t.payment.onlineLegalFeeTitle}
                           className="inline-flex items-center justify-center w-9 h-9 -m-2.5 rounded-full text-text-light/80 hover:text-primary transition-colors"
                         >
                           <Info className="w-3.5 h-3.5" />
@@ -535,8 +527,8 @@ export function PaymentPage() {
                         {t.payment.convenienceFee} <span className="text-text-light/70">{`(${summary.courtCount} x ${COURT_CONVENIENCE_FEE})`}</span>
                         <button
                           type="button"
-                          onClick={() => setShowLegalChargesModal(true)}
-                          aria-label={t.payment.legalCharges}
+                          onClick={() => setLegalChargesInfo('court')}
+                          aria-label={t.payment.courtLegalFeeTitle}
                           className="inline-flex items-center justify-center w-9 h-9 -m-2.5 rounded-full text-text-light/80 hover:text-primary transition-colors"
                         >
                           <Info className="w-3.5 h-3.5" />
@@ -615,7 +607,7 @@ export function PaymentPage() {
 
         {/* Mobile: Expandable summary drawer */}
         {pageState === 'loading' ? (
-          <div className="lg:hidden mt-4 mb-20 bg-white rounded-xl border border-border shadow-sm p-4 space-y-3">
+          <div className="lg:hidden mt-4 mb-20 bg-white rounded-xl p-4 space-y-3">
             <Skeleton className="h-5 w-40" />
             <Skeleton className="h-9 w-full rounded-lg" />
             <hr className="border-border" />
@@ -658,8 +650,8 @@ export function PaymentPage() {
                     {t.payment.convenienceFee} <span className="text-text-light/70">{`(${summary.onlineCount} x ${ONLINE_CONVENIENCE_FEE})`}</span>
                     <button
                       type="button"
-                      onClick={() => setShowLegalChargesModal(true)}
-                      aria-label={t.payment.legalCharges}
+                      onClick={() => setLegalChargesInfo('online')}
+                      aria-label={t.payment.onlineLegalFeeTitle}
                       className="inline-flex items-center justify-center w-9 h-9 -m-2.5 rounded-full text-text-light/80 hover:text-primary transition-colors"
                     >
                       <Info className="w-3.5 h-3.5" />
@@ -682,8 +674,8 @@ export function PaymentPage() {
                     {t.payment.convenienceFee} <span className="text-text-light/70">{`(${summary.courtCount} x ${COURT_CONVENIENCE_FEE})`}</span>
                     <button
                       type="button"
-                      onClick={() => setShowLegalChargesModal(true)}
-                      aria-label={t.payment.legalCharges}
+                      onClick={() => setLegalChargesInfo('court')}
+                      aria-label={t.payment.courtLegalFeeTitle}
                       className="inline-flex items-center justify-center w-9 h-9 -m-2.5 rounded-full text-text-light/80 hover:text-primary transition-colors"
                     >
                       <Info className="w-3.5 h-3.5" />

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUserStore } from '@/stores/userStore'
 import { ScrollReveal } from '@/components/shared/ScrollReveal'
@@ -33,27 +34,46 @@ export function HeroSection() {
   return (
     <section
       id="track"
-      className="relative pt-6 md:pt-20 overflow-hidden bg-bg-page"
+      className="relative pt-16 md:pt-28 overflow-hidden bg-bg-page"
     >
-      {/* Background illustration */}
+      {/* Hero background — desktop only (mobile uses the composite image below) */}
       <div
-        className="absolute inset-0 opacity-50 bg-contain bg-center bg-no-repeat pointer-events-none"
-        style={{ backgroundImage: "url('/images/hero-illustration.png')", backgroundSize: '80%' }}
+        className="hidden md:block absolute inset-0 bg-no-repeat bg-bottom pointer-events-none"
+        style={{
+          backgroundImage: "url('/images/hero-bg.png')",
+          backgroundSize: '100% auto',
+        }}
+        aria-hidden="true"
       />
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-4 md:pt-12 pb-10 md:pb-16 relative z-10">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-3 md:pt-10 pb-2 md:pb-4 relative z-10">
+        {/* Mobile-only composite hero image (text + person baked in) */}
+        <img
+          src="/images/hero-mobile-full.png"
+          alt="ChallanPay, Anytime Anywhere — #Be Road Smart"
+          className="md:hidden w-full h-auto block mb-4"
+        />
         <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 md:gap-12 items-start">
-          {/* Left Column - Text */}
-          <div className="text-center md:text-left pt-2 md:pt-8">
-            {/* Heading */}
+          {/* Left Column - Text (desktop only — mobile uses the image above) */}
+          <div className="hidden md:block text-left">
+            {/* Tagline */}
             <ScrollReveal>
-              <h1 className="font-display text-4xl sm:text-5xl md:text-[3.5rem] font-extrabold text-text-primary mb-6 leading-tight">
+              <p className="font-display font-extrabold uppercase tracking-wider text-sm sm:text-base md:text-lg mb-3 [text-shadow:0_2px_8px_rgba(255,255,255,0.8)]">
+                <span className="text-[#EE2E2D]">#BE</span>{' '}
+                <span className="text-[#F49925]">ROAD</span>{' '}
+                <span className="text-[#2CB87B]">SMART</span>
+              </p>
+            </ScrollReveal>
+
+            {/* Heading */}
+            <ScrollReveal delay={0.05}>
+              <h1 className="font-display text-3xl sm:text-4xl md:text-[3.5rem] font-extrabold text-text-primary mb-4 md:mb-6 leading-tight">
                 {t.hero.title}
               </h1>
             </ScrollReveal>
 
             {/* Subtext */}
             <ScrollReveal delay={0.1}>
-              <p className="font-body text-lg md:text-xl text-text-secondary mb-8 max-w-lg">
+              <p className="font-body text-base md:text-xl text-text-secondary mb-8 md:mb-14 max-w-[70%] md:max-w-lg">
                 {t.hero.subtitle}
               </p>
             </ScrollReveal>
@@ -61,13 +81,14 @@ export function HeroSection() {
 
           {/* Right Column - Challan Check Card */}
           <ScrollReveal direction="scale" delay={0.2}>
-            <div className="bg-white rounded-3xl shadow-[0_2px_14px_rgba(0,0,0,0.06)] p-6 md:p-8 max-w-[420px] mx-auto w-full relative z-10">
+            <div className="bg-white rounded-3xl shadow-[0_2px_14px_rgba(0,0,0,0.06)] p-6 md:p-8 max-w-[420px] mx-auto md:ml-auto md:mr-0 w-full relative z-10">
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <h3 className="font-display text-lg font-semibold text-text-primary">
                   {t.hero.enterVehicleNumber}
                 </h3>
-                <span className="px-3 py-1 text-xs font-extrabold bg-emerald-100 text-emerald-700 rounded-full uppercase tracking-wide animate-shimmer">
+                <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-extrabold bg-emerald-100 text-emerald-700 rounded-full tracking-wide animate-shimmer">
+                  <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />
                   {t.hero.free}
                 </span>
               </div>

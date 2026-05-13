@@ -67,14 +67,14 @@ export function PaymentCompletedPage() {
     { id: 1, title: t.paymentCompleted.paymentReceived, description: t.paymentCompleted.paymentReceivedDesc, date: formatDateTime(paidAt), status: 'completed', icon: CreditCard },
     { id: 2, title: t.paymentCompleted.processingStarted, description: t.paymentCompleted.processingStartedDesc, date: formatDateTime(processingAt), status: 'completed', icon: FileText },
     { id: 3, title: t.paymentCompleted.underReview, description: t.paymentCompleted.underReviewDesc, date: 'In Progress', status: 'current', icon: Clock },
-    { id: 4, title: t.paymentCompleted.resolutionComplete, description: t.paymentCompleted.resolutionCompleteDesc, date: `Estimated: ${formatDate(estimatedResolution)}`, status: 'pending', icon: CheckCircle },
+    { id: 4, title: t.paymentCompleted.resolutionComplete, description: `${t.paymentCompleted.resolutionCompleteDesc} ${formatDate(estimatedResolution)}.`, date: '', status: 'pending', icon: CheckCircle },
   ]
 
   if (pageState === 'loading') {
     return (
       <PageTransition>
         <div className="max-w-lg mx-auto px-4 py-8 space-y-4">
-          <div className="bg-white rounded-2xl border border-border shadow-sm p-6 md:p-8 space-y-6">
+          <div className="bg-white rounded-2xl p-6 md:p-8 space-y-6">
             <Skeleton className="w-32 h-32 mx-auto rounded-full" />
             <div className="space-y-3 text-center">
               <Skeleton className="h-7 w-64 mx-auto" />
@@ -93,7 +93,7 @@ export function PaymentCompletedPage() {
               <Skeleton className="h-12 flex-1 rounded-xl" />
             </div>
           </div>
-          <div className="bg-white rounded-2xl border border-border shadow-sm p-6 md:p-8 space-y-4">
+          <div className="bg-white rounded-2xl p-6 md:p-8 space-y-4">
             <Skeleton className="h-6 w-48" />
             <Skeleton className="h-4 w-64" />
             <Skeleton className="h-16 w-full rounded-xl" />
@@ -156,20 +156,21 @@ export function PaymentCompletedPage() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col gap-2">
             <button
               onClick={handleDownloadReceipt}
-              className="flex-1 min-h-11 py-3 bg-white border border-border text-text-primary font-medium rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+              className="w-full min-h-11 py-3 bg-white border border-border text-text-primary font-medium rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
             >
               <Download className="w-5 h-5" />
               {t.paymentCompleted.downloadReceipt}
             </button>
             <Link
               to="/track-status"
-              className="flex-1 min-h-11 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+              className="relative overflow-hidden w-full min-h-11 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
             >
-              <MapPinCheck className="w-5 h-5" />
-              {t.header.trackMyChallans}
+              <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shine" />
+              <MapPinCheck className="w-5 h-5 relative" />
+              <span className="relative">{t.header.trackMyChallans}</span>
             </Link>
           </div>
         </div>
@@ -179,17 +180,6 @@ export function PaymentCompletedPage() {
           <div>
             <h2 className="font-display text-lg font-bold text-text-primary">{t.paymentCompleted.resolutionProgress}</h2>
             <p className="text-text-secondary text-sm mt-1">{t.paymentCompleted.trackStatus}</p>
-          </div>
-
-          {/* Progress Summary */}
-          <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <Clock className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <p className="text-sm font-medium text-primary">{t.paymentCompleted.underReview}</p>
-              <p className="text-xs text-text-secondary">{t.paymentCompleted.expectedCompletion}</p>
-            </div>
           </div>
 
           {/* Timeline */}
@@ -224,7 +214,7 @@ export function PaymentCompletedPage() {
                     {step.title}
                   </p>
                   <p className="text-xs text-text-secondary mt-0.5">{step.description}</p>
-                  <p className="text-xs text-text-light mt-1">{step.date}</p>
+                  {step.date && <p className="text-xs text-text-light mt-1">{step.date}</p>}
                 </div>
               </div>
             ))}

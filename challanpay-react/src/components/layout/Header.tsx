@@ -185,7 +185,7 @@ export function Header() {
             <li key={link.href}>
               <Link
                 to={link.href}
-                className="block px-4 py-3 rounded-lg text-sm font-medium text-text-secondary hover:bg-gray-50 transition-colors"
+                className="block px-4 py-3.5 rounded-lg text-lg font-medium text-text-primary hover:bg-gray-50 transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
@@ -202,16 +202,16 @@ export function Header() {
         {/* Mobile Language Switcher */}
         <div className="px-4 pb-2">
           <div className="flex items-center gap-2 px-4 py-3">
-            <Globe className="w-4 h-4 text-text-secondary" />
+            <Globe className="w-5 h-5 text-text-primary" />
             {LANGUAGES.map((lang) => (
               <button
                 key={lang.code}
                 onClick={() => handleLangChange(lang.code)}
                 className={cn(
-                  'px-4 py-2.5 min-h-11 rounded-full text-sm font-medium transition-colors',
+                  'px-4 py-2.5 min-h-11 rounded-full text-base font-medium transition-colors',
                   language === lang.code
                     ? 'bg-primary text-white'
-                    : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+                    : 'bg-gray-100 text-text-primary hover:bg-gray-200'
                 )}
               >
                 {lang.label}
@@ -223,32 +223,32 @@ export function Header() {
         {/* Mobile User Profile */}
         <div className="px-4 pb-4 pt-2 border-t border-border">
           <div className="flex items-center gap-3 px-4 py-3">
-            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-              <User className="w-4 h-4 text-primary" />
+            <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
+              <User className="w-5 h-5 text-primary" />
             </div>
-            <span className="text-sm font-medium">{userName || t.header.login}</span>
+            <span className="text-lg font-medium text-text-primary">{userName || t.header.login}</span>
           </div>
           <Link
             to="/track-status"
-            className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors"
+            className="flex items-center gap-3 px-4 py-3.5 min-h-11 text-lg font-medium text-text-primary hover:bg-gray-50 rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <Calendar className="w-4 h-4" />
+            <Calendar className="w-5 h-5" />
             {t.header.trackMyChallans}
           </Link>
           <Link
             to="/profile"
-            className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors"
+            className="flex items-center gap-3 px-4 py-3.5 min-h-11 text-lg font-medium text-text-primary hover:bg-gray-50 rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <User className="w-4 h-4" />
+            <User className="w-5 h-5" />
             {t.header.myProfile}
           </Link>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
+            className="flex items-center gap-3 px-4 py-3.5 min-h-11 text-lg font-medium text-text-primary hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-5 h-5" />
             {t.header.logout}
           </button>
         </div>

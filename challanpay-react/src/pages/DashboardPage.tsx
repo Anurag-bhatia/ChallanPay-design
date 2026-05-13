@@ -78,7 +78,7 @@ export function DashboardPage() {
           {state === 'loading' ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {Array.from({ length: 2 }).map((_, i) => (
-                <div key={i} className="bg-white rounded-2xl border border-border p-5 space-y-4">
+                <div key={i} className="bg-white rounded-2xl p-5 space-y-4">
                   <div className="flex items-center gap-3">
                     <Skeleton className="w-12 h-12 rounded-xl" />
                     <div className="space-y-2 flex-1">

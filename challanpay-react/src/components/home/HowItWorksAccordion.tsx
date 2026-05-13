@@ -45,8 +45,41 @@ export function HowItWorksAccordion() {
           </div>
         </ScrollReveal>
 
-        {/* Layout */}
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+        {/* Mobile: horizontal scroll of three step cards */}
+        <div className="lg:hidden -mx-4">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 pb-2">
+            {steps.map((step, index) => (
+              <article
+                key={index}
+                className="flex-shrink-0 w-[82vw] max-w-[360px] snap-center bg-white border border-border rounded-2xl overflow-hidden shadow-sm flex flex-col"
+              >
+                <div className="p-5">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="font-display text-sm font-bold rounded-full w-9 h-9 flex items-center justify-center bg-primary text-white">
+                      {step.number}
+                    </span>
+                    <h3 className="font-display text-base font-semibold text-text-primary">
+                      {step.title}
+                    </h3>
+                  </div>
+                  <p className="font-body text-sm text-text-secondary leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+                <div className="px-5 pb-5">
+                  <img
+                    src={step.image}
+                    alt={step.title}
+                    className="w-full h-auto rounded-xl"
+                  />
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop layout: accordion + sticky image */}
+        <div className="hidden lg:flex flex-row gap-12 items-start">
           {/* Left - Accordion */}
           <div className="w-full lg:w-1/2 space-y-3">
             {steps.map((step, index) => (
