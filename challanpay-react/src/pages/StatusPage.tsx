@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams, useNavigate } from 'react-router'
-import { Copy, Check, Clock, CircleCheck, ArrowRight, X, Coins, FileWarning, Gavel, Inbox, FilePlus2, Upload, FileText, Loader2 } from 'lucide-react'
+import { Copy, Check, Clock, CircleCheck, ArrowRight, X, Coins, FileWarning, Gavel, Inbox, FilePlus2, Upload, FileText, Loader2, Info } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
@@ -75,6 +75,7 @@ export function StatusPage() {
   const [detailChallan, setDetailChallan] = useState<Challan | null>(null)
   const [showUnpaidWarning, setShowUnpaidWarning] = useState(false)
   const [showMissingModal, setShowMissingModal] = useState(false)
+  const [showMissingInfo, setShowMissingInfo] = useState(false)
   const [missingFile, setMissingFile] = useState<File | null>(null)
   const [missingChallanNo, setMissingChallanNo] = useState('')
   const [missingOffence, setMissingOffence] = useState('')
@@ -103,6 +104,7 @@ export function StatusPage() {
   useModalA11y(detailChallan !== null, () => setDetailChallan(null))
   useModalA11y(showUnpaidWarning, () => setShowUnpaidWarning(false))
   useModalA11y(showMissingModal, () => closeMissingModal())
+  useModalA11y(showMissingInfo, () => setShowMissingInfo(false))
 
   const filteredChallans = useMemo(() => {
     if (activeFilter === 'all') return allChallans
@@ -314,8 +316,27 @@ export function StatusPage() {
                   <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
                     <FilePlus2 className="w-3.5 h-3.5 text-red-500" />
                   </div>
-                  <div className="flex-1 min-w-0">
+                  <div className="flex-1 min-w-0 flex items-center gap-1.5">
                     <p className="text-sm font-semibold text-text-primary">Missing a challan?</p>
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      aria-label="Why can challans be missed?"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setShowMissingInfo(true)
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          setShowMissingInfo(true)
+                        }
+                      }}
+                      className="inline-flex items-center justify-center w-5 h-5 rounded-full text-text-light hover:text-primary transition-colors cursor-pointer"
+                    >
+                      <Info className="w-3.5 h-3.5" />
+                    </span>
                   </div>
                   <span className="inline-flex items-center gap-1 text-sm font-semibold text-text-primary flex-shrink-0">
                     Submit
@@ -855,6 +876,54 @@ export function StatusPage() {
                 className="w-full py-3 text-text-secondary font-medium text-sm hover:text-text-primary transition-colors mt-1"
               >
                 Continue with Selected
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Why can challans be missed? Info Modal */}
+      {showMissingInfo && (
+        <div
+          className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          onClick={() => setShowMissingInfo(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="missing-info-title"
+        >
+          <div
+            className="relative w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between px-5 pt-4 pb-3 border-b border-border gap-3">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Info className="w-4 h-4 text-primary" />
+                </div>
+                <h3 id="missing-info-title" className="font-display text-base font-bold text-text-primary">
+                  Why can challans be missed?
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowMissingInfo(false)}
+                aria-label="Close"
+                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors flex-shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="p-5">
+              <p className="text-sm text-text-secondary leading-relaxed">
+                A few challans may be missed because of incomplete data received from the government source, sync delays, or temporary processing issues.
+              </p>
+              <button
+                onClick={() => {
+                  setShowMissingInfo(false)
+                  setShowMissingModal(true)
+                }}
+                className="mt-5 w-full py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors text-sm shadow-sm"
+              >
+                Report a Missing Challan
               </button>
             </div>
           </div>

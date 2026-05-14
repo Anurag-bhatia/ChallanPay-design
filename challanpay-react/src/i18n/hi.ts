@@ -252,7 +252,7 @@ export const hi: TranslationKeys = {
     selectHow: 'चुनें कि आप अपने चालान कैसे निपटाना चाहते हैं।',
     payAndClose: 'भुगतान करें और बंद करें',
     contestAndWait: 'चुनौती दें और प्रतीक्षा करें',
-    instantPayment: 'सरकारी पोर्टल के माध्यम से तत्काल भुगतान',
+    instantPayment: 'तत्काल इनाम और त्वरित समाधान',
     legalRepresentation: 'जुर्माना कम करने के लिए कानूनी प्रतिनिधित्व',
     instantBenefit: 'तत्काल लाभ',
     fortyFiveDays: '45 दिन समाधान',

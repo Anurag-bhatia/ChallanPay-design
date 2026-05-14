@@ -388,11 +388,11 @@ export function PaymentPage() {
                         <span
                           key={tag}
                           className={cn(
-                            'text-xs font-medium px-2.5 py-1 rounded-full',
+                            'text-xs font-semibold px-2.5 py-1 rounded-full',
                             activeTab === tab.id && tab.id === 'online'
                               ? tag === t.payment.instantBenefit
-                                ? 'bg-amber-50 text-amber-700'
-                                : 'bg-primary/5 text-primary'
+                                ? 'bg-amber-100 text-amber-800'
+                                : 'bg-primary/10 text-primary'
                               : 'bg-gray-100 text-text-secondary'
                           )}
                         >

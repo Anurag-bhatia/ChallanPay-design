@@ -250,7 +250,7 @@ export const en = {
     selectHow: "Select how you'd like to resolve your challans.",
     payAndClose: 'Pay & Close',
     contestAndWait: 'Contest & Wait',
-    instantPayment: 'Instant payment via government portal',
+    instantPayment: 'Instant reward and fast resolution',
     legalRepresentation: 'Legal representation to reduce fines',
     instantBenefit: 'Instant Benefit',
     fortyFiveDays: '45 Days Resolution',
