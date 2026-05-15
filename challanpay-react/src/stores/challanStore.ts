@@ -21,6 +21,7 @@ interface ChallanState {
   selectedChallanIds: string[]
   lastTransactionId: string | null
   lastTransactionAmount: number | null
+  lastTransactionChallanCount: number | null
   pledgeConfettiShown: boolean
   activeTab: 'pending' | 'paid'
   setChallans: (challans: ChallanItem[]) => void
@@ -28,7 +29,7 @@ interface ChallanState {
   selectAll: (ids: string[]) => void
   clearSelection: () => void
   setActiveTab: (tab: 'pending' | 'paid') => void
-  recordTransaction: (id: string, amount: number) => void
+  recordTransaction: (id: string, amount: number, challanCount: number) => void
   markPledgeConfettiShown: () => void
 }
 
@@ -39,6 +40,7 @@ export const useChallanStore = create<ChallanState>()(
       selectedChallanIds: [],
       lastTransactionId: null,
       lastTransactionAmount: null,
+      lastTransactionChallanCount: null,
       pledgeConfettiShown: false,
       activeTab: 'pending',
       setChallans: (challans) => set({ challans }),
@@ -51,7 +53,7 @@ export const useChallanStore = create<ChallanState>()(
       selectAll: (ids) => set({ selectedChallanIds: ids }),
       clearSelection: () => set({ selectedChallanIds: [] }),
       setActiveTab: (tab) => set({ activeTab: tab }),
-      recordTransaction: (id, amount) => set({ lastTransactionId: id, lastTransactionAmount: amount }),
+      recordTransaction: (id, amount, challanCount) => set({ lastTransactionId: id, lastTransactionAmount: amount, lastTransactionChallanCount: challanCount }),
       markPledgeConfettiShown: () => set({ pledgeConfettiShown: true }),
     }),
     {
@@ -62,6 +64,7 @@ export const useChallanStore = create<ChallanState>()(
         selectedChallanIds: state.selectedChallanIds,
         lastTransactionId: state.lastTransactionId,
         lastTransactionAmount: state.lastTransactionAmount,
+        lastTransactionChallanCount: state.lastTransactionChallanCount,
         pledgeConfettiShown: state.pledgeConfettiShown,
       }),
     }

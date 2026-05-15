@@ -10,6 +10,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { usePageState } from '@/hooks/usePageState'
 import { useChallanStore } from '@/stores/challanStore'
+import { useUserStore } from '@/stores/userStore'
 
 const formatINR = (n: number) => n.toLocaleString('en-IN')
 
@@ -46,8 +47,17 @@ export function PaymentCompletedPage() {
   const { t } = useTranslation()
   const lastTransactionId = useChallanStore((s) => s.lastTransactionId)
   const lastTransactionAmount = useChallanStore((s) => s.lastTransactionAmount)
+  const lastTransactionChallanCount = useChallanStore((s) => s.lastTransactionChallanCount)
   const clearSelection = useChallanStore((s) => s.clearSelection)
+  const userMobile = useUserStore((s) => s.userMobile)
+  const vehicleNumber = useUserStore((s) => s.vehicleNumber)
   const { state: pageState } = usePageState()
+
+  const subscriberId = useMemo(() => {
+    if (userMobile) return `CP-${userMobile.slice(-6).padStart(6, '0')}`
+    if (lastTransactionId) return `CP-${lastTransactionId.slice(-6)}`
+    return '—'
+  }, [userMobile, lastTransactionId])
 
   useEffect(() => {
     clearSelection()
@@ -154,6 +164,30 @@ export function PaymentCompletedPage() {
               <span className="text-text-light">{t.paymentCompleted.statusLabel}</span>
               <span className="text-success font-medium">{t.paymentCompleted.confirmed}</span>
             </div>
+          </div>
+
+          {/* Subscriber Summary */}
+          <div className="rounded-xl border border-border text-left px-4">
+            <dl className="divide-y divide-border">
+              <div className="flex items-center justify-between py-3 text-sm">
+                <dt className="text-text-light">{t.paymentCompleted.subscriberId}</dt>
+                <dd className="font-mono text-text-primary font-medium">{subscriberId}</dd>
+              </div>
+              <div className="flex items-center justify-between py-3 text-sm">
+                <dt className="text-text-light">{t.paymentCompleted.vehicleNumberLabel}</dt>
+                <dd className="font-mono text-text-primary font-medium">{vehicleNumber ?? '—'}</dd>
+              </div>
+              <div className="flex items-center justify-between py-3 text-sm">
+                <dt className="text-text-light">{t.paymentCompleted.challansSubmitted}</dt>
+                <dd className="text-text-primary font-medium">{lastTransactionChallanCount ?? '—'}</dd>
+              </div>
+              <div className="flex items-center justify-between py-3 text-sm">
+                <dt className="text-text-light">{t.paymentCompleted.totalAmountPaid}</dt>
+                <dd className="text-text-primary font-semibold">
+                  {lastTransactionAmount !== null ? `₹${formatINR(lastTransactionAmount)}` : '—'}
+                </dd>
+              </div>
+            </dl>
           </div>
 
           <div className="flex flex-col gap-2">

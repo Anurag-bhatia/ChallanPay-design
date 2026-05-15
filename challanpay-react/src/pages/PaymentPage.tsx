@@ -87,7 +87,7 @@ export function PaymentPage() {
 
   const handlePayment = () => {
     const txnId = `TXN${Date.now()}`
-    recordTransaction(txnId, grandTotal)
+    recordTransaction(txnId, grandTotal, selectedChallanIds.length)
     navigate('/payment/completed')
   }
 
