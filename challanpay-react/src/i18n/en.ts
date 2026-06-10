@@ -149,7 +149,7 @@ export const en = {
     legal: 'Legal',
     support: 'Support',
     copyright: 'ChallanPay. All rights reserved.',
-    trackChallan: 'Track Challan',
+    trackChallan: 'Track Challans',
     privacyPolicy: 'Privacy Policy',
     termsConditions: 'Terms & Conditions',
     refundPolicy: 'Refund Policy',
@@ -246,7 +246,7 @@ export const en = {
 
   // Payment Page
   payment: {
-    chooseResolution: 'Choose Resolution',
+    chooseResolution: 'Choose Resolution Type',
     selectHow: "Select how you'd like to resolve your challans.",
     payAndClose: 'Pay & Close',
     contestAndWait: 'Contest & Wait',
@@ -381,7 +381,7 @@ export const en = {
     noChallansFound: 'No challans found matching your criteria.',
     vehicle: 'Vehicle',
     incident: 'Incident',
-    challanDetail: 'Challan Detail',
+    challanDetail: 'Challan Details',
     resolutionTimeline: 'Resolution Timeline',
     challan: 'Challan',
     incidentId: 'Incident ID',

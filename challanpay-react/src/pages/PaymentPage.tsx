@@ -71,6 +71,13 @@ export function PaymentPage() {
 
   const prefersReducedMotion = useReducedMotion()
 
+  const handleTabChange = (next: ResolutionType) => {
+    setActiveTab(next)
+    if (next === 'court' && pledgeChecked) {
+      setPledgeChecked(false)
+    }
+  }
+
   const handlePledge = () => {
     const next = !pledgeChecked
     setPledgeChecked(next)
@@ -343,11 +350,11 @@ export function PaymentPage() {
                   key={tab.id}
                   role="button"
                   tabIndex={0}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handleTabChange(tab.id)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault()
-                      setActiveTab(tab.id)
+                      handleTabChange(tab.id)
                     }
                   }}
                   className={cn(
@@ -413,8 +420,8 @@ export function PaymentPage() {
               ))}
             </div>
 
-            {/* Pledge Section */}
-            {pageState === 'loading' ? (
+            {/* Pledge Section — hidden when Contest & Wait is selected */}
+            {activeTab === 'court' ? null : pageState === 'loading' ? (
               <div className="bg-white rounded-xl p-4 sm:p-5 space-y-3">
                 <div className="flex items-start gap-3">
                   <Skeleton className="w-6 h-6 rounded" />

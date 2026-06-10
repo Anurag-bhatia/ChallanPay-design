@@ -5,15 +5,13 @@ export const MOCK_CHALLANS: TrackingChallan[] = [
   {
     id: '1',
     challanNumber: 'UP4083823062711437',
-    status: 'not-settled',
+    status: 'resolved',
     vehicleNumber: 'UP32 GJ 4083',
     incidentId: 'IRN-4680065',
     amount: 0,
     resolutionDate: '20 Nov, 2024',
     timeline: [
       { date: '06 Nov, 02:22 PM', title: 'Challan Submitted', description: 'Your challan has been submitted for processing. Our team will review it shortly.' },
-      { date: '06 Nov, 03:45 PM', title: 'Under Review', description: 'Challan is being reviewed by our resolution team.' },
-      { date: '07 Nov, 10:00 AM', title: 'Documents Verified', description: 'All submitted documents have been verified successfully.' },
     ],
   },
   {

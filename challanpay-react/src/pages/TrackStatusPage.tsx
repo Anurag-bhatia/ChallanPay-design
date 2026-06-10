@@ -636,21 +636,20 @@ function DashboardSection() {
                         key={vehicle.vehicleNumber}
                         className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm"
                       >
-                        {/* Header — license plate + context */}
+                        {/* Header — make/model on the left, license plate on the right */}
                         <div className="bg-white px-5 py-5">
-                          <div className="flex items-start gap-4">
+                          <div className="flex items-center gap-4">
                             <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                               <Car className="w-5 h-5 text-primary" />
                             </div>
-                            <div className="flex-1 min-w-0">
-                              {/* License plate badge */}
-                              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md border-2 border-gray-900 bg-white mb-2">
+                            <div className="flex-1 min-w-0 flex items-center justify-between gap-3 flex-wrap">
+                              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md border-2 border-gray-900 bg-white flex-shrink-0">
                                 <span className="font-display font-bold text-[13px] text-gray-900 tracking-widest">
                                   {vehicle.vehicleNumber}
                                 </span>
                               </div>
-                              <div className="flex items-center gap-2 flex-wrap">
-                                <p className="text-sm text-text-secondary">{vehicle.makeModel}</p>
+                              <div className="flex items-center gap-2 flex-wrap min-w-0">
+                                <p className="text-sm text-text-secondary truncate">{vehicle.makeModel}</p>
                                 <span className="text-text-light">·</span>
                                 <span className="text-xs font-medium text-text-light bg-gray-100 px-2 py-0.5 rounded-full">
                                   {vehicle.vehicleType}

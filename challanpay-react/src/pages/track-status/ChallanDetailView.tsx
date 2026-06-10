@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ChevronDown, Copy, Check, Download } from 'lucide-react'
+import { toast } from 'sonner'
+import { ArrowLeft, ChevronDown, CircleCheck, Copy, Check, Download, MessageSquare, Star, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
+import { useModalA11y } from '@/hooks/useModalA11y'
 import { useTranslation } from '@/hooks/useTranslation'
 import { STATUS_BADGE } from './mocks'
 import type { TrackingChallan } from './types'
@@ -10,7 +12,28 @@ import type { TrackingChallan } from './types'
 export function ChallanDetailView({ challan, onBack }: { challan: TrackingChallan; onBack: () => void }) {
   const { t } = useTranslation()
   const { copied, copy } = useCopyToClipboard()
-  const [expandedEntries, setExpandedEntries] = useState<Set<number>>(new Set())
+  const [expandedEntries, setExpandedEntries] = useState<Set<number>>(
+    () => new Set(challan.timeline.map((_, index) => index))
+  )
+  const [showFeedback, setShowFeedback] = useState(false)
+  const [rating, setRating] = useState(0)
+  const [hoverRating, setHoverRating] = useState(0)
+  const [feedbackText, setFeedbackText] = useState('')
+
+  const closeFeedback = () => {
+    setShowFeedback(false)
+    setRating(0)
+    setHoverRating(0)
+    setFeedbackText('')
+  }
+
+  useModalA11y(showFeedback, closeFeedback)
+
+  const submitFeedback = () => {
+    if (rating === 0) return
+    toast.success('Thanks for your feedback!')
+    closeFeedback()
+  }
 
   const toggleEntry = (index: number) => {
     setExpandedEntries((prev) => {
@@ -99,7 +122,10 @@ export function ChallanDetailView({ challan, onBack }: { challan: TrackingChalla
 
         {/* Right — Challan Summary Card */}
         <div className="bg-white rounded-xl border border-border overflow-hidden lg:self-start">
-          <div className="bg-primary px-5 py-4">
+          <div className={cn(
+            'px-5 py-4',
+            challan.status === 'resolved' ? 'bg-emerald-600' : 'bg-primary'
+          )}>
             <p className="text-xs text-white/70 mb-1">{t.trackStatus.challan}</p>
             <div className="flex items-center gap-2">
               <p className="font-display font-bold text-white text-sm truncate">
@@ -115,23 +141,32 @@ export function ChallanDetailView({ challan, onBack }: { challan: TrackingChalla
             </div>
           </div>
 
-          <div className="px-5 py-4 border-b border-border flex items-center justify-between">
-            <p className="font-display text-xl font-bold text-text-primary">
-              ₹{challan.amount.toFixed(2)}
-            </p>
-            {(() => {
-              const StatusIcon = STATUS_BADGE[challan.status].icon
-              return (
-                <span className={cn(
-                  'inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full',
-                  STATUS_BADGE[challan.status].className
-                )}>
-                  <StatusIcon className="w-3 h-3" aria-hidden />
-                  {challan.status === 'not-settled' ? t.trackStatus.notSettled : challan.status === 'in-progress' ? t.trackStatus.inProgress : challan.status === 'resolved' ? t.trackStatus.resolved : t.trackStatus.refund}
-                </span>
-              )
-            })()}
-          </div>
+          {challan.status === 'resolved' ? (
+            <div className="px-5 py-6 border-b border-border flex flex-col items-center justify-center text-center gap-2">
+              <CircleCheck className="w-14 h-14 text-emerald-600" strokeWidth={2} aria-hidden />
+              <p className="font-display text-xl font-bold text-emerald-700">
+                Your challan is resolved
+              </p>
+            </div>
+          ) : (
+            <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+              <p className="font-display text-xl font-bold text-text-primary">
+                ₹{challan.amount.toFixed(2)}
+              </p>
+              {(() => {
+                const StatusIcon = STATUS_BADGE[challan.status].icon
+                return (
+                  <span className={cn(
+                    'inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full',
+                    STATUS_BADGE[challan.status].className
+                  )}>
+                    <StatusIcon className="w-3 h-3" aria-hidden />
+                    {challan.status === 'not-settled' ? t.trackStatus.notSettled : challan.status === 'in-progress' ? t.trackStatus.inProgress : t.trackStatus.refund}
+                  </span>
+                )
+              })()}
+            </div>
+          )}
 
           <div className="px-5 py-4 space-y-3">
             <div className="flex justify-between items-center">
@@ -148,14 +183,127 @@ export function ChallanDetailView({ challan, onBack }: { challan: TrackingChalla
             </div>
           </div>
 
-          <div className="px-5 pb-5">
-            <button className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-sm font-medium text-text-primary hover:bg-gray-50 transition-colors">
-              <Download className="w-4 h-4" />
-              {t.trackStatus.downloadReceipt}
+          <div className="px-5 pb-5 space-y-2.5">
+            {challan.timeline.length > 1 && (
+              <button className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-sm font-medium text-text-primary hover:bg-gray-50 transition-colors">
+                <Download className="w-4 h-4" />
+                {t.trackStatus.downloadReceipt}
+              </button>
+            )}
+            <button
+              onClick={() => setShowFeedback(true)}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-sm font-medium text-text-primary hover:bg-gray-50 transition-colors"
+            >
+              <MessageSquare className="w-4 h-4" />
+              Give Feedback
             </button>
           </div>
         </div>
       </div>
+
+      {/* Feedback Modal */}
+      <AnimatePresence>
+        {showFeedback && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            onClick={closeFeedback}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25 }}
+              className="relative w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={closeFeedback}
+                className="absolute top-2 right-2 z-10 w-11 h-11 rounded-full bg-white/80 flex items-center justify-center text-gray-500 hover:bg-white transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="pt-8 pb-4 px-6 text-center">
+                <h3 className="font-display text-xl font-bold text-text-primary mb-1">
+                  How was your experience?
+                </h3>
+                <p className="text-sm text-text-secondary">
+                  Your feedback helps us improve.
+                </p>
+              </div>
+
+              <div className="px-6 pt-2 pb-6">
+                <div
+                  className="flex items-center justify-center gap-2 mb-5"
+                  onMouseLeave={() => setHoverRating(0)}
+                >
+                  {[1, 2, 3, 4, 5].map((star) => {
+                    const active = (hoverRating || rating) >= star
+                    return (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setRating(star)}
+                        onMouseEnter={() => setHoverRating(star)}
+                        aria-label={`Rate ${star} star${star === 1 ? '' : 's'}`}
+                        className="p-1.5 rounded-md hover:bg-amber-50 transition-colors"
+                      >
+                        <Star
+                          className={cn(
+                            'w-9 h-9 transition-colors',
+                            active ? 'text-amber-400' : 'text-gray-300'
+                          )}
+                          fill={active ? 'currentColor' : 'none'}
+                          strokeWidth={1.5}
+                        />
+                      </button>
+                    )
+                  })}
+                </div>
+
+                <AnimatePresence initial={false}>
+                  {rating > 0 && rating < 5 && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.18 }}
+                      className="overflow-hidden"
+                    >
+                      <label
+                        htmlFor="feedback-text"
+                        className="block text-xs font-medium text-text-secondary mb-1.5"
+                      >
+                        Tell us what we could do better
+                      </label>
+                      <textarea
+                        id="feedback-text"
+                        value={feedbackText}
+                        onChange={(e) => setFeedbackText(e.target.value)}
+                        rows={3}
+                        placeholder="Share your thoughts..."
+                        className="w-full px-3 py-2.5 text-sm border border-border rounded-lg outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-none mb-4"
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <button
+                  onClick={submitFeedback}
+                  disabled={rating === 0}
+                  className="w-full py-3.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors text-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Submit Feedback
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   )
 }

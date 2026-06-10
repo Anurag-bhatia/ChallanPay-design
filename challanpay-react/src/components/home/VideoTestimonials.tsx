@@ -13,7 +13,6 @@ const videos: VideoItem[] = [
   { id: 1, src: '/videos/V1.mp4' },
   { id: 2, src: '/videos/V2.mp4' },
   { id: 3, src: '/videos/V3.mp4' },
-  { id: 4, src: '/videos/V1.mp4' },
 ]
 
 export function VideoTestimonials() {
@@ -39,7 +38,7 @@ export function VideoTestimonials() {
         </div>
 
         {/* Video Cards */}
-        <div className="flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:snap-none sm:pb-0 scrollbar-hide">
+        <div className="flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:snap-none sm:pb-0 scrollbar-hide sm:max-w-4xl sm:mx-auto">
           {videos.map((video) => (
             <div key={video.id} className="min-w-[45%] snap-center sm:min-w-0">
               <div

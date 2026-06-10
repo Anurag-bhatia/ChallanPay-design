@@ -9,7 +9,7 @@ export function AppLayout() {
       <SkipToContent />
       <OfflineBanner />
       <Header />
-      <main id="main" className="flex-1 pt-20">
+      <main id="main" className="flex-1">
         <Outlet />
       </main>
     </div>

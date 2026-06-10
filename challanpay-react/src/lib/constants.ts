@@ -3,7 +3,7 @@ export const SUPPORT_EMAIL = 'support@challanpay.com'
 
 export const FOOTER_LINKS = {
   quickLinks: [
-    { label: 'Track Challan', href: '/#track' },
+    { label: 'Track Challans', href: '/#track' },
     { label: 'Road Smart Partners', href: '/road-smart-partners' },
     { label: 'How It Works', href: '/#how-it-works' },
     { label: 'Blogs', href: '/blogs' },

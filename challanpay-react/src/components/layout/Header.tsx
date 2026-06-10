@@ -135,22 +135,26 @@ export function Header() {
                 <Calendar className="w-4 h-4" />
                 {t.header.trackMyChallans}
               </Link>
-              <Link
-                to="/profile"
-                className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 transition-colors"
-                onClick={() => setIsProfileOpen(false)}
-              >
-                <User className="w-4 h-4" />
-                {t.header.myProfile}
-              </Link>
-              <hr className="my-1 border-border" />
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 transition-colors w-full text-left"
-              >
-                <LogOut className="w-4 h-4" />
-                {t.header.logout}
-              </button>
+              {userName && (
+                <>
+                  <Link
+                    to="/profile"
+                    className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 transition-colors"
+                    onClick={() => setIsProfileOpen(false)}
+                  >
+                    <User className="w-4 h-4" />
+                    {t.header.myProfile}
+                  </Link>
+                  <hr className="my-1 border-border" />
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 px-4 py-3 min-h-11 text-sm text-text-secondary hover:bg-gray-50 transition-colors w-full text-left"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    {t.header.logout}
+                  </button>
+                </>
+              )}
             </div>
           )}
           </div>
@@ -236,21 +240,25 @@ export function Header() {
             <Calendar className="w-5 h-5" />
             {t.header.trackMyChallans}
           </Link>
-          <Link
-            to="/profile"
-            className="flex items-center gap-3 px-4 py-3.5 min-h-11 text-lg font-medium text-text-primary hover:bg-gray-50 rounded-lg transition-colors"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            <User className="w-5 h-5" />
-            {t.header.myProfile}
-          </Link>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3.5 min-h-11 text-lg font-medium text-text-primary hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
-          >
-            <LogOut className="w-5 h-5" />
-            {t.header.logout}
-          </button>
+          {userName && (
+            <>
+              <Link
+                to="/profile"
+                className="flex items-center gap-3 px-4 py-3.5 min-h-11 text-lg font-medium text-text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <User className="w-5 h-5" />
+                {t.header.myProfile}
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-3 px-4 py-3.5 min-h-11 text-lg font-medium text-text-primary hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
+              >
+                <LogOut className="w-5 h-5" />
+                {t.header.logout}
+              </button>
+            </>
+          )}
         </div>
       </nav>
     )}

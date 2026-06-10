@@ -248,7 +248,7 @@ export const hi: TranslationKeys = {
 
   // Payment Page
   payment: {
-    chooseResolution: 'समाधान चुनें',
+    chooseResolution: 'समाधान का प्रकार चुनें',
     selectHow: 'चुनें कि आप अपने चालान कैसे निपटाना चाहते हैं।',
     payAndClose: 'भुगतान करें और बंद करें',
     contestAndWait: 'चुनौती दें और प्रतीक्षा करें',
