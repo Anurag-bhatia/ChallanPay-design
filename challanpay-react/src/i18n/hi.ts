@@ -221,8 +221,11 @@ export const hi: TranslationKeys = {
   // Status Page
   status: {
     pendingChallans: 'लंबित चालान',
+    inProgressChallans: 'प्रगति में चालान',
+    inProgressBanner: 'हमारी टीम इन चालानों का समाधान कर रही है। प्रत्येक चालान दी गई समय-सीमा के भीतर पूरा हो जाएगा — किसी भी कार्ड पर Track Status पर टैप करें और प्रगति देखें।',
     paidChallans: 'भुगतान किए गए चालान',
     pending: 'लंबित',
+    inProgress: 'प्रगति में',
     paid: 'भुगतान',
     selectAll: 'सभी चुनें',
     all: 'सभी',
@@ -324,6 +327,7 @@ export const hi: TranslationKeys = {
     statusLabel: 'स्थिति',
     confirmed: 'पुष्टि हो गई',
     downloadReceipt: 'रसीद डाउनलोड करें',
+    checkAnotherChallan: 'दूसरा चालान देखें',
     subscriberId: 'सब्सक्राइबर आईडी',
     vehicleNumberLabel: 'वाहन नंबर',
     challansSubmitted: 'जमा किए गए चालान',

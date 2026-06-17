@@ -201,7 +201,7 @@ export function ComparisonSection() {
         <ScrollReveal delay={0.1}>
           <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {[
-              { icon: ShieldCheck, label: 'Trusted by 12L+ Users' },
+              { icon: ShieldCheck, label: 'Trusted by 20L+ Users' },
               { icon: Lock, label: 'Secure & Encrypted Payments' },
               { icon: Headphones, label: 'Dedicated Legal Experts' },
               { icon: Clock, label: 'Faster Resolution, Less Hassle' },

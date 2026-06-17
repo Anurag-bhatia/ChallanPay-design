@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import confetti from 'canvas-confetti'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
-import { Download, CheckCircle, Circle, Clock, FileText, CreditCard, MapPinCheck } from 'lucide-react'
+import { Download, CheckCircle, Circle, Clock, FileText, CreditCard } from 'lucide-react'
 import { Link } from 'react-router'
 import { cn } from '@/lib/utils'
 import { PageTransition } from '@/components/shared/PageTransition'
@@ -191,6 +191,13 @@ export function PaymentCompletedPage() {
           </div>
 
           <div className="flex flex-col gap-2">
+            <Link
+              to="/"
+              className="relative overflow-hidden w-full min-h-11 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+            >
+              <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shine" />
+              <span className="relative">{t.paymentCompleted.checkAnotherChallan}</span>
+            </Link>
             <button
               onClick={handleDownloadReceipt}
               className="w-full min-h-11 py-3 bg-white border border-border text-text-primary font-medium rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
@@ -198,14 +205,6 @@ export function PaymentCompletedPage() {
               <Download className="w-5 h-5" />
               {t.paymentCompleted.downloadReceipt}
             </button>
-            <Link
-              to="/track-status"
-              className="relative overflow-hidden w-full min-h-11 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
-            >
-              <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shine" />
-              <MapPinCheck className="w-5 h-5 relative" />
-              <span className="relative">{t.header.trackMyChallans}</span>
-            </Link>
           </div>
         </div>
 

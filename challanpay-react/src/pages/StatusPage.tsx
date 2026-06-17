@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams, useNavigate } from 'react-router'
-import { Copy, Check, Clock, CircleCheck, ArrowRight, X, Coins, FileWarning, Gavel, Inbox, FilePlus2, Upload, FileText, Loader2, Info } from 'lucide-react'
+import { Copy, Check, Clock, CircleCheck, ArrowRight, X, Coins, FileWarning, Gavel, Inbox, FilePlus2, Upload, FileText, Loader2, Info, Hourglass } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
@@ -47,7 +47,7 @@ const MOCK_PAID_CHALLANS: PaidChallan[] = [
 ]
 
 type Filter = 'all' | 'online' | 'court'
-type Tab = 'pending' | 'paid'
+type Tab = 'pending' | 'in-progress' | 'paid'
 
 // Hoist constant arrays outside component (rerender-no-inline-components)
 const FILTERS: Filter[] = ['all', 'online', 'court']
@@ -261,7 +261,6 @@ export function StatusPage() {
                 )}
               >
                 <div className="flex items-center gap-2.5">
-                  <Clock className="w-5 h-5" />
                   <span className="hidden md:inline">{t.status.pendingChallans}</span>
                   <span className="md:hidden">{t.status.pending}</span>
                 </div>
@@ -270,6 +269,26 @@ export function StatusPage() {
                   activeTab === 'pending' ? 'bg-primary/15 text-primary' : 'bg-gray-100 text-text-secondary'
                 )}>
                   {allChallans.length}
+                </span>
+              </button>
+              <button
+                onClick={() => setActiveTab('in-progress')}
+                className={cn(
+                  'flex-1 md:flex-none flex items-center justify-between px-4 py-3 md:py-5 rounded-xl text-sm md:text-base font-semibold border transition-all',
+                  activeTab === 'in-progress'
+                    ? 'bg-amber-50 text-amber-700 border-amber-400'
+                    : 'bg-white border-border text-text-secondary hover:bg-gray-50'
+                )}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="hidden md:inline">{t.status.inProgressChallans}</span>
+                  <span className="md:hidden">{t.status.inProgress}</span>
+                </div>
+                <span className={cn(
+                  'text-xs font-bold px-2 py-0.5 rounded-full',
+                  activeTab === 'in-progress' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-text-secondary'
+                )}>
+                  {submittedChallans.length}
                 </span>
               </button>
               <button
@@ -282,7 +301,6 @@ export function StatusPage() {
                 )}
               >
                 <div className="flex items-center gap-2.5">
-                  <CircleCheck className="w-5 h-5" />
                   <span className="hidden md:inline">{t.status.paidChallans}</span>
                   <span className="md:hidden">{t.status.paid}</span>
                 </div>
@@ -495,76 +513,6 @@ export function StatusPage() {
                 </div>
                 )}
 
-                {/* Submitted Challans — paid challans shown below pending, lighter & non-interactive */}
-                {submittedChallans.length > 0 && (
-                  <div className="mt-2 space-y-4">
-                    <h2 className="font-display font-bold text-lg text-text-secondary">
-                      In Progress with ChallanPay ({submittedChallans.length})
-                    </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-36 md:pb-0">
-                      {submittedChallans.map((challan) => (
-                        <div
-                          key={challan.id}
-                          className="bg-white rounded-xl border border-border shadow-sm p-5"
-                        >
-                          {/* Card Header */}
-                          <div className="flex items-center justify-between gap-3 mb-3">
-                            <span className="text-xs font-mono text-text-secondary truncate">#{challan.challanNumber.slice(0, 12)}...</span>
-                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full bg-amber-100 text-amber-700 whitespace-nowrap">
-                              <Clock className="w-3 h-3" />
-                              In Progress
-                            </span>
-                          </div>
-
-                          {/* Amount + Type badge */}
-                          <div className="flex items-center justify-between mb-2">
-                            <p className="font-display text-xl font-bold text-text-primary">
-                              ₹{challan.amount.toLocaleString('en-IN')}
-                            </p>
-                            <span className={cn(
-                              'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
-                              challan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
-                            )}>
-                              {challan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
-                            </span>
-                          </div>
-
-                          {/* Details */}
-                          <div className="space-y-1.5 text-sm">
-                            <p className="line-clamp-1 leading-snug font-medium text-text-primary" title={challan.violation}>{challan.violation}</p>
-                            <p className="text-xs text-text-secondary truncate" title={`${challan.date} · ${challan.location}`}>{challan.date} · {truncateWords(challan.location, 3)}</p>
-                          </div>
-
-                          {/* Divider */}
-                          <hr className="border-border mt-4" />
-
-                          {/* Status text + Track Status */}
-                          <div className="mt-3 flex items-center justify-between gap-3">
-                            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-700">
-                              <button
-                                type="button"
-                                onClick={() => setShowSubmittedInfo(true)}
-                                aria-label="What does this status mean?"
-                                className="inline-flex items-center justify-center -m-1 p-1 rounded-full text-amber-700 hover:text-amber-800 transition-colors cursor-pointer"
-                              >
-                                <Info className="w-3.5 h-3.5" />
-                              </button>
-                              Challan Submitted & under process
-                            </span>
-                            <button
-                              onClick={() => navigate(`/track-status?challan=${encodeURIComponent(challan.challanNumber)}`)}
-                              className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
-                            >
-                              Track Status
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
                 {/* Proceed Bar — skeleton during loading */}
                 {state === 'loading' && (
                   <div className="fixed md:sticky bottom-0 md:bottom-4 left-0 right-0 md:left-auto md:right-auto z-50 md:z-40 bg-white border-t border-border md:border md:rounded-2xl rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:shadow-xl overflow-hidden">
@@ -605,6 +553,92 @@ export function StatusPage() {
                 </div>
               </div>
             )}
+              </>
+            ) : activeTab === 'in-progress' ? (
+              <>
+                {/* In Progress Challans Header */}
+                <div className="space-y-1">
+                  <h2 className="font-display font-bold text-lg text-text-primary">
+                    {`${t.status.inProgressChallans} (${submittedChallans.length})`}
+                  </h2>
+                  {submittedChallans.length > 0 && (
+                    <p className="text-sm text-text-secondary leading-snug">
+                      {t.status.inProgressBanner}
+                    </p>
+                  )}
+                </div>
+
+                {submittedChallans.length === 0 ? (
+                  <div className="bg-white rounded-2xl border border-border">
+                    <EmptyState
+                      icon={Hourglass}
+                      title="No challans in progress"
+                      description="Challans you submit for ChallanPay to resolve will appear here while we work on them."
+                    />
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-36 md:pb-0">
+                    {submittedChallans.map((challan) => (
+                      <div
+                        key={challan.id}
+                        className="bg-white rounded-xl border border-border shadow-sm p-5"
+                      >
+                        {/* Card Header */}
+                        <div className="flex items-center justify-between gap-3 mb-3">
+                          <span className="text-xs font-mono text-text-secondary truncate">#{challan.challanNumber.slice(0, 12)}...</span>
+                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full bg-amber-100 text-amber-700 whitespace-nowrap">
+                            <Clock className="w-3 h-3" />
+                            In Progress
+                          </span>
+                        </div>
+
+                        {/* Amount + Type badge */}
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="font-display text-xl font-bold text-text-primary">
+                            ₹{challan.amount.toLocaleString('en-IN')}
+                          </p>
+                          <span className={cn(
+                            'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
+                            challan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
+                          )}>
+                            {challan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
+                          </span>
+                        </div>
+
+                        {/* Details */}
+                        <div className="space-y-1.5 text-sm">
+                          <p className="line-clamp-1 leading-snug font-medium text-text-primary" title={challan.violation}>{challan.violation}</p>
+                          <p className="text-xs text-text-secondary truncate" title={`${challan.date} · ${challan.location}`}>{challan.date} · {truncateWords(challan.location, 3)}</p>
+                        </div>
+
+                        {/* Divider */}
+                        <hr className="border-border mt-4" />
+
+                        {/* Status text + Track Status */}
+                        <div className="mt-3 flex items-center justify-between gap-3">
+                          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-700">
+                            <button
+                              type="button"
+                              onClick={() => setShowSubmittedInfo(true)}
+                              aria-label="What does this status mean?"
+                              className="inline-flex items-center justify-center -m-1 p-1 rounded-full text-amber-700 hover:text-amber-800 transition-colors cursor-pointer"
+                            >
+                              <Info className="w-3.5 h-3.5" />
+                            </button>
+                            Challan Submitted & under process
+                          </span>
+                          <button
+                            onClick={() => navigate(`/track-status?challan=${encodeURIComponent(challan.challanNumber)}`)}
+                            className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+                          >
+                            Track Status
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </>
             ) : (
               <>
@@ -656,8 +690,8 @@ export function StatusPage() {
                             )}
                           </button>
                         </div>
-                        <span className="flex items-center gap-1 text-xs font-medium text-success bg-success/10 px-2 py-0.5 rounded-full">
-                          <CircleCheck className="w-3 h-3" />
+                        <span className="flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-success/10 px-2 py-0.5 rounded-full">
+                          <CircleCheck className="w-3 h-3" aria-hidden="true" />
                           {t.status.paid}
                         </span>
                       </div>
@@ -686,7 +720,7 @@ export function StatusPage() {
 
                       {/* Paid on */}
                       <div className="mt-3 flex items-center justify-between">
-                        <span className="text-xs text-success font-medium">
+                        <span className="text-xs text-emerald-700 font-semibold">
                           {t.status.paidOn} {challan.paidOn}
                         </span>
                       </div>

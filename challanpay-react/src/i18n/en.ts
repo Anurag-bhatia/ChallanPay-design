@@ -219,8 +219,11 @@ export const en = {
   // Status Page
   status: {
     pendingChallans: 'Pending Challans',
+    inProgressChallans: 'InProgress Challans',
+    inProgressBanner: 'Our team is actively resolving these challans. Each will be completed within the timeline shown — tap Track Status on any card to follow its progress.',
     paidChallans: 'Paid Challans',
     pending: 'Pending',
+    inProgress: 'InProgress',
     paid: 'Paid',
     selectAll: 'Select All',
     all: 'All',
@@ -322,6 +325,7 @@ export const en = {
     statusLabel: 'Status',
     confirmed: 'Confirmed',
     downloadReceipt: 'Download Receipt',
+    checkAnotherChallan: 'Check Another Challan',
     subscriberId: 'Subscriber ID',
     vehicleNumberLabel: 'Vehicle Number',
     challansSubmitted: 'Challans Submitted',
