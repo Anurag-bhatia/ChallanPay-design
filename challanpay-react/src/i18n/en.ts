@@ -326,6 +326,7 @@ export const en = {
     confirmed: 'Confirmed',
     downloadReceipt: 'Download Receipt',
     checkAnotherChallan: 'Check Another Challan',
+    trackChallanStatus: 'Track Challan Status',
     subscriberId: 'Subscriber ID',
     vehicleNumberLabel: 'Vehicle Number',
     challansSubmitted: 'Challans Submitted',

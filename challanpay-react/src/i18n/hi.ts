@@ -328,6 +328,7 @@ export const hi: TranslationKeys = {
     confirmed: 'पुष्टि हो गई',
     downloadReceipt: 'रसीद डाउनलोड करें',
     checkAnotherChallan: 'दूसरा चालान देखें',
+    trackChallanStatus: 'चालान स्थिति ट्रैक करें',
     subscriberId: 'सब्सक्राइबर आईडी',
     vehicleNumberLabel: 'वाहन नंबर',
     challansSubmitted: 'जमा किए गए चालान',
