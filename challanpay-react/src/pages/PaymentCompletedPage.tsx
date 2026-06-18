@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import confetti from 'canvas-confetti'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
-import { Download, CheckCircle, Circle, Clock, FileText, CreditCard } from 'lucide-react'
+import { Download, CheckCircle, Circle, Clock, FileText, CreditCard, Activity } from 'lucide-react'
 import { Link } from 'react-router'
 import { cn } from '@/lib/utils'
 import { PageTransition } from '@/components/shared/PageTransition'
@@ -205,6 +205,13 @@ export function PaymentCompletedPage() {
               <Download className="w-5 h-5" />
               {t.paymentCompleted.downloadReceipt}
             </button>
+            <Link
+              to="/track-status"
+              className="w-full min-h-11 py-3 bg-white border border-border text-text-primary font-medium rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+            >
+              <Activity className="w-5 h-5" />
+              {t.paymentCompleted.trackChallanStatus}
+            </Link>
           </div>
         </div>
 
