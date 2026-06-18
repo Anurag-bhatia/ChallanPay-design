@@ -235,7 +235,7 @@ export function StatusPage() {
         {/* Mobile: Vehicle Info Card stacked above tabs */}
         <div className="md:hidden bg-white rounded-2xl rounded-b-none border border-border p-4">
           <div className="flex items-center gap-4">
-            <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-20 h-14 object-contain flex-shrink-0" />
+            <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-24 h-16 object-contain flex-shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-sm text-text-light">Hyundai Creta</p>
               <p className="font-display font-bold text-text-primary text-lg truncate" title={vehicle}>{vehicle}</p>
@@ -317,7 +317,7 @@ export function StatusPage() {
             {/* Vehicle Info Card (desktop only) */}
             <div className="hidden md:block bg-white rounded-2xl border border-border p-4">
               <div className="flex items-center gap-4">
-                <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-20 h-14 object-contain flex-shrink-0" />
+                <img src="/images/BLACK-CAR.png" alt="Vehicle" className="w-28 h-20 object-contain flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-text-light">Hyundai Creta</p>
                   <p className="font-display font-bold text-text-primary text-lg truncate" title={vehicle}>{vehicle}</p>
