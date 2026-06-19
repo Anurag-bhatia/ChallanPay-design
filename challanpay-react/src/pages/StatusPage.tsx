@@ -78,6 +78,7 @@ export function StatusPage() {
   const [showMissingModal, setShowMissingModal] = useState(false)
   const [showMissingInfo, setShowMissingInfo] = useState(false)
   const [showSubmittedInfo, setShowSubmittedInfo] = useState(false)
+  const [tabInfo, setTabInfo] = useState<Tab | null>(null)
   const [missingFile, setMissingFile] = useState<File | null>(null)
   const [missingChallanNo, setMissingChallanNo] = useState('')
   const [missingOffence, setMissingOffence] = useState('')
@@ -94,12 +95,21 @@ export function StatusPage() {
     [reportedChallans, submittedIdSet]
   )
 
-  // Sync the page's mock list into the global store so PaymentPage can read it,
-  // and pre-select all pending challans by default on first load.
+  // Sync the page's mock list into the global store so PaymentPage can read it.
+  // On first visit, pre-select all pending challans. On return-navigation, keep
+  // the user's prior selection (intersected with the still-pending list).
   useEffect(() => {
     const pending = MOCK_CHALLANS.filter((c) => !submittedIdSet.has(c.id))
     setChallansInStore(pending)
-    selectAllInStore(pending.map((c) => c.id))
+    const pendingIds = pending.map((c) => c.id)
+    const pendingIdSet = new Set(pendingIds)
+    const persisted = useChallanStore.getState().selectedChallanIds
+    const restored = persisted.filter((id) => pendingIdSet.has(id))
+    if (restored.length > 0) {
+      if (restored.length !== persisted.length) selectAllInStore(restored)
+    } else {
+      selectAllInStore(pendingIds)
+    }
     // Run once on mount; later edits don't reset selection.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -115,6 +125,7 @@ export function StatusPage() {
   useModalA11y(showMissingModal, () => closeMissingModal())
   useModalA11y(showMissingInfo, () => setShowMissingInfo(false))
   useModalA11y(showSubmittedInfo, () => setShowSubmittedInfo(false))
+  useModalA11y(tabInfo !== null, () => setTabInfo(null))
 
   const filteredChallans = useMemo(() => {
     if (activeFilter === 'all') return allChallans
@@ -251,64 +262,94 @@ export function StatusPage() {
           {/* Sidebar */}
           <aside className="md:sticky md:top-24 md:self-start md:min-h-[calc(100vh-7rem)] bg-white rounded-2xl rounded-t-none md:rounded-t-2xl border border-border border-t-0 md:border-t p-3">
             <nav className="flex md:flex-col gap-2">
-              <button
-                onClick={() => setActiveTab('pending')}
-                className={cn(
-                  'flex-1 md:flex-none flex items-center justify-between px-4 py-3 md:py-5 rounded-xl text-sm md:text-base font-semibold border transition-all',
-                  activeTab === 'pending'
-                    ? 'bg-primary/10 text-primary border-primary'
-                    : 'bg-white border-border text-text-secondary hover:bg-gray-50'
-                )}
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="hidden md:inline">{t.status.pendingChallans}</span>
-                  <span className="md:hidden">{t.status.pending}</span>
-                </div>
-                <span className={cn(
-                  'text-xs font-bold px-2 py-0.5 rounded-full',
-                  activeTab === 'pending' ? 'bg-primary/15 text-primary' : 'bg-gray-100 text-text-secondary'
-                )}>
-                  {allChallans.length}
-                </span>
-              </button>
-              <button
-                onClick={() => setActiveTab('in-progress')}
-                className={cn(
-                  'flex-1 md:flex-none flex items-center justify-between px-4 py-3 md:py-5 rounded-xl text-sm md:text-base font-semibold border transition-all',
-                  activeTab === 'in-progress'
-                    ? 'bg-amber-50 text-amber-700 border-amber-400'
-                    : 'bg-white border-border text-text-secondary hover:bg-gray-50'
-                )}
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="hidden md:inline">{t.status.inProgressChallans}</span>
-                  <span className="md:hidden">{t.status.inProgress}</span>
-                </div>
-                <span className={cn(
-                  'text-xs font-bold px-2 py-0.5 rounded-full',
-                  activeTab === 'in-progress' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-text-secondary'
-                )}>
-                  {submittedChallans.length}
-                </span>
-              </button>
-              <button
-                onClick={() => setActiveTab('paid')}
-                className={cn(
-                  'flex-1 md:flex-none flex items-center justify-between px-4 py-3 md:py-5 rounded-xl text-sm md:text-base font-semibold border transition-all',
-                  activeTab === 'paid'
-                    ? 'bg-success/10 text-success border-success'
-                    : 'bg-white border-border text-text-secondary hover:bg-gray-50'
-                )}
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="hidden md:inline">{t.status.paidChallans}</span>
-                  <span className="md:hidden">{t.status.paid}</span>
-                </div>
-                <span className={cn(
-                  'text-xs font-bold px-2 py-0.5 rounded-full',
-                  activeTab === 'paid' ? 'bg-success/15 text-success' : 'bg-gray-100 text-text-secondary'
-                )}>8</span>
-              </button>
+              <div className="relative flex-1 md:flex-none">
+                <button
+                  onClick={() => setActiveTab('pending')}
+                  className={cn(
+                    'w-full flex items-center justify-between px-4 py-3 md:py-5 rounded-xl text-sm md:text-base font-semibold border transition-all',
+                    activeTab === 'pending'
+                      ? 'bg-primary/10 text-primary border-primary'
+                      : 'bg-white border-border text-text-secondary hover:bg-gray-50'
+                  )}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="hidden md:inline">{t.status.pendingChallans}</span>
+                    <span className="md:hidden">{t.status.pending}</span>
+                  </div>
+                  <span className={cn(
+                    'text-xs font-bold px-2 py-0.5 rounded-full mr-7',
+                    activeTab === 'pending' ? 'bg-primary/15 text-primary' : 'bg-gray-100 text-text-secondary'
+                  )}>
+                    {allChallans.length}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTabInfo('pending')}
+                  aria-label="About Pending Challans"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 inline-flex items-center justify-center rounded-full text-text-light hover:text-primary hover:bg-white/60 transition-colors cursor-pointer"
+                >
+                  <Info className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <div className="relative flex-1 md:flex-none">
+                <button
+                  onClick={() => setActiveTab('in-progress')}
+                  className={cn(
+                    'w-full flex items-center justify-between px-4 py-3 md:py-5 rounded-xl text-sm md:text-base font-semibold border transition-all',
+                    activeTab === 'in-progress'
+                      ? 'bg-amber-50 text-amber-700 border-amber-400'
+                      : 'bg-white border-border text-text-secondary hover:bg-gray-50'
+                  )}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="hidden md:inline">{t.status.inProgressChallans}</span>
+                    <span className="md:hidden">{t.status.inProgress}</span>
+                  </div>
+                  <span className={cn(
+                    'text-xs font-bold px-2 py-0.5 rounded-full mr-7',
+                    activeTab === 'in-progress' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-text-secondary'
+                  )}>
+                    {submittedChallans.length}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTabInfo('in-progress')}
+                  aria-label="About InProgress Challans"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 inline-flex items-center justify-center rounded-full text-text-light hover:text-amber-700 hover:bg-white/60 transition-colors cursor-pointer"
+                >
+                  <Info className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <div className="relative flex-1 md:flex-none">
+                <button
+                  onClick={() => setActiveTab('paid')}
+                  className={cn(
+                    'w-full flex items-center justify-between px-4 py-3 md:py-5 rounded-xl text-sm md:text-base font-semibold border transition-all',
+                    activeTab === 'paid'
+                      ? 'bg-success/10 text-success border-success'
+                      : 'bg-white border-border text-text-secondary hover:bg-gray-50'
+                  )}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="hidden md:inline">{t.status.paidChallans}</span>
+                    <span className="md:hidden">{t.status.paid}</span>
+                  </div>
+                  <span className={cn(
+                    'text-xs font-bold px-2 py-0.5 rounded-full mr-7',
+                    activeTab === 'paid' ? 'bg-success/15 text-success' : 'bg-gray-100 text-text-secondary'
+                  )}>8</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTabInfo('paid')}
+                  aria-label="About Paid Challans"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 inline-flex items-center justify-center rounded-full text-text-light hover:text-success hover:bg-white/60 transition-colors cursor-pointer"
+                >
+                  <Info className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </nav>
           </aside>
 
@@ -1075,7 +1116,7 @@ export function StatusPage() {
             </div>
             <div className="p-5">
               <p className="text-sm text-text-secondary leading-relaxed">
-                This challan has been submitted to the ChallanPay team. Please sit back and relax. Your challan will be resolved within the specified timeline.
+                This challan has been submitted to the ChallanPay team. Please sit back and relax. Your challan will be closed within the specified timeline.
               </p>
               <button
                 onClick={() => setShowSubmittedInfo(false)}
@@ -1087,6 +1128,73 @@ export function StatusPage() {
           </div>
         </div>
       )}
+
+      {/* Sidebar Tab Info Modal */}
+      {tabInfo !== null && (() => {
+        const content: Record<Tab, { title: string; description: string; accent: 'primary' | 'amber' | 'success' }> = {
+          'pending': {
+            title: t.status.pendingChallans,
+            description: 'Unpaid challans currently active against your vehicle. Select any to begin payment or get help resolving them through ChallanPay.',
+            accent: 'primary',
+          },
+          'in-progress': {
+            title: t.status.inProgressChallans,
+            description: 'Challans submitted to the ChallanPay team that are being actively processed. Track each one’s progress in real time — they’ll move to Closed once completed.',
+            accent: 'amber',
+          },
+          'paid': {
+            title: t.status.paidChallans,
+            description: 'Challans that have been fully closed and settled. They are stored here for your records.',
+            accent: 'success',
+          },
+        }
+        const c = content[tabInfo]
+        const accentBg = c.accent === 'primary' ? 'bg-primary/10' : c.accent === 'amber' ? 'bg-amber-100' : 'bg-success/10'
+        const accentText = c.accent === 'primary' ? 'text-primary' : c.accent === 'amber' ? 'text-amber-700' : 'text-success'
+        return (
+          <div
+            className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            onClick={() => setTabInfo(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="tab-info-title"
+          >
+            <div
+              className="relative w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between px-5 pt-4 pb-3 border-b border-border gap-3">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className={cn('w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0', accentBg)}>
+                    <Info className={cn('w-4 h-4', accentText)} />
+                  </div>
+                  <h3 id="tab-info-title" className="font-display text-base font-bold text-text-primary">
+                    {c.title}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setTabInfo(null)}
+                  aria-label="Close"
+                  className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors flex-shrink-0"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="p-5">
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  {c.description}
+                </p>
+                <button
+                  onClick={() => setTabInfo(null)}
+                  className="mt-5 w-full py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors text-sm shadow-sm"
+                >
+                  Got it
+                </button>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
     </PageTransition>
   )
 }

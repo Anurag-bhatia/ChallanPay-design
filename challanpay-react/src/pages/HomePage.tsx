@@ -14,6 +14,7 @@ import { NeedHelpSection } from '@/components/home/NeedHelpSection'
 import { BackedBySection } from '@/components/home/BackedBySection'
 import { DefiningMilestoneSection } from '@/components/home/DefiningMilestoneSection'
 import { VerificationModal } from '@/components/home/VerificationModal'
+import { FloatingCallButton } from '@/components/home/FloatingCallButton'
 
 export function HomePage() {
   return (
@@ -34,6 +35,7 @@ export function HomePage() {
       <ComparisonSection />
       <NeedHelpSection />
       <PartnersSection />
+      <FloatingCallButton />
     </div>
   )
 }

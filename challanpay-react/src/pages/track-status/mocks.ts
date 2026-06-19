@@ -119,6 +119,6 @@ export const MOCK_VEHICLES: VehicleInfo[] = [
 export const STATUS_BADGE: Record<TrackingStatus, { label: string; className: string; icon: typeof CircleCheck }> = {
   'not-settled': { label: 'NOT SETTLED', className: 'bg-gray-100 text-gray-600', icon: AlertCircle },
   'in-progress': { label: 'IN PROGRESS', className: 'bg-amber-50 text-amber-600', icon: Hourglass },
-  'resolved': { label: 'RESOLVED', className: 'bg-emerald-50 text-emerald-600', icon: CircleCheck },
+  'resolved': { label: 'CLOSED', className: 'bg-emerald-50 text-emerald-600', icon: CircleCheck },
   'refund': { label: 'REFUND', className: 'bg-purple-50 text-purple-600', icon: ArrowLeft },
 }
