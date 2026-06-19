@@ -145,7 +145,7 @@ export function ChallanDetailView({ challan, onBack }: { challan: TrackingChalla
             <div className="px-5 py-6 border-b border-border flex flex-col items-center justify-center text-center gap-2">
               <CircleCheck className="w-14 h-14 text-emerald-600" strokeWidth={2} aria-hidden />
               <p className="font-display text-xl font-bold text-emerald-700">
-                Your challan is resolved
+                Your challan is closed
               </p>
             </div>
           ) : (

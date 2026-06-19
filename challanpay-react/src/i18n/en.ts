@@ -340,7 +340,7 @@ export const en = {
     processingStartedDesc: 'Your challan resolution is being processed.',
     underReviewDesc: 'Your case is under review.',
     resolutionComplete: 'Resolution Complete',
-    resolutionCompleteDesc: 'Your challans will be resolved on or before',
+    resolutionCompleteDesc: 'Your challans will be closed on or before',
   },
 
   // Track Status Page
@@ -370,7 +370,7 @@ export const en = {
     challanInfoTooltip: "All challans you've paid that are still under processing appear here.",
     vehicleInfoTooltip: 'Manage your registered vehicles and view their details here.',
     challansSubmitted: 'Challans Submitted',
-    resolvedChallans: 'Resolved Challans',
+    resolvedChallans: 'Closed Challans',
     challansInProgress: 'Challans In Progress',
     refundChallans: 'Refund Challans',
     faqTitle: 'FAQ: Easily Resolve Your Challan with ChallanPay',
@@ -379,7 +379,7 @@ export const en = {
     searchChallan: 'Search challan...',
     allFilter: 'All',
     inProgressFilter: 'In Progress',
-    resolvedFilter: 'Resolved',
+    resolvedFilter: 'Closed',
     refundFilter: 'Refund',
     viewDetails: 'View Details',
     noChallansFound: 'No challans found matching your criteria.',
@@ -403,7 +403,7 @@ export const en = {
     addVehicleHint: 'Add your vehicle to track related challans.',
     notSettled: 'NOT SETTLED',
     inProgress: 'IN PROGRESS',
-    resolved: 'RESOLVED',
+    resolved: 'CLOSED',
     refund: 'REFUND',
   },
 } as const

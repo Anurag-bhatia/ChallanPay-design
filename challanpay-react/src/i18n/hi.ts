@@ -342,7 +342,7 @@ export const hi: TranslationKeys = {
     processingStartedDesc: 'आपका चालान समाधान संसाधित किया जा रहा है।',
     underReviewDesc: 'आपका मामला समीक्षा में है।',
     resolutionComplete: 'समाधान पूर्ण',
-    resolutionCompleteDesc: 'आपके चालान इस तारीख तक हल कर दिए जाएँगे:',
+    resolutionCompleteDesc: 'आपके चालान इस तारीख तक बंद कर दिए जाएँगे:',
   },
 
   // Track Status Page
@@ -372,7 +372,7 @@ export const hi: TranslationKeys = {
     challanInfoTooltip: 'आपके भुगतान किए गए सभी चालान जो अभी प्रोसेसिंग में हैं, यहाँ दिखाई देते हैं।',
     vehicleInfoTooltip: 'अपने पंजीकृत वाहनों को प्रबंधित करें और उनके विवरण यहाँ देखें।',
     challansSubmitted: 'चालान जमा किए',
-    resolvedChallans: 'निपटाए गए चालान',
+    resolvedChallans: 'बंद किए गए चालान',
     challansInProgress: 'प्रगति में चालान',
     refundChallans: 'रिफंड चालान',
     faqTitle: 'FAQ: चालानपे से आसानी से अपना चालान निपटाएँ',
@@ -381,7 +381,7 @@ export const hi: TranslationKeys = {
     searchChallan: 'चालान खोजें...',
     allFilter: 'सभी',
     inProgressFilter: 'प्रगति में',
-    resolvedFilter: 'निपटाया गया',
+    resolvedFilter: 'बंद',
     refundFilter: 'रिफंड',
     viewDetails: 'विवरण देखें',
     noChallansFound: 'आपकी शर्तों से मेल खाने वाला कोई चालान नहीं मिला।',
@@ -405,7 +405,7 @@ export const hi: TranslationKeys = {
     addVehicleHint: 'संबंधित चालान ट्रैक करने के लिए अपना वाहन जोड़ें।',
     notSettled: 'निपटाया नहीं',
     inProgress: 'प्रगति में',
-    resolved: 'निपटाया गया',
+    resolved: 'बंद',
     refund: 'रिफंड',
   },
 } as const

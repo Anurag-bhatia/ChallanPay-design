@@ -1116,7 +1116,7 @@ export function StatusPage() {
             </div>
             <div className="p-5">
               <p className="text-sm text-text-secondary leading-relaxed">
-                This challan has been submitted to the ChallanPay team. Please sit back and relax. Your challan will be resolved within the specified timeline.
+                This challan has been submitted to the ChallanPay team. Please sit back and relax. Your challan will be closed within the specified timeline.
               </p>
               <button
                 onClick={() => setShowSubmittedInfo(false)}
@@ -1139,12 +1139,12 @@ export function StatusPage() {
           },
           'in-progress': {
             title: t.status.inProgressChallans,
-            description: 'Challans submitted to the ChallanPay team that are being actively resolved. Track each one’s progress in real time — they’ll move to Closed once completed.',
+            description: 'Challans submitted to the ChallanPay team that are being actively processed. Track each one’s progress in real time — they’ll move to Closed once completed.',
             accent: 'amber',
           },
           'paid': {
             title: t.status.paidChallans,
-            description: 'Challans that have been fully resolved and closed. They are stored here for your records.',
+            description: 'Challans that have been fully closed and settled. They are stored here for your records.',
             accent: 'success',
           },
         }
