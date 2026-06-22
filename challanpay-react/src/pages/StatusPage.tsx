@@ -27,12 +27,13 @@ interface PaidChallan {
 }
 
 const MOCK_CHALLANS: Challan[] = [
-  { id: '1', challanNumber: 'UP40838230627114376', amount: 2000, violation: 'B[2019][driver] (driving vehicle-other than two wheeler in contravention of section 3 or section 4)-drives vehicle without holding driving license.', date: '27 Jun 2023', location: 'NH-44, Gurgaon, Haryana - 122001', type: 'online', pendingSince: '24 months' },
+  { id: '1', challanNumber: 'UP40838230627114376', amount: 2000, violation: 'B[2019][driver] (driving vehicle-other than two wheeler in contravention of section 3 or section 4)-drives vehicle without holding driving license.', date: '27 Jun 2023', location: 'NH-44, Gurgaon, Haryana - 122001', type: 'online', pendingSince: '24 months', premiumEligible: true },
   { id: '2', challanNumber: 'DL01234567890123456', amount: 5000, violation: 'Disobedience of any direction or obstruction of any function by a driver', date: '15 Jul 2023', location: 'Outer Ring Road, near Dhaula Kuan, New Delhi', type: 'court', pendingSince: '23 months' },
-  { id: '3', challanNumber: 'HR26838230627114377', amount: 1000, violation: 'No Helmet', date: '03 Aug 2023', location: 'Sector 29 Market, Gurugram', type: 'online', pendingSince: '22 months' },
-  { id: '4', challanNumber: 'DL08838230627114378', amount: 2500, violation: 'Improper Parking', date: '11 Sep 2023', location: 'Connaught Place, New Delhi', type: 'online', pendingSince: '20 months' },
+  { id: '3', challanNumber: 'HR26838230627114377', amount: 1000, violation: 'No Helmet', date: '03 Aug 2023', location: 'Sector 29 Market, Gurugram', type: 'online', pendingSince: '22 months', premiumEligible: true },
+  { id: '4', challanNumber: 'DL08838230627114378', amount: 2500, violation: 'Improper Parking', date: '11 Sep 2023', location: 'Connaught Place, New Delhi', type: 'online', pendingSince: '20 months', premiumEligible: true },
   { id: '5', challanNumber: 'UP16838230627114379', amount: 10000, violation: 'Driving under the influence of alcohol exceeding permissible blood-alcohol concentration limits', date: '22 Oct 2023', location: 'Greater Noida Expressway, near Pari Chowk', type: 'court', pendingSince: '19 months' },
   { id: '6', challanNumber: 'HR26838230627114380', amount: 1500, violation: 'Without Seatbelt', date: '05 Nov 2023', location: 'NH-8, Manesar', type: 'online', pendingSince: '18 months' },
+  { id: '7', challanNumber: 'DL07838230627114381', amount: 0, violation: 'Vehicle fitness certificate expired', date: '12 Dec 2023', location: 'Rohini, New Delhi', type: 'online', pendingSince: '17 months', premiumEligible: true },
 ]
 
 const MOCK_PAID_CHALLANS: PaidChallan[] = [
@@ -423,8 +424,11 @@ export function StatusPage() {
                         type="checkbox"
                         checked={isAllSelected}
                         onChange={toggleSelectAll}
-                        className="w-5 h-5 rounded border-border text-primary accent-primary focus:ring-primary"
+                        className="peer sr-only"
                       />
+                      <span className="w-6 h-6 shrink-0 box-border rounded-md border-2 border-border bg-white peer-checked:bg-primary peer-checked:border-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-1 flex items-center justify-center transition-colors">
+                        <Check className="w-5 h-5 text-white" strokeWidth={3.5} />
+                      </span>
                       {t.status.selectAll}
                     </label>
                   </div>
@@ -474,7 +478,7 @@ export function StatusPage() {
                     <div
                       key={challan.id}
                       className={cn(
-                        'bg-white rounded-xl border p-5 transition-all',
+                        'relative bg-white rounded-xl border pt-8 px-5 pb-5 transition-all',
                         challan.reportedByUser
                           ? selectedIdsSet.has(challan.id)
                             ? 'border-amber-400 shadow-md'
@@ -484,8 +488,16 @@ export function StatusPage() {
                             : 'border-border shadow-sm hover:border-primary/30 hover:shadow-md'
                       )}
                     >
+                      {/* Type badge — top-left, flush to border */}
+                      <span className={cn(
+                        'absolute top-0 left-0 text-[10px] font-bold uppercase px-3 py-1 rounded-tl-xl rounded-br-lg',
+                        challan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
+                      )}>
+                        {challan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
+                      </span>
+
                       {/* Card Header */}
-                      <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <span className="text-xs font-mono text-text-light">#{challan.challanNumber.slice(0, 12)}...</span>
                           <button
@@ -506,25 +518,24 @@ export function StatusPage() {
                             </span>
                           )}
                         </div>
-                        <input
-                          type="checkbox"
-                          checked={selectedIdsSet.has(challan.id)}
-                          onChange={() => toggleChallan(challan.id)}
-                          className="w-5 h-5 rounded border-border text-primary accent-primary focus:ring-primary cursor-pointer"
-                        />
+                        <label className="relative inline-flex w-11 h-11 shrink-0 items-center justify-center cursor-pointer -mr-2.5">
+                          <input
+                            type="checkbox"
+                            checked={selectedIdsSet.has(challan.id)}
+                            onChange={() => toggleChallan(challan.id)}
+                            className="peer sr-only"
+                          />
+                          <span className="w-6 h-6 box-border rounded-md border-2 border-border bg-white peer-checked:bg-primary peer-checked:border-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-1 flex items-center justify-center transition-colors">
+                            <Check className="w-5 h-5 text-white" strokeWidth={3.5} />
+                          </span>
+                        </label>
                       </div>
 
-                      {/* Amount + Type badge */}
-                      <div className="flex items-center justify-between mb-2">
+                      {/* Amount */}
+                      <div className="mb-1">
                         <p className="font-display text-xl font-bold text-text-primary">
                           ₹{challan.amount.toLocaleString('en-IN')}
                         </p>
-                        <span className={cn(
-                          'text-[10px] font-bold uppercase px-2 py-0.5 rounded-full',
-                          challan.type === 'online' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'
-                        )}>
-                          {challan.type === 'online' ? t.status.onlineChallan : t.status.courtChallan}
-                        </span>
                       </div>
 
                       {/* Details */}
